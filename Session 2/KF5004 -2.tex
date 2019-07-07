@@ -114,7 +114,7 @@
 \begin{frame}{Which version do we use?}
   \begin{figure}
     \begin{center}
-      \includegraphics[width=\linewidth]{Version.png}
+      \includegraphics[width=1\linewidth]{Version.png}
     \end{center}
   \end{figure}
 \end{frame}
@@ -149,10 +149,145 @@
 
 \begin{frame}{Installer}
   \begin{itemize}
-    \item Ubuntu Server ISO can be downloaded.
-    
-    \item There is also an ISO located on the Lab NAS drive
+    \item Ubuntu Server \texttt{ISO} can be downloaded from:
+      \begin{itemize}
+        \item \texttt{https://www.ubuntu.com}
+      \end{itemize}
+    \item There is also an ISO located on the Lab NAS drive:
+      \begin{itemize}
+        \item \texttt{\textbackslash\textbackslash NAS3}
+        \item \texttt{\textbackslash\textbackslash NAS3.offcampusnetwork.co.uk}
+      \end{itemize}
   \end{itemize}
+\end{frame}
+
+\begin{frame}{Install \texttt{Ubuntu Server}}
+  \begin{itemize}
+    \item Select all the options that give you a \texttt{UK English} keyboard.
+    \item Select default disc configuration.
+    \item Set machine name to your \texttt{`<student id>'}
+      \begin{itemize}
+        \item e.g. \texttt{A12345678}
+        \item Later in the module you should use names that relate to the service the machine will support e.g. \texttt{DNS1}
+      \end{itemize}
+    \item The above process will create:-
+      \begin{itemize}
+        \item Minimal install with no unnecessary packages.
+        \item No graphical interface (\texttt{GUI}).
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Install \texttt{Ubuntu Server}}
+  \begin{itemize}
+    \item On completion of the installation you will only be able to login via the machines console.
+    \item To become a headless server remote access software must be installed.
+      \begin{itemize}
+        \item \texttt{ssh} or \texttt{telnet}
+      \end{itemize}
+  \end{itemize}
+  \begin{block}{NOTE}
+    Installation of remote access services will be covered later. Also there are security issues with \texttt{telnet}. 
+  \end{block}
+\end{frame}
+
+\begin{frame}{Install \texttt{Ubuntu Server} (\texttt{VMWare})}
+  \begin{figure}
+    \setlength{\fboxsep}{0pt}%
+    \setlength{\fboxrule}{0.5pt}%
+    \fbox{\includegraphics<1>[width=.7\textwidth]{VMWare1.png}}
+    \fbox{\includegraphics<2>[width=.6\textwidth]{VMWare2.png}}
+    \fbox{\includegraphics<3>[width=.6\textwidth]{VMWare3.png}}
+    \fbox{\includegraphics<4>[width=.6\textwidth]{VMWare4.png}}
+    \includegraphics<5>[width=.6\textwidth]{VMWare5.png}
+    \fbox{\includegraphics<6>[width=.6\textwidth]{VMWare6.png}}
+    \fbox{\includegraphics<7>[width=.6\textwidth]{VMWare7.png}}
+    \fbox{\includegraphics<8>[width=.6\textwidth]{VMWare8.png}}
+    \fbox{\includegraphics<9>[width=.6\textwidth]{VMWare9.png}}
+    \fbox{\includegraphics<10>[width=.6\textwidth]{VMWare10.png}}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Install \texttt{Ubuntu Server} (\texttt{Ubuntu})}
+  \begin{figure}
+    \setlength{\fboxsep}{0pt}%
+    \setlength{\fboxrule}{0.5pt}%
+    \fbox{\includegraphics<1>[width=.8\textwidth]{Ubuntu1.png}}
+    \fbox{\includegraphics<2>[width=.8\textwidth]{Ubuntu2.png}}
+    \fbox{\includegraphics<3>[width=.8\textwidth]{Ubuntu3.png}}
+    \fbox{\includegraphics<4>[width=.8\textwidth]{Ubuntu4.png}}
+    \fbox{\includegraphics<5>[width=.8\textwidth]{Ubuntu5.png}}
+    \fbox{\includegraphics<6>[width=.8\textwidth]{Ubuntu6.png}}
+    \fbox{\includegraphics<7>[width=.8\textwidth]{Ubuntu7.png}}
+    \fbox{\includegraphics<8>[width=.8\textwidth]{Ubuntu8.png}}
+    \fbox{\includegraphics<9>[width=.8\textwidth]{Ubuntu9.png}}
+    \fbox{\includegraphics<10>[width=.8\textwidth]{Ubuntu10.png}}
+    \fbox{\includegraphics<11>[width=.8\textwidth]{Ubuntu11.png}}
+    \fbox{\includegraphics<12>[width=.8\textwidth]{Ubuntu12.png}}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Update your \texttt{Ubuntu Server} software}
+  \begin{itemize}
+    \item The server \texttt{OS} may need updated. This will require the repository database to be updated before the upgrade is actioned.
+      \begin{itemize}
+        \item Update the repository database.
+          \begin{itemize}
+            \item \texttt{sudo apt-get update}
+          \end{itemize}
+        \item Update the software.
+          \begin{itemize}
+            \item \texttt{sudo apt-get upgrade}
+          \end{itemize}
+      \end{itemize}
+  \end{itemize}
+  \begin{block}{NOTE}
+    This should be done on a regular basis to ensure bugs and vulnerabilities are patched (weekly or adhoc?). 
+  \end{block}
+\end{frame}
+
+\begin{frame}{Remote access (Headless server)}
+  \begin{itemize}
+    \item Once the remote software is added you can connect via the network rather than the console.
+      \begin{itemize}
+        \item To install \texttt{ssh} (\texttt{S}ecure \texttt{SH}ell)
+          \begin{itemize}
+            \item \texttt{sudo apt-get install openssh-server}
+          \end{itemize}
+        \item To install \texttt{telnet}
+          \begin{itemize}
+            \item \texttt{sudo apt-get install telnetd}
+          \end{itemize}
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Remote access (Headless server)}
+  \begin{itemize}
+    \item To get the IP address of your machine use the command.
+      \begin{itemize}
+        \item \texttt{\$ip a}
+      \end{itemize}
+  \end{itemize}
+  \begin{figure}
+    \begin{center}
+      \includegraphics[width=1\linewidth]{ip.png}
+    \end{center}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Remote access (Headless server)}
+  \begin{itemize}
+    \item To get the IP address of your machine use the command.
+      \begin{itemize}
+        \item \texttt{\$ip a}
+      \end{itemize}
+  \end{itemize}
+  \begin{figure}
+    \begin{center}
+      \includegraphics[width=0.5\linewidth]{Putty1.png}
+    \end{center}
+  \end{figure}
 \end{frame}
 
 % Placing a * after \section means it will not show in the
@@ -164,7 +299,7 @@
   \begin{itemize}
     \item How do you install \texttt{Ubuntu Server}?
     \item What is headless mode?
-    \item How do yu access a headless server?
+    \item How do you access a headless server?
     \item How do you apply a static address?
     \item How do you trouble shoot your network configuration?
   \end{itemize}
