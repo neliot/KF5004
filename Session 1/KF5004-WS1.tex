@@ -33,50 +33,48 @@
 \item Analyse traffic from the local network and a \texttt{Virtual PC}
 \end{itemize}
 
-\begin{center}
-\noindent\rule{8cm}{0.4pt}
-\end{center}
+% \begin{center}
+% \noindent\rule{8cm}{0.4pt}
+% \end{center}
 
-\begin{tcolorbox}[title={\textbf{Note:}}]
-    Before you begin ensure you have the \texttt{PC} you are using connected to the Lab infrastructure and the machine can receive \texttt{IP} Addresses from the laboratory \texttt{DHCP} Server.
+\begin{tcolorbox}[title={\textbf{Important:}}]
+    Before you begin, ensure the lab. \texttt{PC} you are using is connected to the off campus lab infrastructure and the machine receives an \texttt{IP} address from the lab. \texttt{DHCP} Server.
 \end{tcolorbox}
+\newpage
 
 \noindent\textbf{The Exercise}\\
-
-\noindent\textbf{From the commands and process defined in the notes from the lecture carry out the following:}
-
-\begin{enumerate}
-
-\item Ensure your portable storage device is \texttt{NTFS} format.
-\begin{itemize}
-    \item Why?
-\end{itemize} 
-
-\item Create a new \texttt{Virtual Machine} and carry out a basic \texttt{Ubuntu Desktop} install.
-\begin{itemize}
-    \item Take the default settings.
-    \item Set the Network Card to Bridged! (If there are issues check the \texttt{Virtual Network} settings are using the correct Ethernet card).
-    \item Set your machine name to your \texttt{User ID}.    
-    \item Set the first account to be \texttt{student} with a password of \texttt{northumbria}.    
-\end{itemize}
-
-\item Identify the address the client \texttt{PC} has been given by the \texttt{DHCP} Server.
 \begin{tcolorbox}[colback=blue!20]
-    \textbf{At this stage you can `shutdown' the \texttt{Virtual Machine} and copy it. This machine will now be the client machine you use for the rest of the module (although you will have to change the \texttt{IP} settings). A basic \texttt{Ubuntu Client} virtual machine will be made available from the \texttt{NAS} drive in the event you loose or corrupt your own.}
+    \noindent\textbf{From the commands and process defined in the notes from the lecture carry out the following:}
 \end{tcolorbox}
 
-\item Start the copy of your machine and check the \texttt{IP} settings.
-
-\item Using \texttt{Wireshark} monitor the network and identify the communications between your \texttt{Virtual Machine} and the local network gateway (\texttt{192.168.100.254}).
+\begin{enumerate}
+    \item Ensure your portable storage device is \texttt{NTFS} format.
     \begin{itemize}
-        \item A simple ping test will generate enough traffic. 
-        \begin{tcolorbox}[colback=blue!20]
-            \textbf{(Use \keys{CTRL+ALT+t} to open a terminal in your \texttt{Virtual Client})}
-        \end{tcolorbox}
-    \end{itemize}
-
-\item Alter the \texttt{MAC} Address of the \texttt{Virtual Machine} and check the network again.
-
+        \item Why?
+    \end{itemize} 
+    \item Create a new \texttt{Virtual Machine} and carry out a basic \texttt{Ubuntu Desktop} install.
+        \begin{itemize}
+            \item Take the default settings.
+            \item Set the Network Card to \texttt{Bridged}.
+            \begin{tcolorbox}[title={\textbf{Note:}}]
+                If there are issues check the \texttt{Virtual Network} settings are using the correct Ethernet card.
+            \end{tcolorbox}
+            \item Set your machine name to your \texttt{User ID}.    
+            \item Set the first account to be \texttt{student} with a password of \texttt{northumbria}.    
+        \end{itemize}
+    \item Identify the address the client \texttt{PC} has been given by the \texttt{DHCP} Server.
+    \begin{tcolorbox}[colback=blue!20]
+        \textbf{At this stage you can `shutdown' the \texttt{Virtual Machine} and copy it. This machine will now be the client machine you use for the rest of the module (although you will have to change the \texttt{IP} settings). A basic \texttt{Ubuntu Client} virtual machine will be made available from the \texttt{NAS} drive in the event you loose or corrupt your own.}
+    \end{tcolorbox}
+    \item Start the copy of your machine and check the \texttt{IP} settings.
+    \item Using \texttt{Wireshark} monitor the network and identify the communications between your \texttt{Virtual Machine} and the local network gateway (\texttt{192.168.100.254}).
+        \begin{itemize}
+            \item A simple ping test will generate enough traffic. 
+            \begin{tcolorbox}[colback=blue!20]
+                \textbf{(Use \keys{CTRL+ALT+t} to open a terminal in your \texttt{Virtual Client})}
+            \end{tcolorbox}
+        \end{itemize}
+    \item Alter the \texttt{MAC} Address of the \texttt{Virtual Machine} and check the network again.
 \end{enumerate}
 
 \end{document}
