@@ -11,7 +11,7 @@
 % notice. 
 
 \documentclass{beamer}
-
+\usepackage{listings}
 % There are many different themes available for Beamer. A comprehensive
 % list with examples is given here:
 % http://deic.uab.es/~iblanes/beamer_gallery/index_by_theme.html
@@ -44,7 +44,7 @@
 %\usetheme{Singapore}
 %\usetheme{Szeged}
 %\usetheme{Warsaw}
-
+\setbeamerfont{block body}{size=\small}
 \title{KF5004 - \texttt{Ubuntu Server} Install and Networking}
 
 % A subtitle is optional and this may be deleted
@@ -96,6 +96,7 @@
 % }
 
 % Let's get started
+
 \begin{document}
 
 \begin{frame}
@@ -109,8 +110,7 @@
 
 % Section and subsections will appear in the presentation overview
 % and table of contents.
-\section{Installation}
-\subsection{Version}
+\section{Version}
 \begin{frame}{Which version do we use?}
   \begin{figure}
     \begin{center}
@@ -126,7 +126,8 @@
   \end{center}
 \end{frame}
 
-\subsection{Install}
+\section{Installation}
+\subsection{General}
 \begin{frame}{Headless}
   \begin{itemize}
     \item Server machines (*nix) are generally in `Headless' mode.
@@ -191,42 +192,52 @@
   \end{block}
 \end{frame}
 
+\subsection{VMWare}
 \begin{frame}{Install \texttt{Ubuntu Server} (\texttt{VMWare})}
-  \begin{figure}
-    \setlength{\fboxsep}{0pt}%
-    \setlength{\fboxrule}{0.5pt}%
-    \fbox{\includegraphics<1>[width=.7\textwidth]{VMWare1.png}}
-    \fbox{\includegraphics<2>[width=.6\textwidth]{VMWare2.png}}
-    \fbox{\includegraphics<3>[width=.6\textwidth]{VMWare3.png}}
-    \fbox{\includegraphics<4>[width=.6\textwidth]{VMWare4.png}}
-    \includegraphics<5>[width=.6\textwidth]{VMWare5.png}
-    \fbox{\includegraphics<6>[width=.6\textwidth]{VMWare6.png}}
-    \fbox{\includegraphics<7>[width=.6\textwidth]{VMWare7.png}}
-    \fbox{\includegraphics<8>[width=.6\textwidth]{VMWare8.png}}
-    \fbox{\includegraphics<9>[width=.6\textwidth]{VMWare9.png}}
-    \fbox{\includegraphics<10>[width=.6\textwidth]{VMWare10.png}}
-  \end{figure}
+  \begin{center}
+    \begin{figure}
+      \begin{overprint}
+        \setlength{\fboxsep}{0pt}%
+        \setlength{\fboxrule}{0.5pt}%
+        \onslide<1>\centering\fbox{\includegraphics[width=.7\textwidth]{VMWare1.png}}
+        \onslide<2>\centering\fbox{\includegraphics[width=.6\textwidth]{VMWare2.png}}
+        \onslide<3>\centering\fbox{\includegraphics[width=.6\textwidth]{VMWare3.png}}
+        \onslide<4>\centering\fbox{\includegraphics[width=.6\textwidth]{VMWare4.png}}
+        \onslide<5>\centering\includegraphics[width=.6\textwidth]{VMWare5.png}
+        \onslide<6>\centering\fbox{\includegraphics[width=.6\textwidth]{VMWare6.png}}
+        \onslide<7>\centering\fbox{\includegraphics[width=.6\textwidth]{VMWare7.png}}
+        \onslide<8>\centering\fbox{\includegraphics[width=.6\textwidth]{VMWare8.png}}
+        \onslide<9>\centering\fbox{\includegraphics[width=.6\textwidth]{VMWare9.png}}
+        \onslide<10>\centering\fbox{\includegraphics[width=.6\textwidth]{VMWare10.png}}
+      \end{overprint}      
+    \end{figure}
+  \end{center}
 \end{frame}
 
+\subsection{Ubuntu}
 \begin{frame}{Install \texttt{Ubuntu Server} (\texttt{Ubuntu})}
   \begin{figure}
-    \setlength{\fboxsep}{0pt}%
-    \setlength{\fboxrule}{0.5pt}%
-    \fbox{\includegraphics<1>[width=.8\textwidth]{Ubuntu1.png}}
-    \fbox{\includegraphics<2>[width=.8\textwidth]{Ubuntu2.png}}
-    \fbox{\includegraphics<3>[width=.8\textwidth]{Ubuntu3.png}}
-    \fbox{\includegraphics<4>[width=.8\textwidth]{Ubuntu4.png}}
-    \fbox{\includegraphics<5>[width=.8\textwidth]{Ubuntu5.png}}
-    \fbox{\includegraphics<6>[width=.8\textwidth]{Ubuntu6.png}}
-    \fbox{\includegraphics<7>[width=.8\textwidth]{Ubuntu7.png}}
-    \fbox{\includegraphics<8>[width=.8\textwidth]{Ubuntu8.png}}
-    \fbox{\includegraphics<9>[width=.8\textwidth]{Ubuntu9.png}}
-    \fbox{\includegraphics<10>[width=.8\textwidth]{Ubuntu10.png}}
-    \fbox{\includegraphics<11>[width=.8\textwidth]{Ubuntu11.png}}
-    \fbox{\includegraphics<12>[width=.8\textwidth]{Ubuntu12.png}}
+    \begin{overprint}
+      \setlength{\fboxsep}{0pt}%
+      \setlength{\fboxrule}{0.5pt}%
+      \onslide<1>\centering\fbox{\includegraphics[width=.8\textwidth]{Ubuntu1.png}}
+      \onslide<2>\centering\fbox{\includegraphics[width=.8\textwidth]{Ubuntu2.png}}
+      \onslide<3>\centering\fbox{\includegraphics[width=.8\textwidth]{Ubuntu3.png}}
+      \onslide<4>\centering\fbox{\includegraphics[width=.8\textwidth]{Ubuntu4.png}}
+      \onslide<5>\centering\fbox{\includegraphics[width=.8\textwidth]{Ubuntu5.png}}
+      \onslide<6>\centering\fbox{\includegraphics[width=.8\textwidth]{Ubuntu6.png}}
+      \onslide<7>\centering\fbox{\includegraphics[width=.8\textwidth]{Ubuntu7.png}}
+      \onslide<8>\centering\fbox{\includegraphics[width=.8\textwidth]{Ubuntu8.png}}
+      \onslide<9>\centering\fbox{\includegraphics[width=.8\textwidth]{Ubuntu9.png}}
+      \onslide<10>\centering\fbox{\includegraphics[width=.8\textwidth]{Ubuntu10.png}}
+      \onslide<11>\centering\fbox{\includegraphics[width=.8\textwidth]{Ubuntu11.png}}
+      \onslide<12>\centering\fbox{\includegraphics[width=.8\textwidth]{Ubuntu12.png}}
+    \end{overprint}
   \end{figure}
 \end{frame}
 
+\section{Post Install}
+\subsection{Updating}
 \begin{frame}{Update your \texttt{Ubuntu Server} software}
   \begin{itemize}
     \item The server \texttt{OS} may need updated. This will require the repository database to be updated before the upgrade is actioned.
@@ -246,6 +257,7 @@
   \end{block}
 \end{frame}
 
+\subsection{Essential Packages}
 \begin{frame}{Remote access (Headless server)}
   \begin{itemize}
     \item Once the remote software is added you can connect via the network rather than the console.
@@ -278,9 +290,10 @@
 
 \begin{frame}{Remote access (Headless server)}
   \begin{itemize}
-    \item To get the IP address of your machine use the command.
+    \item Putty settings.
       \begin{itemize}
-        \item \texttt{\$ip a}
+        \item \texttt{ip}
+        \item Connection type (protocol)
       \end{itemize}
   \end{itemize}
   \begin{figure}
@@ -290,8 +303,204 @@
   \end{figure}
 \end{frame}
 
+\begin{frame}{Remote access (Headless server)}
+  \begin{itemize}
+    \item Check your connection by looking at the running process from the console.
+      \begin{itemize}
+        \item \texttt{\$ps -ef | grep sshd}
+      \end{itemize}
+  \end{itemize}
+  \begin{figure}
+    \begin{center}
+      \includegraphics[width=1\linewidth]{ps.png}
+    \end{center}
+  \end{figure}
+  \begin{itemize}
+      \item \texttt{ssh} is a secure method of connecting to the server if you use \texttt{telnet} all commands are sent as plain text over the Ethernet connection and can be intercepted.
+  \end{itemize}
+\end{frame}
 % Placing a * after \section means it will not show in the
 % outline or table of contents.  
+
+\begin{frame}{Connectivity Testing}
+  \begin{itemize}
+    \item By default \texttt{ping} and other simple tools are included but you may want to install \texttt{traceroute}. 
+      \begin{itemize}
+        \item \texttt{\$sudo apt-get install traceroute}
+      \end{itemize}
+    \item \texttt{traceroute} checks traffic routing from source to destination.
+      \begin{itemize}
+        \item \texttt{\$traceroute www.google.com}
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{\texttt{IP} Addressing considerations}
+   \begin{itemize}
+     \item Internet services are generally fixed in nature with a specific function. 
+     \item Network services are vital to normal operations an therefore need to be implemented with \textbf{Redundancy} and \textbf{Fault Tolerance} in mind.
+     \item Generally they have a static \texttt{IP} address to maintain access to the service (Network servers should, as far as is possible, not be dependant on other services e.g. \texttt{DHCP}) and are referenced by their \texttt{IP} address.
+   \end{itemize}
+   \begin{block}{NOTE}
+     Check your desktop machine's config for the \texttt{gateway} and \texttt{name servers}. They are  all specified as \texttt{IP} Addresses!
+   \end{block}
+\end{frame}
+
+\begin{frame}{Static \texttt{IP} Addressing}
+  \begin{itemize}
+    \item Almost all configurations in a Linux server are performed using text based configuration files.
+    \item Reloading configurations is a simple matter of restarting the service/daemon (program).
+    \item Generally they have a static \texttt{IP} address to maintain access to the service (Network servers should, as far as is possible, not be dependant on other services e.g. \texttt{DHCP}) and are referenced by their \texttt{IP} address.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Static \texttt{IP} Addressing}
+  \begin{itemize}
+    \item The location of the network config files on a \texttt{18.04 Ubuntu server} are:-
+    \begin{itemize}
+      \item \texttt{/etc/netplan}
+    \end{itemize} 
+  \end{itemize}
+  \begin{block}{NOTE}
+    If netplan is disabled.
+    \begin{itemize}
+      \item \texttt{/etc/network/interfaces}
+      \item \texttt{/etc/resolv.conf}
+      \item \texttt{/etc/hosts}
+    \end{itemize} 
+  \end{block}
+\end{frame}
+
+\begin{frame}{Static \texttt{IP} Addressing}
+  \begin{itemize}
+    \item \texttt{netplan} files are in YAML format.
+    \begin{itemize}
+      \item \texttt{/etc/netplan}
+    \end{itemize} 
+  \end{itemize}
+  \begin{block}{CITATION}
+    Yaml.org. (2018). \textit{The Official YAML Web Site.} [online] Available at: \texttt{http://yaml.org/} [Accessed 8 July. 2019].
+  \end{block}
+\end{frame}
+
+\begin{frame}{Static \texttt{IP} Addressing}
+  \begin{itemize}
+    \item There can be several configuration files that are parsed sequentially (based on initial numeric).
+    \item File location:-
+    \begin{itemize}
+      \item \texttt{/etc/netplan}
+    \end{itemize} 
+    \item The files are in \texttt{YAML} format.
+    \item The default network configuration file is :-
+    \begin{itemize}
+      \item \texttt{50-cloud-init.yaml}
+    \end{itemize} 
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Static \texttt{IP} Addressing}
+  \begin{itemize}
+    \item Default configuration:-
+  \end{itemize}
+    \begin{center}
+      \begin{minipage}{8cm}
+        \begin{block}{}
+          \texttt{\# This file describes ...\\
+          \# For more information, see netplan(5).\\
+          ~~network:\\
+          ~~version: 2\\
+          ~~renderer: networkd\\
+          ~~ethernets:\\
+          ~~~~ens33:\\
+          ~~~~~~dhcp4: yes\\
+          ~~~~~~dhcp6: yes}
+        \end{block}
+      \end{minipage}
+    \end{center}
+\end{frame}
+
+\begin{frame}{Static \texttt{IP} Addressing}
+  \begin{itemize}
+    \item Any changes made to the file are applied using the netplan command:-
+    \begin{itemize}
+      \item \texttt{\$sudo netplan apply}
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Static \texttt{IP} Addressing}
+  \begin{itemize}
+    \item For a static address modify the default configuration rather than created another otherwise you will have multiple IP addresses allocated.
+  \end{itemize}
+  \begin{center}
+    \begin{minipage}{9cm}
+      \begin{block}{}
+        \texttt{network:\\
+        version: 2\\
+        renderer: networkd\\
+        ethernets:\\
+        ~~ens33:\\
+        ~~~~dhcp4: no\\
+        ~~~~dhcp6: no\\
+        ~~~~addresses: [192.168.1.2/24]\\
+        ~~~~gateway4: 192.168.1.1\\
+        ~~~~nameservers:\\
+        ~~~~~~addresses: [8.8.8.8, 8.8.4.4]}
+      \end{block}
+    \end{minipage}
+  \end{center}
+\end{frame}
+
+\begin{frame}{Static \texttt{IP} Addressing}
+  \begin{itemize}
+    \item Each network card can have multiple \texttt{IP} addresses (\texttt{IPv4} and \texttt{IPv6}).
+  \end{itemize}
+  \begin{center}
+    \begin{minipage}{9cm}
+      \begin{block}{}
+        \texttt{network:\\
+        version: 2\\
+        renderer: networkd\\
+        ethernets:\\
+        ~~ens33:\\
+        ~~~~dhcp4: no\\
+        ~~~~dhcp6: no\\
+        ~~~~addresses: [192.168.1.2/24, `2001:1::2/64']\\
+        ~~~~gateway4: 192.168.1.1\\
+        ~~~~gateway6: `2001:1::255'\\
+        ~~~~nameservers:\\
+        ~~~~~~addresses: [8.8.8.8, 8.8.4.4]}
+      \end{block}
+    \end{minipage}
+  \end{center}
+\end{frame}
+
+\begin{frame}{Static \texttt{IP} Addressing}
+  \begin{itemize}
+    \item To revert back to using the `'\texttt{interfaces}' configuration.
+  \end{itemize}
+  \begin{center}
+    \begin{minipage}{9cm}
+      \begin{block}{}
+        \texttt{network:\\
+        ~~version: 2\\
+        ~~renderer: NetworkManager\\}
+      \end{block}
+    \end{minipage}
+  \end{center}
+  \begin{block}{NOTE}
+    In this module we will use the new \texttt{netplan} method
+  \end{block}
+\end{frame}
+
+\begin{frame}{Static \texttt{IP} Addressing}
+  \begin{itemize}
+    \item Don't forget to apply your changes!
+    \begin{itemize}
+      \item \texttt{\$sudo netplan apply}
+    \end{itemize}
+  \end{itemize}
+\end{frame}
 
 \section*{Summary}
 
