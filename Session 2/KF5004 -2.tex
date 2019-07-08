@@ -11,7 +11,8 @@
 % notice. 
 
 \documentclass{beamer}
-\usepackage{listings}
+\usepackage{menukeys}[os=win]
+\usepackage{textcomp}
 % There are many different themes available for Beamer. A comprehensive
 % list with examples is given here:
 % http://deic.uab.es/~iblanes/beamer_gallery/index_by_theme.html
@@ -502,6 +503,121 @@
   \end{itemize}
 \end{frame}
 
+\begin{frame}{Editing Config files}
+  \begin{itemize}
+    \item Suitable text editors are:
+    \begin{itemize}
+      \item \texttt{vi}
+      \item texttt{nano}
+    \end{itemize}
+  \end{itemize}
+  \begin{block}{NOTE}
+    Your editing files on a headless server so you can only use a simple text editor (usually you navigate around the file using arrow keys i.e. \keys{\textuparrow}, \keys{\textdownarrow}, \keys{\textleftarrow}, \keys{\textrightarrow} and actions via \keys{ctrl} keys e.g. \keys{ctrl + s}).\\~\\
+    This module is not about any particular editor it is about the \texttt{OS} so use what you are comfortable with. If you haven't used a particular editor then \texttt{nano} is easy to get used!
+  \end{block}
+\end{frame}
+
+\subsection{Troubleshooting}
+\begin{frame}{Starting and Stopping network services (\texttt{18.04})}
+  \begin{itemize}
+    \item Disable a network interface.
+    \begin{itemize}
+      \item \texttt{\$sudo ip link set ens33 down}
+    \end{itemize}
+  \end{itemize}
+  \begin{itemize}
+    \item Enable a network interface.
+    \begin{itemize}
+      \item \texttt{\$sudo ip link set ens33 up}
+    \end{itemize}
+  \end{itemize}
+  \begin{block}{NOTE}
+    It is possible to use scripts located in \texttt{/etc/init.d} but you should use the \texttt{ip} command which is recommended for \texttt{systemd} architectures.  
+  \end{block}
+  \begin{block}{NOTE}
+    The discussion of \texttt{System V} and \texttt{systemd} is beyond the scope of this module.  
+  \end{block}
+\end{frame}
+
+\begin{frame}{Some useful \texttt{IP} checking commands (\texttt{18.04})}
+  \begin{itemize}
+    \item Addresses.
+    \begin{itemize}
+      \item \texttt{\$sudo ip a}
+      \item \texttt{\$sudo ip -4 address}
+      \item \texttt{\$sudo ip -6 address}
+    \end{itemize}
+    \item Routing.
+    \begin{itemize}
+      \item \texttt{\$sudo ip route}
+      \item \texttt{\$sudo ip -4 route}
+      \item \texttt{\$sudo ip -6 route}
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Some useful \texttt{IP} checking commands (\texttt{18.04})}
+  \begin{itemize}
+    \item Check traffic.
+    \begin{itemize}
+      \item \texttt{ping}  
+      \begin{block}{NOTE}
+        \begin{center}
+          \texttt{ICMP} is sometimes blocked on networks therefore ping does not work as a check. KNow your network!
+        \end{center}
+      \end{block}          
+    \end{itemize}
+    \item \texttt{\$ping -c 5 192.168.0.3}
+  \end{itemize}
+  \begin{figure}
+    \begin{center}
+      \includegraphics[width=0.8\linewidth]{ping.png}
+    \end{center}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Some useful network card checking commands (\texttt{18.04})}
+  \begin{itemize}
+    \item You need to have \texttt{ethtool} installed.
+    \begin{itemize}
+      \item \texttt{\$sudo apt-get install ethtool}
+    \end{itemize}
+    \item Card Info
+    \begin{itemize}
+      \item \texttt{\$sudo ethtool ens033}
+      \item \texttt{\$sudo ethtool -p ens033}
+    \end{itemize}
+  \end{itemize}
+  \begin{block}{SYNTAX}
+    \begin{center}
+      \texttt{ethtool [option] <network device>}
+    \end{center}
+  \end{block}
+\end{frame}
+
+\begin{frame}{Check your \texttt{DNS} settings.}
+  \begin{itemize}
+    \item \texttt{DNS} test.
+    \begin{itemize}
+      \item \texttt{\$nslookup www.google.com}
+    \end{itemize}
+    \item If \texttt{nslookup} is not found then install the \texttt{DNS} utilities package.
+    \begin{itemize}
+      \item \texttt{\$sudo apt-get install dnsutils}
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Check your \texttt{DNS} settings.}
+  \begin{itemize}
+    \item \texttt{\$nslookup www.google.com}
+  \end{itemize}
+  \begin{figure}
+    \begin{center}
+      \includegraphics[width=0.8\linewidth]{nslookup.png}
+    \end{center}
+  \end{figure}
+\end{frame}
 \section*{Summary}
 
 \begin{frame}{Summary}
@@ -510,7 +626,9 @@
     \item What is headless mode?
     \item How do you access a headless server?
     \item How do you apply a static address?
-    \item How do you trouble shoot your network configuration?
+    \begin{itemize}
+      \item \texttt{IP, NETMASK, GATEWAY, DNS} (name servers)
+    \end{itemize}
   \end{itemize}
 \end{frame}
 
