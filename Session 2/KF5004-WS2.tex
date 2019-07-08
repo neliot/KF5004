@@ -18,11 +18,11 @@
 \date{September 2019}
 \maketitle
 
-\medskip
+\newpage
 
-\begin{center}
-    \noindent\rule{8cm}{0.4pt}
-\end{center}
+% \begin{center}
+%     \noindent\rule{8cm}{0.4pt}
+% \end{center}
 
 % ========== Introduction
 
@@ -34,9 +34,9 @@
     \item Understand the location and purpose of the networking configuration files of a \texttt{18.04} server.
 \end{itemize}
 
-\begin{center}
-\noindent\rule{8cm}{0.4pt}
-\end{center}
+% \begin{center}
+% \noindent\rule{8cm}{0.4pt}
+% \end{center}
 
 \begin{tcolorbox}[title={\textbf{Note:}}]
     Before you begin ensure you have the lab. \texttt{PC} you are using connected to the lab infrastructure and the machine receives an \texttt{IP} address from the lab. \texttt{DHCP} Server.
@@ -44,7 +44,7 @@
 
 \noindent\textbf{The Exercise}\\
 
-\noindent \textbf{From the commands and process shown in the lecture notes, carry out the following:\\}
+\noindent\textbf{From the commands and process shown in the lecture notes, carry out the following:\\}
 
 % ========== Begin answering questions here
 \begin{enumerate}
@@ -74,43 +74,39 @@
             \item \texttt{Subnet - 255.255.0.0 (/16)}
             \item \texttt{Gateway - 192.168.100.254}
             \item \texttt{DNS - 192.168.101.29}
-                \begin{tcolorbox}[title={\textbf{Notes:}}]
-                    \begin{itemize}
-                        \item At this stage you are using the \texttt{Virtual} lab. name servers.
-                        \item Later you will be creating your own \texttt{DNS} architecture.
-                    \end{itemize}
-                \end{tcolorbox}
         \end{itemize}
+        \begin{tcolorbox}[title={\textbf{Notes:}}]
+            \begin{itemize}
+                \item At this stage you are using the \texttt{Virtual} lab. name servers.
+                \item Later you will be creating your own \texttt{DNS} architecture.
+            \end{itemize}
+        \end{tcolorbox}
     \item Add \texttt{ssh} services to your machine for remote access (\texttt{openssh-server}).
-        \begin{tcolorbox}[title={\textbf{Note:}}]
+        \begin{tcolorbox}[colback=blue!20]
             In this next section you should connect to your virtual server from a different machine on the network. This forces the traffic outside of the host machines \texttt{TCP} stack and onto the physical network so \texttt{Wireshark} can capture the traffic.
         \end{tcolorbox}
-    \end{enumerate}
-    \noindent \textbf{Using the server you have created carry out the following:}
-    \begin{enumerate}
-        \setcounter{enumi}{5}
-        \item Test remote connectivity to your virtual \texttt{Ubuntu server}.
-            \begin{tcolorbox}[title={\textbf{Notes:}}]
-                \begin{itemize}
-                    \item \texttt{putty} should be on all the lab \texttt{PC}'s Windows installation.
-                    \item If you are using \texttt{Ubuntu desktop} you should be able to connect to the server by using the \texttt{ssh} command from a \texttt{Linux} console.\\
-                    \item On the first connection you will need to accept the \texttt{ssh} certificate.
-                \end{itemize}
-            \end{tcolorbox}
-        \item Using \texttt{Wireshark} monitor the network and identify the communications to/from the virtual machine and identify the \texttt{IP} address and \texttt{MAC} address in the \texttt{IP} headers.
-        \item Install \texttt{telnet} server (\texttt{telnetd}).
-        \item Run \texttt{wireshark} and capture the traffic while you are logging in using either the \texttt{telnet} command in \texttt{Linux} or \texttt{telnet} protocol in \texttt{putty} (filter \texttt{tcp.port == 23}).
-        \item Examine the traffic and identify the \texttt{TCP} transactions for the login.
+    \item Test remote connectivity to your virtual \texttt{Ubuntu server}.
+        \begin{tcolorbox}[title={\textbf{Notes:}}]
             \begin{itemize}
-                \item You will find that each letter of the username is visible as it is transmitted from the client to the server and echoed back from the server.
-                \item The password is not echoed you will see the characters only once. From the client to the server.
+                \item \texttt{putty} should be on all the lab \texttt{PC}'s Windows installation.
+                \item If you are using \texttt{Ubuntu desktop} you should be able to connect to the server by using the \texttt{ssh} command from a \texttt{Linux} console.\\
+                \item On the first connection you will need to accept the \texttt{ssh} certificate.
             \end{itemize}
-        \item Shutdown the server.
-            \begin{itemize}
-                \item \texttt{\$shutdown -h now}
-            \end{itemize}
+        \end{tcolorbox}
+    \item Using \texttt{Wireshark} monitor the network and identify the communications to/from the virtual machine and identify the \texttt{IP} address and \texttt{MAC} address in the \texttt{IP} headers.
+    \item Install \texttt{telnet} server (\texttt{telnetd}).
+    \item Run \texttt{wireshark} and capture the traffic while you are logging in using either the \texttt{telnet} command in \texttt{Linux} or \texttt{telnet} protocol in \texttt{putty} (filter \texttt{tcp.port == 23}).
+    \item Examine the traffic and identify the \texttt{TCP} transactions for the login.
+        \begin{itemize}
+            \item You will find that each letter of the username is visible as it is transmitted from the client to the server and echoed back from the server.
+            \item The password is not echoed you will see the characters only once. From the client to the server.
+        \end{itemize}
+    \item Shutdown the server.
+        \begin{itemize}
+            \item \texttt{\$shutdown -h now}
+        \end{itemize}
     \end{enumerate}
-    \begin{tcolorbox}[title={\textbf{TIME PERMITTING:}}]
+    \begin{tcolorbox}[colback=blue!20,title={\textbf{TIME PERMITTING:}}]
         Research how to change the student password and how to add another user.
     \end{tcolorbox}
 \end{document}
