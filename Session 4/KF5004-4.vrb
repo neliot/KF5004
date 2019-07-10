@@ -1,0 +1,22 @@
+\frametitle{\texttt {SOA}}
+\begin{itemize}
+    \item Syntax:
+      \begin{itemize}
+        \item \texttt{name ttl class rr name-server e-mail sn refresh retry expiry min}
+      \end{itemize}
+  \end{itemize}
+  \begin{tcolorbox}
+    \lstset{
+      basicstyle=\scriptsize\ttfamily,
+    }
+    \begin{lstlisting}
+  $ORIGIN example.com.
+  @   IN  SOA  example.com.  hostmaster.example.com. (
+            2020010101 ; se = serial number
+            3h ; ref = refresh
+            15m ; ret = update retry
+            3w ; ex = expiry
+            2h20m ; min = minimum
+          )
+    \end{lstlisting}
+    \end{tcolorbox}

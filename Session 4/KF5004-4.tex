@@ -1,0 +1,740 @@
+% Copyright 2004 by Till Tantau <tantau@users.sourceforge.net>.
+%
+% In principle, this file can be redistributed and/or modified under
+% the terms of the GNU Public License, version 2.
+%
+% However, this file is supposed to be a template to be modified
+% for your own needs. For this reason, if you use this file as a
+% template and not specifically distribute it as part of a another
+% package/program, I grant the extra permission to freely copy and
+% modify this file as you see fit and even to delete this copyright
+% notice. 
+
+\documentclass{beamer}
+\usepackage{menukeys}[os=win]
+\usepackage{textcomp}
+\usepackage{tcolorbox}
+\usepackage{listings}
+\lstset{
+  basicstyle=\tiny\ttfamily,
+}
+
+% There are many different themes available for Beamer. A comprehensive
+% list with examples is given here:
+% http://deic.uab.es/~iblanes/beamer_gallery/index_by_theme.html
+% You can uncomment the themes below if you would like to use a different
+% one:
+%\usetheme{AnnArbor}
+%\usetheme{Antibes}
+%\usetheme{Bergen}
+%\usetheme{Berkeley}
+%\usetheme{Berlin}
+%\usetheme{Boadilla}
+%\usetheme{boxes}
+%\usetheme{CambridgeUS}
+%\usetheme{Copenhagen}
+%\usetheme{Darmstadt}
+%\usetheme{default}
+%\usetheme{Frankfurt}
+%\usetheme{Goettingen}
+%\usetheme{Hannover}
+%\usetheme{Ilmenau}
+\usetheme{JuanLesPins}
+%\usetheme{Luebeck}
+%\usetheme{Madrid}
+%\usetheme{Malmoe}
+%\usetheme{Marburg}
+%\usetheme{Montpellier}
+%\usetheme{PaloAlto}
+%\usetheme{Pittsburgh}
+%\usetheme{Rochester}
+%\usetheme{Singapore}
+%\usetheme{Szeged}
+%\usetheme{Warsaw}
+\setbeamerfont{block body}{size=\small}
+\title{KF5004 - Primary \texttt{DNS} Server}
+
+% A subtitle is optional and this may be deleted
+% \subtitle{(Using proximity detection)}
+
+\author{Dr.~Neil~Eliot\inst{1} / Dr.~Alun~Moon\inst{1}}
+% - Give the names in the same order as the appear in the paper.
+% - Use the \inst{?} command only if the authors have different
+%   affiliation.
+
+%\renewcommand\appendixname{Appendix}
+
+\institute[Northumbria University] % (optional, but mostly needed)
+{
+  \inst{1}
+  Department of Computer and Information Sciences\\
+  University of Northumbria
+  % \and
+  % \inst{2}
+  % Department of Theoretical Philosophy\\
+  % University of Elsewhere
+}
+% - Use the \inst command only if there are several affiliations.
+% - Keep it simple, no one is interested in your street address.
+
+\date{Session 4}
+% - Either use conference name or its abbreviation.
+% - Not really informative to the audience, more for people (including
+%   yourself) who are reading the slides online
+
+\subject{Introduction}
+% This is only inserted into the PDF information catalog. Can be left
+% out. 
+
+% If you have a file called "university-logo-filename.xxx", where xxx
+% is a graphic format that can be processed by latex or pdflatex,
+% resp., then you can add a logo as follows:
+
+% \pgfdeclareimage[height=0.5cm]{university-logo}{university-logo-filename}
+% \logo{\pgfuseimage{university-logo}}
+
+% Delete this, if you do not want the table of contents to pop up at
+% the beginning of each subsection:
+% \AtBeginSubsection[]
+% {
+%   \begin{frame}<beamer>{Outline}
+%     \tableofcontents[currentsection,currentsubsection]
+%   \end{frame}
+% }
+
+% Let's get started
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}{Introduction}
+  \tableofcontents
+  % You might wish to add the option [pausesections]
+\end{frame}
+
+% Section and subsections will appear in the presentation overview
+% and table of contents.
+
+\section{Introduction to Primary \texttt{DNS}}
+\begin{frame}{What is Primary \texttt{DNS} server?}
+  \begin{itemize}
+    \item A \texttt{Primary DNS} is \texttt{Authoritative} for a \texttt{Zone}.
+      \begin{itemize}
+          \item \texttt{Zone} $\Longleftrightarrow$ \texttt{Domain}
+      \end{itemize}
+    \item This server manages the mappings for this zone and the answer will not be derived from anywhere else.
+    \item You have spoken directly to the controlling \texttt{Primary server} or its \texttt{Secondary servers}.
+  \end{itemize}
+  \begin{figure}
+    \begin{center}
+      \includegraphics[width=0.8\linewidth]{Authoritative.png}
+    \end{center}
+  \end{figure}
+\end{frame}
+
+\section{Setting up a \texttt{Primary DNS server}}
+\subsection{Configuration}
+\begin{frame}{Configuring a \texttt{Primary DNS}}
+  \begin{itemize}
+    \item The configuration of a \texttt{Primary DNS} involves adding a \texttt{zone}.
+    \item \texttt{Zones} are ‘pointed to’ from the \texttt{named.conf.local} file.
+      \begin{itemize}
+        \item \texttt{/etc/bind/named.conf.local}
+      \end{itemize}
+    \item The config file allows you to specify that the \texttt{zone} is a \texttt{master} and the location of the database.
+      \begin{itemize}
+        \item The database is a structured text file containing the \texttt{zone} records.
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Configuring a \texttt{Primary DNS}}
+  \lstset{
+    basicstyle=\small\ttfamily,
+  }
+  \begin{lstlisting}
+    zone "student.co.uk" {
+	    type master;
+	    file "/etc/bind/db.student.co.uk";
+    };
+  \end{lstlisting}
+  \begin{tcolorbox}[title={\textbf{NOTE:}}]
+    \begin{itemize}
+      \item \texttt{/etc/bind/} is the location of \textit{read only} \texttt{zone} files. There will be more on this in \texttt{Advanced OS II} in the final year.
+      \item The \texttt{zone} filename standard is \texttt{db.<zone>} e.g. \texttt{db.offcampusnetwork.co.uk} 
+    \end{itemize}
+  \end{tcolorbox}
+\end{frame}
+
+\begin{frame}[fragile]{Configuring a \texttt{Primary DNS}}
+  \begin{itemize}
+    \item Multiple \texttt{zones} can be declared and managed by one \texttt{DNS} server. 
+  \end{itemize}
+\lstset{
+    basicstyle=\small\ttfamily,
+  }
+  \begin{lstlisting}
+    zone "student.co.uk" {
+	    type master;
+	    file "/etc/bind/db.student.co.uk";
+    };
+
+    zone "staff.co.uk" {
+	    type master;
+	    file "/etc/bind/db.staff.co.uk";
+    };
+  \end{lstlisting}
+\end{frame}
+
+\subsection{Security}
+\begin{frame}{Protecting a \texttt{zone}}
+  \begin{itemize}
+    \item \texttt{DNS} servers can be used in a \texttt{DDOS} attack.
+    \item One technique to prevent this is to limit which machines can use the server.
+      \begin{itemize}
+        \item \texttt{allow-query\{\};}
+      \end{itemize}
+    \item All \texttt{zones} can be protected by adding the clause in the \texttt{options} section.  
+      \begin{itemize}
+        \item \texttt{named.conf.option}
+      \end{itemize}
+    \item Individual \texttt{zones} can be protected by adding the clause in the \texttt{zone} declaration.  
+    \begin{itemize}
+      \item \texttt{named.conf.local}
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{\texttt{A}ccess \texttt{C}ontrol \texttt{L}ists ()\texttt{ACL})}
+  \begin{itemize}
+    \item Access can be restricted in several ways using an \texttt{ACL}
+    \item \texttt{ACL}s can be comma separated lists.
+      \begin{itemize}
+        \item No security
+          \begin{itemize}
+            \item \texttt{allow-query\{any;\};}
+          \end{itemize}
+        \item Individual \texttt{<IP address>}
+          \begin{itemize}
+            \item \texttt{allow-query\{10.0.0.1;\};}
+          \end{itemize}
+        \item The network the \texttt{DNS} server resides on.
+          \begin{itemize}
+            \item \texttt{allow-query\{localnets;\};}
+          \end{itemize}
+        \item Subnet ranges.
+          \begin{itemize}
+            \item \texttt{allow-query\{192.168.0.0./16;\};}
+          \end{itemize}
+        \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{\texttt{A}ccess \texttt{C}ontrol \texttt{L}ists ()\texttt{ACL})}
+  \begin{itemize}
+    \item \texttt{ACL} Lists
+  \end{itemize}
+  \lstset{
+    basicstyle=\small\ttfamily,
+  }
+  \begin{lstlisting}
+    allow-query{
+      localnets;
+      129.168.0.0/16;
+      10.0.0.10;
+    };
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}{\texttt{A}ccess \texttt{C}ontrol \texttt{L}ists ()\texttt{ACL})}
+  \begin{itemize}
+    \item Any of the options can be reversed by prefixing with an exclamation mark (\texttt{!}).
+      \begin{itemize}
+        \item Block and individual \texttt{IP}
+          \begin{itemize}
+            \item \texttt{allow-query\{!10.0.0.1;\};}
+          \end{itemize}
+        \item Block a subnet ranges.
+          \begin{itemize}
+            \item \texttt{allow-query\{!192.168.0.0./16;\};}
+          \end{itemize}
+        \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{\texttt{A}ccess \texttt{C}ontrol \texttt{L}ists ()\texttt{ACL})}
+  \begin{itemize}
+    \item \texttt{ACL} Lists in \texttt{named.conf.local}
+  \end{itemize}
+  \lstset{
+    basicstyle=\small\ttfamily,
+  }
+  \begin{lstlisting}
+    zone "student.co.uk" {
+      type master;
+      file "/etc/bind/db.student.co.uk";
+        allow-query{
+          localnets;
+          10.0.0.0/8;
+        };
+    };
+    
+    zone "academics.co.uk" {
+      type master;
+      file "/etc/bind/db.academics.co.uk";
+      allow-query{localnets;};
+    };
+  \end{lstlisting}
+\end{frame}
+
+\subsection{Setting up a \texttt{zone} file}
+\begin{frame}{Create a \texttt{zone} file}
+  \begin{itemize}
+    \item The best way is to copy an existing basic \texttt{zone} file and modify it.
+      \begin{itemize}
+        \item Fortunately there are a few \texttt{zones} already declared after a default install.
+      \end{itemize}
+  \item Copy the existing \texttt{db.local} file to create your own \texttt{zone} file.
+    \begin{itemize}
+      \item e.g. \texttt{\$sudo cp db.local db.student.co.uk}
+    \end{itemize}
+  \end{itemize}
+  \begin{tcolorbox}[title={\textbf{NOTE:}}]
+    You require administrative privileges to modify the content of \texttt{/etc/bind} hence using \texttt{sudo}.
+  \end{tcolorbox}
+\end{frame}
+
+\begin{frame}{Create a \texttt{zone} file}
+  \begin{itemize}
+    \item Modify the following:
+      \begin{itemize}
+        \item \texttt{localhost} $\Longrightarrow$ \texttt{<FQDN>}
+        \item \texttt{127.0.0.1} $\Longrightarrow$ \texttt{<IP Address of your server>}
+        \item \texttt{root.local} $\Longrightarrow$ \texttt{<Your email address>}
+          \begin{itemize}
+            \item Replace the @ with a . 
+            \item e.g. \texttt{i.am@student.co.uk} $\Longrightarrow$ \texttt{i.am.student.co.uk}
+          \end{itemize}
+      \end{itemize}
+  \end{itemize}
+  \begin{tcolorbox}[title={\textbf{NOTE:}}]
+    \texttt{FQDN} $\equiv$ \texttt{F}ully \texttt{Q}ualified \texttt{D}omain \texttt{N}ame
+    \begin{itemize}
+      \item e.g. \texttt{student.co.uk.}
+    \end{itemize}
+  \end{tcolorbox}
+\end{frame}
+
+\begin{frame}[fragile]{Create a \texttt{zone} file}
+  \begin{itemize}
+    \item Assume:
+      \begin{itemize}
+        \item \texttt{nameserver} is \texttt{ns.student.co.uk}
+        \item \texttt{IP} is \texttt{192.168.0.55} (yours will be different)
+        \item Admin's email address is \texttt{admin@student.co.uk}
+      \end{itemize}
+  \end{itemize}
+  \begin{itemize}
+    \item Default File:
+  \end{itemize}
+  \lstset{
+    basicstyle=\tiny\ttfamily,
+  }
+  \begin{lstlisting}
+;
+; BIND data file for local loopback interface
+;
+$TTL    604800
+@   IN    SOA localhost.  root.localhost. (
+        2         ; Serial
+        604800    ; Refresh
+        86400     ; Retry
+        2419200   ; Expire
+        604800)   ; Negative Cache TTL
+;
+@   IN    NS    localhost.
+@   IN    A     127.0.0.1
+@   IN    AAAA  ::1
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Create a \texttt{zone} file}
+  \begin{itemize}
+    \item Modified File:
+  \end{itemize}
+  \lstset{
+    basicstyle=\tiny\ttfamily,
+  }
+  \begin{lstlisting}
+;
+; BIND data file for local loopback interface
+;
+$ORIGIN student.co.uk.
+$TTL    604800
+@   IN    SOA student.co.uk.  i.am.student.co.uk. (
+        2022012110  ; Serial
+        604800      ; Refresh
+        86400       ; Retry
+        2419200     ; Expire
+        604800)     ; Negative Cache TTL
+;
+@   IN    NS    ns.student.co.uk.
+ns  IN    A     192.168.0.55
+  \end{lstlisting}
+  \begin{tcolorbox}[title={\textbf{NOTE:}}]
+    For completeness a few additional changes have been added. These will be discussed later.
+  \end{tcolorbox}
+\end{frame}
+
+\begin{frame}{Create a \texttt{zone} file}
+  \begin{itemize}
+    \item Serial Numbers:
+      \begin{itemize}
+        \item Most administrators like to use the last date edited as the serial of a \texttt{zone}
+        \item The format used is \texttt{YYYYMMDDSS} (where \texttt{SS} is a 2 digit sequence number incremented after each edit)
+          \begin{itemize}
+            \item e.g. \texttt{2020012110}
+          \end{itemize}
+      \end{itemize}
+  \end{itemize}
+  \begin{tcolorbox}
+    \begin{center}
+      \texttt{21\textsuperscript{st} January 2020 Sequence 10}
+    \end{center}
+  \end{tcolorbox}
+\end{frame}
+
+\begin{frame}{Restarting \texttt{BIND9} after a \texttt{zone} change}
+  \begin{itemize}
+    \item When any changes are made to a \texttt{zone} file the \texttt{BIND9} service must be restarted.
+      \begin{itemize}
+        \item \texttt{\$sudo systemctl restart bind9}
+      \end{itemize}
+    \item Restarting the \texttt{daemon} initiates a check of the \texttt{Serial Number} and compiles the database.
+  \end{itemize}
+  \begin{tcolorbox}[title={\textbf{NOTE:}}]
+    Whenever a change is made to a \texttt{zone} file the \texttt{Sequence Number} \textbf{MUST} be updated or the changes will not take place. \texttt{BIND9} \textbf{ONLY} recompiles the database if the \texttt{Sequence Number} is greater than the previously stored value.
+  \end{tcolorbox}
+\end{frame}
+
+\section{\texttt{Zone} Files}
+\subsection{\texttt{Format}}
+\begin{frame}{\texttt{Zone} File Format}
+  \begin{itemize}
+    \item \texttt{Zone} files are text files (standardized by \texttt{RFC 1035})
+      \begin{itemize}
+        \item As such they can be edited with any standard text editor.
+      \end{itemize}
+    \item They consist of three entry types:
+      \begin{itemize}
+        \item \texttt{Comments}
+        \item \texttt{Directives}
+        \item \texttt{Resource Records} (\texttt{RR})
+      \end{itemize}
+  \end{itemize}
+  \begin{tcolorbox}[title={\textbf{NOTE:}}]
+    In this module we will only be covering a subset of the \texttt{Directives} and \texttt{Resource Records}.
+  \end{tcolorbox}  
+\end{frame}
+
+\begin{frame}{\texttt{Zone} File Format}
+  \begin{itemize}
+    \item \texttt{Comments:} All comments start with a semicolon (;) and continue to the end of the line. 
+      \begin{itemize}
+        \item \texttt{Comments} can be added to any other record type and are assumed to terminate the line.
+      \end{itemize}
+    \item \texttt{Directives:} All \texttt{directives} start with a dollar sign (\texttt{\$}) and are used to control processing of the \texttt{zone} files.
+    \item \texttt{Resource Record}s: Are used to define the characteristics, properties, or entities contained within the \texttt{domain}. 
+    \begin{itemize}
+        \item \texttt{RR}s are contained on a single line or spread across multiple lines by enclosing the sub-components in parentheses. i.e. the \texttt{SOA} record.
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{\texttt{Zone} File Format}
+  \lstset{
+    basicstyle=\scriptsize\ttfamily,
+  }
+  \begin{lstlisting}
+; this is a full line comment
+$TTL 12h ; directive - comment terminates the line
+$ORIGIN example.com.
+; Start of Authority (SOA) record defining the zone (domain)
+; illustrates an RR record spread over more than one line
+; using the enclosing parentheses
+@     IN    SOA   example.com.  hostmaster.example.com. (
+        2020010101 ; se = serial number
+        3h ; ref = refresh
+        15m ; ret = update retry
+        3w ; ex = expiry
+        2h20m ; min = minimum
+        )
+    ; single line RR
+@	    IN    NS    ns1.example.com.
+ns1   IN    A     192.168.0.99
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}{\texttt{Zone} File Format (Directives)}
+  \begin{itemize}
+    \item \texttt{\$TTL}
+      \begin{itemize}
+        \item Defines the default \texttt{TTL} (\texttt{T}ime \texttt{T}o \texttt{L}ive) value for the \texttt{zone}, which is the time a \texttt{RR} may be cached by another \texttt{DNS} server.
+        \item This directive is \textbf{mandatory}.
+      \end{itemize}
+      \item \texttt{\$ORIGIN}
+      \begin{itemize}
+        \item Declares the \texttt{domain name} for the \texttt{zone} being defined.
+        \item This directive is \textbf{optional}.
+        \begin{itemize} 
+          \item \textbf{You should always use it – default behaviours can change!)}.
+        \end{itemize}
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{\texttt{Zone} File Format (Directives)}
+  \begin{itemize}
+    \item \texttt{\$SOA} (\texttt{S}tart \texttt{O}f \texttt{A}uthority)
+       \begin{itemize}
+         \item It describes the global characteristics of the \texttt{zone}.
+         \item There can be only one \texttt{SOA RR} in a \texttt{zone} file. 
+         \item The \texttt{SOA RR} \textbf{must} appear as the first \texttt{RR} in a \texttt{zone} file and is therefore \textbf{mandatory}.
+       \end{itemize}
+     \item \texttt{\$NS} (\texttt{N}ame \texttt{S}erver)
+       \begin{itemize}
+         \item Defines \texttt{name servers} that are authoritative for the \texttt{zone}. 
+         \item There should be one or more \texttt{NS RR}s in a \texttt{zone} 
+           \begin{itemize}
+             \item Why?
+           \end{itemize} 
+         \item \texttt{NS RR}s may reference servers in this \texttt{zone} or an external \texttt{zone}. 
+         \item This directive is \textbf{mandatory}.
+       \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{\texttt{Zone} File Format (Directives)}
+  \begin{itemize}
+    \item \texttt{\$MX} (\texttt{M}ail E\texttt{X}changer)
+       \begin{itemize}
+          \item Defines the mail servers for the \texttt{zone}. 
+          \item There may be zero or more \texttt{MX RR}s in a \texttt{zone} file.
+            \begin{itemize}
+              \item If the \texttt{domain} does not provide e-mail services there is no need for any \texttt{MX RR}s.
+            \end{itemize} 
+         \item An \texttt{MX RR} may reference a mail server in this \texttt{domain} or in an external \texttt{domain}. 
+         \item This directive is \textbf{optional}.
+       \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{\texttt{Zone} File Format (Directives)}
+  \begin{itemize}
+    \item \texttt{\$A} (\texttt{A}ddress)
+       \begin{itemize}
+          \item Used to define the \texttt{IPv4} address of all the hosts (or services) in the \texttt{zone}.
+          \item This directive is \textbf{optional}.
+       \end{itemize}
+  \end{itemize}
+  \begin{tcolorbox}
+    \begin{center}
+      \texttt{nslookup -type=A www.google.com}\\
+      \texttt{nslookup -type=A www.google.com.}
+    \end{center}
+  \end{tcolorbox}
+  \begin{tcolorbox}[title={\textbf{NOTE:}}]
+      An \texttt{FQDN} should have the period (.) at the end. The period signifies the \texttt{root} of the global \texttt{DNS} system.
+  \end{tcolorbox}
+\end{frame}
+
+\begin{frame}{\texttt{Zone} File Format (Directives)}
+  \begin{itemize}
+    \item \texttt{\$AAAA} (\texttt{A}ddress)
+       \begin{itemize}
+          \item Used to define the \texttt{IPv6} address of all the hosts (or services) in the \texttt{zone}.
+          \item This directive is \textbf{optional}.
+       \end{itemize}
+  \end{itemize}
+  \begin{tcolorbox}
+    \begin{center}
+      \texttt{nslookup -type=AAAA www.google.com}\\
+      \texttt{nslookup -type=AAAA www.google.com.}
+    \end{center}
+  \end{tcolorbox}
+  \begin{tcolorbox}[title={\textbf{NOTE:}}]
+      The \texttt{AAAA} directive is not used in the module.
+  \end{tcolorbox}
+\end{frame}
+
+\begin{frame}{\texttt{Zone} File Format (Directives)}
+  \begin{itemize}
+    \item \texttt{\$CNAME} (\texttt{C}anonical \texttt{N}ame)
+       \begin{itemize}
+          \item Used to define an alias for another \texttt{A} or \texttt{AAAA} \texttt{RR}.
+          \item This directive is \textbf{optional}.
+       \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{\texttt{Zone} File Format}
+  \lstset{
+    basicstyle=\scriptsize\ttfamily,
+  }
+  \begin{lstlisting}
+; this is a full line comment
+$TTL 12h ; directive - comment terminates the line
+$ORIGIN example.com.
+; Start of Authority (SOA) record defining the zone (domain)
+; illustrates an RR record spread over more than one line
+; using the enclosing parentheses
+@         IN      SOA  example.com.  hostmaster.example.com. (
+          2020010101 ; se = serial number
+          3h ; ref = refresh
+          15m ; ret = update retry
+          3w ; ex = expiry
+          2h20m ; min = minimum
+        )
+; single line RR’s
+          IN      NS            ns1.example.com.
+      3w  IN      MX      10    mail.example.com.
+ns1       IN      A             192.168.254.2
+mail      IN      A             192.168.254.4
+www       IN      A             192.168.254.7
+M1        IN	  AAAA          2001:db8::1
+  \end{lstlisting}
+\end{frame}
+
+\subsection{Tailoring the \texttt{Zone}}
+\begin{frame}{\texttt{Directive} effects}
+  \begin{itemize}
+    \item \texttt{\$TTL} (\texttt{T}ime \texttt{T}o \texttt{L}ive)
+       \begin{itemize}
+          \item Every \texttt{RR} has an optional \texttt{TTL} value which is defined, by default in seconds.
+          \item The \texttt{\$TTL} directive is standardized in \texttt{RFC 2308} and defines the default \texttt{TTL} value applied to any \texttt{RR} that does not have an explicit \texttt{TTL} defined. 
+          \item \texttt{TTL}, in the context of \texttt{DNS}, defines the time in seconds that a record may be cached by another \texttt{name server} or a \texttt{resolver}.
+       \end{itemize}
+    \item Syntax
+       \begin{itemize}
+          \item \texttt{\$TTL time-in-seconds}
+          \item e.g. \texttt{\$TTL} 172800
+          \item e.g. \texttt{\$TTL} 2d
+       \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{\texttt{Directive} effects}
+  \begin{tcolorbox}[title={\textbf{NOTE:}}]
+    Although not defined in the \texttt{RFC} standard it is common practice to use alternative notations to just using seconds.
+    \begin{itemize}
+      \item \texttt{m}=month
+      \item \texttt{w}=week
+      \item \texttt{d}=days
+      \item \texttt{s}=seconds
+    \end{itemize}
+    e.g. \texttt{\$TTL} 2d
+  \end{tcolorbox}
+\end{frame}
+
+\begin{frame}{\texttt{Directive} effects}
+  \begin{itemize}
+    \item \texttt{\$TTL}
+      \begin{itemize}
+        \item \texttt{0} indicates never cache the record.
+          \begin{itemize}
+            \item Useful?
+          \end{itemize}
+        \item \texttt{2147483647} - max, which is over 68 years
+          \begin{itemize}
+            \item Dangerous?
+          \end{itemize}
+      \end{itemize}
+  \end{itemize}
+  \begin{tcolorbox}[title={\textbf{NOTE:}}]
+    The current best practice recommendations (\texttt{RFC 1912}) state that \texttt{RR}s that rarely change should be considered for multi-week values.
+  \end{tcolorbox}
+\end{frame}
+
+\begin{frame}{\texttt{Directive} effects}
+  \begin{itemize}
+    \item \texttt{\$ORIGIN}
+      \begin{itemize}
+        \item Standardised in \texttt{RFC 1035}, it defines the \texttt{domain name} that will be appended to any incomplete \texttt{names/labels} in the \texttt{zone} file (sometimes called an unqualified name).
+        \item This process reduces the amount of work required to define machine names and addresses in \texttt{RR}.
+        \item This process of appending to names that do not end with a dot can be a major source of \texttt{zone} file configuration errors.
+      \end{itemize}
+  \end{itemize}
+  \begin{tcolorbox}[title={\textbf{NOTE:}}]
+    Currently \texttt{BIND9} uses the \texttt{zone} declaration for ths purpose. However that may changes so it should be used to comply with current practice. Also other \texttt{DNS} software may not use that approach.
+  \end{tcolorbox}
+\end{frame}
+
+\begin{frame}{\texttt{\$Directive} effects}
+  \begin{itemize}
+    \item \texttt{\$ORIGIN} Substitution rule:
+      \begin{itemize}
+        \item If a name appears in a \texttt{RR} and does not end with a dot then the value of the last or only \texttt{\$ORIGIN} directive will be appended to the name.
+        \item If the name ends with a dot, then it is an \texttt{FQDN} and nothing will be appended.
+      \end{itemize}
+  \end{itemize}
+  \begin{tcolorbox}[title={\textbf{NOTE:}}]
+    \texttt{\$ORIGIN} can appear in a \texttt{zone} file more than once and is used to great effect when implementing \texttt{sub-domains} (More on that later!).
+  \end{tcolorbox}
+\end{frame}
+
+\section{Implementation}
+\subsection{Directives}
+\begin{frame}{\texttt{\$ORIGIN}}
+  \begin{itemize}
+    \item Syntax:
+      \begin{itemize}
+        \item \texttt{\$ORIGIN domain-name}
+      \end{itemize}
+  \end{itemize}
+  \begin{tcolorbox}
+    \begin{center}
+      \texttt{\$ORIGIN example.com.}      
+    \end{center}
+  \end{tcolorbox}
+\end{frame}
+
+\begin{frame}[fragile]{\texttt{SOA}}
+  \begin{itemize}
+    \item Syntax:
+      \begin{itemize}
+        \item \texttt{name ttl class rr name-server e-mail sn refresh retry expiry min}
+      \end{itemize}
+  \end{itemize}
+  \begin{tcolorbox}
+    \lstset{
+      basicstyle=\scriptsize\ttfamily,
+    }
+    \begin{lstlisting}
+  $ORIGIN example.com.
+  @   IN  SOA  example.com.  hostmaster.example.com. (
+            2020010101 ; se = serial number
+            3h ; ref = refresh
+            15m ; ret = update retry
+            3w ; ex = expiry
+            2h20m ; min = minimum
+          )
+    \end{lstlisting}
+    \end{tcolorbox}
+\end{frame}
+
+\section*{Conclusion}
+\begin{frame}{Conclusion}
+  \begin{itemize}
+    \item What is the function of a \texttt{DNS} server
+    \item What is a \texttt{DNS} architecture?
+    \item How does \texttt{Ubuntu Server} support \texttt{DNS}?
+    \item How is a simple caching \texttt{DNS} server configured?
+  \end{itemize}
+\end{frame}
+
+\end{document}
+
+
