@@ -1,21 +1,12 @@
-\frametitle{\texttt {SOA}}
-\begin{itemize}
-    \item Syntax:
-      \begin{itemize}
-        \item \texttt{name ttl class rr name-server e-mail sn refresh retry expiry min}
-      \end{itemize}
-  \end{itemize}
-  \begin{tcolorbox}
+\frametitle{Error Checking}
+\begin{tcolorbox}
     \lstset{
-      basicstyle=\scriptsize\ttfamily,
+      basicstyle=\tiny\ttfamily,
     }
     \begin{lstlisting}
-@   IN  SOA  example.com.  hostmaster.example.com. (
-        2020010101 ; se = serial number
-        3h ; ref = refresh
-        15m ; ret = update retry
-        3w ; ex = expiry
-        2h20m ; min = minimum
-)
+student@A1:~$ named-checkzone student.co.uk db.student.co.uk
+zone student.co.uk/IN: loaded serial 2020010101
+OK
+student@A1:~$
     \end{lstlisting}
-    \end{tcolorbox}
+  \end{tcolorbox}

@@ -686,7 +686,7 @@ M1        IN	  AAAA          2001:db8::1
 \end{frame}
 
 \section{Implementation}
-\subsection{Directives}
+\subsection{Directives effects}
 \begin{frame}{\texttt{\$ORIGIN}}
   \begin{itemize}
     \item Syntax:
@@ -701,6 +701,7 @@ M1        IN	  AAAA          2001:db8::1
   \end{tcolorbox}
 \end{frame}
 
+\subsection{\texttt{RR}}
 \begin{frame}[fragile]{\texttt{SOA}}
   \begin{itemize}
     \item Syntax:
@@ -771,29 +772,23 @@ M1        IN	  AAAA          2001:db8::1
   \end{table}
 \end{frame}
 
-\begin{frame}{Name Servers}
+\begin{frame}{\texttt{NS}}
   \begin{itemize}
-    \item \texttt{NS}
-      \begin{itemize}
-        \item The \texttt{NS RR} is standardized in \texttt{RFC 1035} and defines the authoritative \texttt{name servers} (there should be at least two) for the \texttt{domain}.
-        \item A \texttt{NS} record tells \texttt{name servers} which machines are in charge of a given \texttt{domain}. This has one data-dependent field: The name of the \texttt{DNS} node which a given \texttt{NS} record points to. 
-      \end{itemize}
+      \item The \texttt{NS RR} is standardized in \texttt{RFC 1035} and defines the authoritative \texttt{name servers} (there should be at least two) for the \texttt{domain}.
+      \item A \texttt{NS} record tells \texttt{name servers} which machines are in charge of a given \texttt{domain}. This has one data-dependent field: The name of the \texttt{DNS} node which a given \texttt{NS} record points to. 
   \end{itemize}
 \end{frame}
 
-\begin{frame}{Name Servers}
+\begin{frame}{\texttt{NS}}
   \begin{itemize}
-    \item \texttt{NS}
+    \item Syntax
       \begin{itemize}
-        \item Syntax
-          \begin{itemize}
-            \item \texttt{name ttl class rr name}
-          \end{itemize}
-        \item e.g.
-        \begin{itemize}
-          \item \texttt{ IN NS ns1.example.com.}
-        \end{itemize}
-    \end{itemize}
+        \item \texttt{name ttl class rr name}
+      \end{itemize}
+    \item e.g.
+      \begin{itemize}
+        \item \texttt{ IN NS ns1.example.com.}
+      \end{itemize}
   \end{itemize}
 \end{frame}
 
@@ -820,14 +815,215 @@ M1        IN	  AAAA          2001:db8::1
   \end{table}
 \end{frame}
 
+\begin{frame}{\texttt{MX}}
+  \begin{itemize}
+      \item The \texttt{MX RR} is standardized in \texttt{RFC 1035} and defines the mail server(s) (mail exchangers) for the \texttt{domain}.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{\texttt{MX}}
+  \begin{itemize}
+    \item Syntax
+      \begin{itemize}
+        \item \texttt{name ttl class rr preference name}
+      \end{itemize}
+    \item e.g.
+      \begin{itemize}
+        \item \texttt{ 3w IN MX mail.example.com.}
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{\texttt{MS}}
+  \begin{table}
+    \rowcolors{1}{}{lightgray} %-- this indicates the change in odd and pair rows
+    \tiny
+    \begin{tabular}{|p{1.6cm}|p{1.6cm}|p{4.7cm}|} 
+      \hline
+      \rowcolor{gray}
+      \multicolumn{1}{|c|}{Syntax} & \multicolumn{1}{c|}{Example} & \multicolumn{1}{c|}{Description}\\ 
+      \hline
+      \texttt{name}&&This field is blank and implicitly substitutes the value of the right hand name field from the previous \texttt{RR} (in the example file, this is \texttt{example.com.}).\\
+      \hline
+      \texttt{ttl}&3w&This illustrates the use of an explicit \texttt{ttl} value in a \texttt{RR} that overrides the \texttt{zone} default (defined in the \texttt{\$TTL} directive). The value shown (three weeks) is significantly higher than the example \texttt{zone} default, which is two days. This is because the \texttt{domain MX RR} is unlikely to change (its corresponding \texttt{A RR} may change more frequently).\\
+      \hline
+      \texttt{class}&\texttt{IN}&Internet Class.\\
+      \hline
+      \texttt{name}&\texttt{ns1.example.com.}&Defines a \texttt{name server} that is authoritative for the \texttt{domain}. In this example, an \texttt{FQDN} format has been used, but it could have been written as just \texttt{ns1} (without the dot) and \texttt{\$ORIGIN} substitution would take place. This \texttt{NS} record points to a \texttt{name server} within the \texttt{domain} and therefore there \texttt{MUST} be a corresponding \texttt{A RR} for \texttt{IPv4} (or \texttt{AAAA RR} if \texttt{IPv6}) defined.\\
+      \hline
+    \end{tabular}
+  \end{table}
+  Continued...
+\end{frame}
+
+\begin{frame}{\texttt{MS}}
+  \begin{table}
+    \rowcolors{1}{}{lightgray} %-- this indicates the change in odd and pair rows
+    \tiny
+    \begin{tabular}{|p{1.6cm}|p{1.7cm}|p{4.7cm}|} 
+      \hline
+      \rowcolor{gray}
+      \multicolumn{1}{|c|}{Syntax} & \multicolumn{1}{c|}{Example} & \multicolumn{1}{c|}{Description}\\ 
+      \hline
+      \texttt{name}&\texttt{mail.example.com.}&Defines a mail server with the defined \texttt{preference} value for the \texttt{domain}. In this example, an \texttt{FQDN} format has been used, but you could write this as just \texttt{mail} if it is in the same \texttt{zone}.\\
+      \hline
+    \end{tabular}
+  \end{table}
+\end{frame}
+
+\begin{frame}{\texttt{A}}
+  \begin{itemize}
+      \item The \texttt{A RR} is standardized in \texttt{RFC 1035} and defines the \texttt{IPv4} address of a particular host in the \texttt{zone}.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{\texttt{A}}
+  \begin{itemize}
+    \item Syntax
+      \begin{itemize}
+        \item \texttt{name ttl class rr ipv4}
+      \end{itemize}
+    \item e.g.
+      \begin{itemize}
+        \item \texttt{www ~IN A 192.168.254.7}
+        \item \texttt{mail IN A 192.168.254.4}
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{\texttt{A}}
+  \begin{table}
+    \rowcolors{1}{}{lightgray} %-- this indicates the change in odd and pair rows
+    \tiny
+    \begin{tabular}{|p{1.6cm}|p{1.6cm}|p{4.7cm}|} 
+      \hline
+      \rowcolor{gray}
+      \multicolumn{1}{|c|}{Syntax} & \multicolumn{1}{c|}{Example} & \multicolumn{1}{c|}{Description}\\ 
+      \hline
+      \texttt{name}&www&The name is unqualified, causing \texttt{\$ORIGIN} substitution. You could write this as \texttt{www.example.com.}\\
+      \hline
+      \texttt{ttl}&&There is no \texttt{ttl} value defined for the \texttt{RR}, so the \texttt{zone} default from the \texttt{\$TTL} directive will be used. (0 would prevent caching!)\\
+      \hline
+      \texttt{class}&\texttt{IN}&Internet Class.\\
+      \hline
+      \texttt{ipv4}&\texttt{192.168.254.7}&Defines that the host \texttt{www} has the physical \texttt{IPv4} address \texttt{192.168.254.7}. Records defined by \texttt{NS} or \texttt{MX RR}s that have \texttt{name}s contained within the \texttt{domain} \textbf{MUST} have corresponding \texttt{A RR}.\\
+      \hline
+    \end{tabular}
+  \end{table}
+\end{frame}
+
+\begin{frame}{\texttt{CNAME}}
+  \begin{itemize}
+      \item The \texttt{CNAME RR} is standardized in \texttt{RFC 1035} and defines an alias for an existing host defined by an \texttt{A} or \texttt{AAAA RR}.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{\texttt{CNAME}}
+  \begin{itemize}
+    \item Syntax
+      \begin{itemize}
+        \item \texttt{name ttl class rr canonical-name}
+      \end{itemize}
+    \item e.g.
+      \begin{itemize}
+        \item \texttt{www ~IN CNAME server.example.com.}
+        \item \texttt{mail IN CNAME server.example.com.}
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{\texttt{CNAME}}
+  \begin{table}
+    \rowcolors{1}{}{lightgray} %-- this indicates the change in odd and pair rows
+    \tiny
+    \begin{tabular}{|p{1.6cm}|p{1.9cm}|p{4.7cm}|} 
+      \hline
+      \rowcolor{gray}
+      \multicolumn{1}{|c|}{Syntax} & \multicolumn{1}{c|}{Example} & \multicolumn{1}{c|}{Description}\\ 
+      \hline
+      \texttt{name}&www&The name is unqualified, causing \texttt{\$ORIGIN} substitution. You could write this as \texttt{www.example.com.}\\
+      \hline
+      \texttt{ttl}&&There is no \texttt{ttl} value defined for the \texttt{RR}, so the \texttt{zone} default from the \texttt{\$TTL} directive will be used. (0 would prevent caching!)\\
+      \hline
+      \texttt{class}&\texttt{IN}&Internet Class.\\
+      \hline
+      \texttt{cannonical-name}&\texttt{server.example.com.}&Defines that the \texttt{name www.example.com} is aliased to the host \texttt{server.example.com.}\\
+      \hline
+    \end{tabular}
+  \end{table}
+\end{frame}
+
+\begin{frame}[fragile]{\texttt{CNAME} Issues}
+  \begin{itemize}
+    \item \texttt{CNAME RR}s are often used when assigning service names to existing hosts.
+    \item If a host is actually called \texttt{server} but runs specific services e.g. \texttt{ftp} or \texttt{www}, then \texttt{CNAME RR}s are frequently used to define these services.
+  \end{itemize}
+  \begin{tcolorbox}
+    \lstset{
+      basicstyle=\scriptsize\ttfamily,
+    }
+    \begin{lstlisting}
+      ftp     IN CNAME server
+      www     IN CNAME server
+      server  IN A     192.168.254.21
+    \end{lstlisting}
+  \end{tcolorbox}
+\end{frame}
+
+\begin{frame}[fragile]{\texttt{CNAME} Issues}
+  \begin{itemize}
+    \item \texttt{CNAME} records should not be used with either \texttt{NS} or \texttt{MX} records.
+    \item It is permissable but considered very bad pratice to chain \texttt{CNAME} records.
+  \end{itemize}
+  \begin{tcolorbox}
+    \lstset{
+      basicstyle=\scriptsize\ttfamily,
+    }
+    \begin{lstlisting}
+      ftp     IN CNAME www
+      www     IN CNAME server
+      server  IN A     192.168.254.21
+    \end{lstlisting}
+  \end{tcolorbox}
+\end{frame}
+
+\subsection{Error Checking}
+\begin{frame}{\texttt{CNAME} Issues}
+  \begin{itemize}
+    \item The syntax for a \texttt{zone} file can become quite complex and on occasions errors are made.
+    \item There is a utility which will validate a \texttt{zone} file.
+      \begin{itemize}
+        \item \texttt{named-checkzone}.
+      \end{itemize}
+    \item Syntax:
+      \begin{itemize}
+        \item \texttt{named-checkzone <domain> <zone file>}.
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Error Checking}
+  \begin{tcolorbox}
+    \lstset{
+      basicstyle=\tiny\ttfamily,
+    }
+    \begin{lstlisting}
+student@A1:~$ named-checkzone student.co.uk db.student.co.uk
+zone student.co.uk/IN: loaded serial 2020010101
+OK
+student@A1:~$
+    \end{lstlisting}
+  \end{tcolorbox}
+\end{frame}
 
 \section*{Conclusion}
 \begin{frame}{Conclusion}
   \begin{itemize}
-    \item What is the function of a \texttt{DNS} server
-    \item What is a \texttt{DNS} architecture?
-    \item How does \texttt{Ubuntu Server} support \texttt{DNS}?
-    \item How is a simple caching \texttt{DNS} server configured?
+    \item What is a \texttt{Primary DNS}?
+    \item What is a \texttt{Primary DNS}’s main function?
+    \item What is an \texttt{Authoritative DNS} Lookup?
+    \item How can you protect a \texttt{zone} from becoming a part of a \texttt{DDOS} attack?
+    \item How can you check \texttt{zone} files for errors?
   \end{itemize}
 \end{frame}
 
