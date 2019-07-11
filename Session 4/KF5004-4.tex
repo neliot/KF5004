@@ -10,7 +10,7 @@
 % modify this file as you see fit and even to delete this copyright
 % notice. 
 
-\documentclass{beamer}
+\documentclass[xcolor=table]{beamer}
 \usepackage{menukeys}[os=win]
 \usepackage{textcomp}
 \usepackage{tcolorbox}
@@ -713,17 +713,113 @@ M1        IN	  AAAA          2001:db8::1
       basicstyle=\scriptsize\ttfamily,
     }
     \begin{lstlisting}
-  $ORIGIN example.com.
-  @   IN  SOA  example.com.  hostmaster.example.com. (
-            2020010101 ; se = serial number
-            3h ; ref = refresh
-            15m ; ret = update retry
-            3w ; ex = expiry
-            2h20m ; min = minimum
-          )
+@   IN  SOA  example.com.  hostmaster.example.com. (
+        2020010101 ; se = serial number
+        3h ; ref = refresh
+        15m ; ret = update retry
+        3w ; ex = expiry
+        2h20m ; min = minimum
+)
     \end{lstlisting}
     \end{tcolorbox}
 \end{frame}
+
+\begin{frame}{\texttt{SOA}}
+  \begin{table}
+    \rowcolors{1}{}{lightgray} %-- this indicates the change in odd and pair rows
+    \tiny
+    \begin{tabular}{|p{1.6cm}|p{1.6cm}|p{4.7cm}|} 
+      \hline
+      \rowcolor{gray}
+      \multicolumn{1}{|c|}{Syntax} & \multicolumn{1}{c|}{Example} & \multicolumn{1}{c|}{Description}\\ 
+      \hline
+      \texttt{name}&@&The \texttt{@} symbol substitutes the current value of \texttt{\$ORIGIN} (in the example file this is example.com.).\\
+      \hline
+      \texttt{ttl}&&There is no \texttt{ttl} value defined for the \texttt{RR} (in this case), so the zone default of \texttt{2d} (172800 seconds) from the \texttt{\$TTL} directive will be used.\\
+      \hline
+      \texttt{class}&\texttt{IN}&\texttt{IN} defines the class to be Internet (defaulted if omitted). Other values exist but are rarely used.\\
+      \hline
+      \texttt{name-server}&\texttt{ns1.example.com.}&Defines the \texttt{Primary Master} name server for the zone and has a special meaning only when used with \texttt{Dynamic DNS} configurations\\
+      \hline
+      \texttt{e-mail}&\texttt{ad@example.com.}&Defines an administrative \texttt{e-mail} address for the zone. It is recommended in \texttt{RFC 2142} that the \texttt{e-mail} address hostmaster be used uniquely for this purpose\\
+      \hline
+      \texttt{sn}&\texttt{2020010101}&Defines the serial number currently associated with the zone. The serial number must be updated every time any change is made to the domain. (usually using a date format?)\\
+      \hline
+    \end{tabular}
+  \end{table}
+  continued...
+\end{frame}
+
+\begin{frame}{\texttt{SOA}}
+  \begin{table}
+    \rowcolors{1}{}{lightgray} %-- this indicates the change in odd and pair rows
+    \tiny
+    \begin{tabular}{|p{1.6cm}|p{1.6cm}|p{4.7cm}|} 
+      \hline
+      \rowcolor{gray}
+      \multicolumn{1}{|c|}{Syntax} & \multicolumn{1}{c|}{Example} & \multicolumn{1}{c|}{Description}\\ 
+      \hline
+      \texttt{refresh}&\texttt{12h}&When the refresh value is reached, the slave name server for this zone will try to read the \texttt{SOA RR} from the zone master.\\
+      \hline
+      \texttt{retry}&\texttt{15m}&Defines the retry interval in seconds if the \texttt{slave} fails to make contact with the zone master during a refresh cycle\\
+      \hline
+      \texttt{expire}&\texttt{3w}&Defines the time in seconds after which the \texttt{zone} records are assumed to be no longer authoritative. \texttt{BIND} interprets this to mean that the records can no longer be considered valid and consequentially stops responding to queries for the zone.\\
+      \hline
+      \texttt{nx}&\texttt{3h}&\texttt{nx} was redefined in \texttt{RFC 2308} to be the period of time that negative responses can be cached by a \texttt{resolver}.\\
+      \hline
+    \end{tabular}
+  \end{table}
+\end{frame}
+
+\begin{frame}{Name Servers}
+  \begin{itemize}
+    \item \texttt{NS}
+      \begin{itemize}
+        \item The \texttt{NS RR} is standardized in \texttt{RFC 1035} and defines the authoritative \texttt{name servers} (there should be at least two) for the \texttt{domain}.
+        \item A \texttt{NS} record tells \texttt{name servers} which machines are in charge of a given \texttt{domain}. This has one data-dependent field: The name of the \texttt{DNS} node which a given \texttt{NS} record points to. 
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Name Servers}
+  \begin{itemize}
+    \item \texttt{NS}
+      \begin{itemize}
+        \item Syntax
+          \begin{itemize}
+            \item \texttt{name ttl class rr name}
+          \end{itemize}
+        \item e.g.
+        \begin{itemize}
+          \item \texttt{ IN NS ns1.example.com.}
+        \end{itemize}
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{\texttt{NS}}
+  \begin{table}
+    \rowcolors{1}{}{lightgray} %-- this indicates the change in odd and pair rows
+    \tiny
+    \begin{tabular}{|p{1.6cm}|p{1.6cm}|p{4.7cm}|} 
+      \hline
+      \rowcolor{gray}
+      \multicolumn{1}{|c|}{Syntax} & \multicolumn{1}{c|}{Example} & \multicolumn{1}{c|}{Description}\\ 
+      \hline
+      \texttt{name}&&This field is blank (may be either a space or a tab character) it is implicitly substituted with the current value of the name. You could also write this record as \texttt{example.com.} \texttt{IN NS ns1.example.com.}\\
+      \hline
+      \texttt{ttl}&&There is no \texttt{ttl} value defined for the \texttt{RR}, so the \texttt{zone} default from the \texttt{\$TTL} directive will be used.\\
+      \hline
+      \texttt{class}&\texttt{IN}&Internet Class.\\
+      \hline
+      \texttt{name}&\texttt{ns1.example.com.}&Defines a \texttt{name server} that is authoritative for the \texttt{domain}. In this example, an \texttt{FQDN} format has been used, but it could have been
+      written as just \texttt{ns1} (without the dot) and \texttt{\$ORIGIN} substitution would take place. This \texttt{NS} record points to a \texttt{name server} within the \texttt{domain} and therefore there \texttt{MUST} be a corresponding \texttt{A RR} for \texttt{IPv4} (or \texttt{AAAA RR}
+      if \texttt{IPv6}) defined.\\
+      \hline
+    \end{tabular}
+  \end{table}
+\end{frame}
+
 
 \section*{Conclusion}
 \begin{frame}{Conclusion}

@@ -10,13 +10,12 @@
       basicstyle=\scriptsize\ttfamily,
     }
     \begin{lstlisting}
-  $ORIGIN example.com.
-  @   IN  SOA  example.com.  hostmaster.example.com. (
-            2020010101 ; se = serial number
-            3h ; ref = refresh
-            15m ; ret = update retry
-            3w ; ex = expiry
-            2h20m ; min = minimum
-          )
+@   IN  SOA  example.com.  hostmaster.example.com. (
+        2020010101 ; se = serial number
+        3h ; ref = refresh
+        15m ; ret = update retry
+        3w ; ex = expiry
+        2h20m ; min = minimum
+)
     \end{lstlisting}
     \end{tcolorbox}
