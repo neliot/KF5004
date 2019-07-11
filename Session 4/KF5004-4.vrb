@@ -1,4 +1,4 @@
-\frametitle{Error Checking}
+\frametitle{\texttt {named-checkzone}}
 \begin{tcolorbox}
     \lstset{
       basicstyle=\tiny\ttfamily,
