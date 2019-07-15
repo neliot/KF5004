@@ -1,0 +1,24 @@
+\frametitle{And Finally....}
+\begin{itemize}
+    \item Using \texttt{rDNS}, the \texttt{MX IP} address of the `alleged' server \texttt{gmail.com} can be validated.
+  \end{itemize}
+  \begin{tcolorbox}
+    \lstset{
+      basicstyle=\tiny\ttfamily,
+    }
+    \begin{lstlisting}
+From: Media Temple user (user@gmail.com)
+Subject: article: How to Trace a Email
+Date: January 25, 2019 3:30:58 PM PDT
+To: user@example.com
+Return-Path: <user@gmail.com>
+Envelope-To: user@example.com
+Delivery-Date: Tue, 25 Jan 2011 15:31:01 -0700
+Received: from po-out-1718.google.com ([72.14.252.155]:54907)
+by cl35.gs01.gridserver.com with esmtp (Exim 4.63) (envelope-from
+<user@gmail.com>) id 1KDoNH-0000f0-RL for user@example.com; Tue,
+25 Jan 2019 15:31:01 -0700
+Received: by po-out-1718.google.com with SMTP id y22so795146pof.4
+ for <user@example.com>; Tue, 25 Jan 2019 15:30:58 -0700 (PDT)
+    \end{lstlisting}
+  \end{tcolorbox}
