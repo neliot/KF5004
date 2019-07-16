@@ -1,0 +1,18 @@
+\frametitle{Logging \texttt {DNS} activity}
+\begin{itemize}
+    \item Logging is enabled in \texttt{/etc/bind/named.conf.local}
+  \end{itemize}
+  \begin{tcolorbox}
+    \lstset{
+      basicstyle=\tiny\ttfamily,
+    }
+    \begin{lstlisting}
+      logging {
+	      channel query.log {
+	          file "/var/log/query.log";
+	          severity debug 3;
+	      };
+	      category queries { query.log; };
+      };
+    \end{lstlisting}
+  \end{tcolorbox}
