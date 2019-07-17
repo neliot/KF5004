@@ -1,0 +1,13 @@
+\frametitle{Secondary \texttt {DNS} \texttt {named.conf.local} (Multi-file)}
+\begin{tcolorbox}
+    \lstset{
+      basicstyle=\tiny\ttfamily,
+    }
+    \begin{lstlisting}
+      zone "example.com" IN {
+	        type slave;
+	        file "db.example.com";
+	        masters{192.168.101.28;};
+      } ;
+    \end{lstlisting}
+  \end{tcolorbox}
