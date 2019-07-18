@@ -1,0 +1,21 @@
+\frametitle{Testing \texttt {PHP}}
+\begin{itemize}
+     \item At a command prompt you show the \texttt{PHP} version information.
+       \begin{itemize}
+         \item \texttt{\$php -v}
+       \end{itemize}
+    \item You can test the \texttt{Apache2} installation by creating a simple information page (\texttt{info.php}) in \texttt{/var/www/html} and accessing it via a browser.
+      \begin{itemize}
+        \item \texttt{https://www.student.co.uk/info.php}
+      \end{itemize}
+  \end{itemize}
+  \begin{tcolorbox}
+    \lstset{
+      basicstyle=\scriptsize\ttfamily,
+    }
+\begin{lstlisting}
+                    <?php
+                        phpinfo();
+                    ?>
+\end{lstlisting}
+  \end{tcolorbox}
