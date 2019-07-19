@@ -1,0 +1,100 @@
+\documentclass[11pt]{article}
+%\usepackage[framemethod=tikz]{mdframed}
+\usepackage{tcolorbox}
+%\usepackage{figure}
+\usepackage[os=win]{menukeys}
+\newcommand{\numpy}{{\tt numpy}}    % tt font for numpy
+
+\topmargin -.5in
+\textheight 9in
+\oddsidemargin -.25in
+\evensidemargin -.25in
+\textwidth 7in
+
+\begin{document}
+
+% ========== Edit your name here
+\author{Dr. Neil Eliot / Dr. Alun Moon}
+\title{KF5004\\------\\Workshop 9\\------\\Setting up \texttt{NFS}\\------}
+\date{September 2019}
+\maketitle
+
+\newpage
+
+% \begin{center}
+%     \noindent\rule{8cm}{0.4pt}
+% \end{center}
+
+% ========== Introduction
+
+\noindent\textbf{Learning Outcomes:}
+\begin{itemize}
+    \item Configure \texttt{Apache}:
+        \begin{itemize}
+            \item Per User.
+            \item Load-balanced.
+        \end{itemize}
+    \item Configure \texttt{DNS} Round Robin.
+\end{itemize}
+
+% \begin{center}
+% \noindent\rule{8cm}{0.4pt}
+% \end{center}
+
+\begin{tcolorbox}[title={\textbf{Important:}}]
+    Before you begin, ensure the lab. \texttt{PC} you are using is connected to the off campus lab infrastructure and the machine receives an \texttt{IP} address from the lab. \texttt{DHCP} Server.
+\end{tcolorbox}
+\newpage
+
+\noindent\textbf{The Exercise}\\
+\begin{tcolorbox}[colback=blue!20]
+    \noindent\textbf{From the commands and process defined in the notes from the lecture carry out the following:}
+\end{tcolorbox}
+
+% ========== Begin answering questions here
+
+\begin{tcolorbox}[title={\textbf{NOTE:}}]
+    In this workshop you will need your \texttt{DNS} architecture from last practical.
+\end{tcolorbox}
+
+\begin{enumerate}
+    \item Create a new \texttt{Virtual Server} 
+        \begin{tcolorbox}[title={\textbf{NOTE:}}]
+            \noindent Don't forget servers \textbf{SHOULD} be statically addressed.
+        \end{tcolorbox}
+    \item Install a full \texttt{LAMP} installation on the new server.
+    \item Set up mappings for your new server (Forward and Reverse).
+        \begin{tcolorbox}[title={\textbf{NOTE:}}]
+            \noindent The network address you are using is \texttt{192.168.0.0/16}
+        \end{tcolorbox}
+        \begin{itemize}
+            \item \texttt{<your server IP>} $\Leftrightarrow$ \texttt{www1.student.co.uk}
+            \item \texttt{<your server IP>} $\Leftrightarrow$ \texttt{www.student.co.uk}
+        \end{itemize}
+    \item Access the default web page.
+    \item Create a static "HELLO" page that includes the \texttt{IP} Address of the server and a \texttt{PHP} test page (\texttt{info.php}).
+        \begin{itemize}
+            \item Access the two pages on your new server using the 2 \texttt{URL}s
+        \end{itemize}
+    \item Configure your server to support Per-User websites and create a simple "HELLO" page (\texttt{index.html}) in the student account.
+        \begin{itemize}
+            \item The page must be located in the \texttt{public\_html} directory.
+        \end{itemize}
+    \item Create another user account (\texttt{ceo}) and enable \texttt{PHP} scripting for only that account.
+        \begin{itemize}
+            \item Copy the PHP test page into both the Per-User account directories and access them from a browser.
+                \begin{tcolorbox}[title={\textbf{NOTE:}}]
+                    \noindent The \texttt{ceo} account should return the \texttt{info} page and the student account should list the \texttt{PHP} code.
+                \end{tcolorbox}
+            \end{itemize}
+    \item Create a further 2, statically addressed, \texttt{LAMP} Servers.
+        \begin{itemize}
+            \item Create a "HELLO" page on both the servers that includes their \texttt{IP} Address.
+        \end{itemize}
+    \item Update the \texttt{www.student.co.uk} \texttt{URL} to map the 3 \texttt{IP} Addresses of the \texttt{LAMP} servers using \texttt{Round-Robin} (cyclic).
+        \begin{itemize}
+            \item Access the "HELLO" page from 3 different clients.
+        \end{itemize}
+\end{enumerate}    
+END
+\end{document}

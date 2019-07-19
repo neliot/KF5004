@@ -1,0 +1,24 @@
+\frametitle{Display currently mounted file systems}
+\begin{itemize}
+    \item The \texttt{mount} command with no parameters will display the mount points of all current file systems.
+  \end{itemize}
+  \begin{tcolorbox}
+    \lstset{
+      basicstyle=\tiny\ttfamily,
+    }
+    \begin{lstlisting}
+/dev/sda1 on / type ext4 (rw,errors=remount-ro)
+proc on /proc type proc (rw,noexec,nosuid,nodev)
+sysfs on /sys type sysfs (rw,noexec,nosuid,nodev)
+fusectl on /sys/fs/fuse/connections type fusectl (rw)
+none on /sys/kernel/debug type debugfs (rw)
+none on /sys/kernel/security type securityfs (rw)
+udev on /dev type devtmpfs (rw,mode=0755)
+devpts on /dev/pts type devpts (rw,noexec,nosuid,gid=5,mode=0620)
+tmpfs on /run type tmpfs (rw,noexec,nosuid,size=10%,mode=0755)
+none on /run/lock type tmpfs (rw,noexec,nosuid,nodev,size=5242880)
+none on /run/shm type tmpfs (rw,nosuid,nodev)
+192.168.101.6:/home/student/test on /home/student/storage type nfs4 ...
+(rw,addr=192.168.101.6,clientaddr=192.168.101.2)
+    \end{lstlisting}
+  \end{tcolorbox}
