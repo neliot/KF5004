@@ -15,7 +15,7 @@
 
 % ========== Edit your name here
 \author{Dr. Neil Eliot / Dr. Alun Moon}
-\title{KF5004\\------\\Workshop 7\\------\\Setting up \texttt{subdomains}\\------}
+\title{KF5004\\------\\Workshop 8\\------\\Setting up \texttt{Apache} Server\\------}
 \date{September 2019}
 \maketitle
 
@@ -29,12 +29,12 @@
 
 \noindent\textbf{Learning Outcomes:}
 \begin{itemize}
-    \item Understand what a \texttt{subdomain} is.
-    \item Configure \texttt{subdomain}s:
+    \item Configure \texttt{Apache}:
         \begin{itemize}
-            \item Full delegation.
-            \item Pseudo/Virtual delegation.
+            \item Per User.
+            \item Load-balanced.
         \end{itemize}
+    \item Configure \texttt{DNS} Round Robin.
 \end{itemize}
 
 % \begin{center}
@@ -54,73 +54,47 @@
 % ========== Begin answering questions here
 
 \begin{tcolorbox}[title={\textbf{NOTE:}}]
-    In this workshop you should use your virtual \texttt{Ubuntu Desktop} that you create in the first workshop. \textbf{Please do not alter the base machines in the laboratory}.
+    In this workshop you will need your \texttt{DNS} architecture from last practical.
 \end{tcolorbox}
 
 \begin{enumerate}
-    \item Create a \texttt{DNS} architecture consisting of 3 servers as illustrated in Fig~\ref{dnsarch1} as \texttt{NS1, NS3 \& NS4}. (You will create \texttt{NS2} later in the workshop).
+    \item Create a new \texttt{Virtual Server} 
         \begin{tcolorbox}[title={\textbf{NOTE:}}]
-            \noindent Don't forget. These are servers and \textbf{SHOULD} have static addresses. Use \texttt{IP} addresses from your provided range.
+            \noindent Don't forget servers \textbf{SHOULD} be statically addressed.
         \end{tcolorbox}
-    \begin{itemize}
-            \item 1 \texttt{Primary} server (\texttt{NS1}).
-            \item 2 \texttt{Secondary} servers (\texttt{NS3 \& NS4}).
-        \end{itemize}
-        \begin{figure}[ht]
-            \begin{center}
-              \includegraphics[width=.35\linewidth]{subdomainWS1.png}  
-              \caption{Single \texttt{domain} Architecture}
-              \label{dnsarch1}
-            \end{center}
-        \end{figure}
-    \item Add a zone of \texttt{student.co.uk} and a reverse zone consisting of the following records:
+    \item Install a full \texttt{LAMP} installation on the new server.
+    \item Set up mappings for your new server (Forward and Reverse).
         \begin{tcolorbox}[title={\textbf{NOTE:}}]
-            \noindent Only implement \texttt{www} and \texttt{mail} in the \texttt{rDNS}.\\
-            \noindent All \texttt{IP} addresses are in the range \texttt{192.168.0.0/16} (subnet mask \texttt{255.255.0.0}).
+            \noindent The network address you are using is \texttt{192.168.0.0/16}
         \end{tcolorbox}
         \begin{itemize}
-            \item \texttt{192.168.100.2} $\Leftrightarrow$ \texttt{www2.student.co.uk}
-            \item \texttt{192.168.100.2} $\Leftrightarrow$ \texttt{www.student.co.uk}
-            \item \texttt{<your client IP>} $\Leftrightarrow$ \texttt{me.student.co.uk}
-            \item \texttt{192.168.100.21} $\Leftrightarrow$ \texttt{server.student.co.uk}
-            \item \texttt{192.168.100.2} $\Leftrightarrow$ \texttt{mail.student.co.uk}
-            \item \texttt{192.168.100.254} $\Leftrightarrow$ \texttt{gateway.student.co.uk}
+            \item \texttt{<your server IP>} $\Leftrightarrow$ \texttt{www1.student.co.uk}
+            \item \texttt{<your server IP>} $\Leftrightarrow$ \texttt{www.student.co.uk}
         \end{itemize}
-    \item Test your \texttt{zone} file has no errors.
-    \item \label{itm:queries} Test the following queries:
+    \item Access the default web page.
+    \item Create a static "HELLO" page that includes the \texttt{IP} Address of the server and a \texttt{PHP} test page (\texttt{info.php}).
         \begin{itemize}
-            \item \texttt{192.168.100.2}
-            \item \texttt{www.student.co.uk}
+            \item Access the two pages on your new server using the 2 \texttt{URL}s
         \end{itemize}
-    \item Create a further \texttt{DNS} server (\texttt{NS2}). (This will be the \texttt{Primary server} for the \texttt{subdomains}).
-        \begin{figure}[ht]
-            \begin{center}
-              \includegraphics[width=.5\linewidth]{subdomainWS2.png}  
-                \caption{\texttt{subdomain} Architecture}
-                \label{dnsarch2}
-            \end{center}
-        \end{figure}
-    \begin{itemize}
-            \item Statically address the new server and install \texttt{bind9} and \texttt{dnsutils}.
-            \item Add two \texttt{subdomains}.
-                \begin{itemize}
-                    \item \texttt{os.student.co.uk}
-                    \item \texttt{security.student.co.uk}
-                \end{itemize}
-            \item Add the following \texttt{hostnames} to both \texttt{subdomains} with some random \texttt{IP} addresses.
-                \begin{itemize}
-                    \item \texttt{www}
-                    \item \texttt{ftp}
-                    \item \texttt{server1}
-                    \item \texttt{server2}
-                \end{itemize}
-            \item Add \texttt{rDNS} records for the \texttt{www} and \texttt{ftp} servers.
-            \item Test that all the new entries resolve correctly.
-            \item Link the \texttt{subdomains} to the \texttt{Primary server} (HINT: as \texttt{slaves})
-            \item Prevent any machines from querying the new server. 
+    \item Configure your server to support Per-User websites and create a simple "HELLO" page (\texttt{index.html}) in the student account.
+        \begin{itemize}
+            \item The page must be located in the \texttt{public\_html} directory.
         \end{itemize}
-    \item Update the \texttt{Primary server} (\texttt{NS1}) to implement the \texttt{subdomains} defined above using a single \texttt{zone} file.
-    \item Update the \texttt{Primary server} (\texttt{NS1}) to implement the \texttt{subdomains} defined above using one additional (\texttt{include}) \texttt{zone} file.
+    \item Create another user account (\texttt{ceo}) and enable \texttt{PHP} scripting for only that account.
+        \begin{itemize}
+            \item Copy the PHP test page into both the Per-User account directories and access them from a browser.
+                \begin{tcolorbox}[title={\textbf{NOTE:}}]
+                    \noindent The \texttt{ceo} account should return the \texttt{info} page and the student account should list the \texttt{PHP} code.
+                \end{tcolorbox}
+            \end{itemize}
+    \item Create a further 2, statically addressed, \texttt{LAMP} Servers.
+        \begin{itemize}
+            \item Create a "HELLO" page on both the servers that includes their \texttt{IP} Address.
+        \end{itemize}
+    \item Update your \texttt{www.student.co.uk} \texttt{URL} to map the 3 \texttt{IP} Addresses of the \texttt{LAMP} servers using \texttt{Round-Robin} (cyclic).
+        \begin{itemize}
+            \item Access the "HELLO" page from 3 different clients.
+        \end{itemize}
 \end{enumerate}    
 END
 \end{document}
