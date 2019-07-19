@@ -29,12 +29,9 @@
 
 \noindent\textbf{Learning Outcomes:}
 \begin{itemize}
-    \item Configure \texttt{Apache}:
-        \begin{itemize}
-            \item Per User.
-            \item Load-balanced.
-        \end{itemize}
-    \item Configure \texttt{DNS} Round Robin.
+    \item Configure \texttt{NFS} server.
+    \item Configure \texttt{NFS} client.
+    \item Create shared content for websites.
 \end{itemize}
 
 % \begin{center}
@@ -54,46 +51,40 @@
 % ========== Begin answering questions here
 
 \begin{tcolorbox}[title={\textbf{NOTE:}}]
-    In this workshop you will need your \texttt{DNS} architecture from last practical.
+    In this workshop you will need your \texttt{DNS} and Web server architecture from the last practical.
 \end{tcolorbox}
 
 \begin{enumerate}
-    \item Create a new \texttt{Virtual Server} 
-        \begin{tcolorbox}[title={\textbf{NOTE:}}]
-            \noindent Don't forget servers \textbf{SHOULD} be statically addressed.
-        \end{tcolorbox}
-    \item Install a full \texttt{LAMP} installation on the new server.
-    \item Set up mappings for your new server (Forward and Reverse).
-        \begin{tcolorbox}[title={\textbf{NOTE:}}]
-            \noindent The network address you are using is \texttt{192.168.0.0/16}
-        \end{tcolorbox}
+    \item Create a new \texttt{Virtual Server}.
         \begin{itemize}
-            \item \texttt{<your server IP>} $\Leftrightarrow$ \texttt{www1.student.co.uk}
-            \item \texttt{<your server IP>} $\Leftrightarrow$ \texttt{www.student.co.uk}
+            \item Install \texttt{NFS} server.
+            \item Create a folder \texttt{/etc/content}
+            \item Export the \texttt{/etc/content} folder to allow anyone to have read write access.
         \end{itemize}
-    \item Access the default web page.
-    \item Create a static "HELLO" page that includes the \texttt{IP} Address of the server and a \texttt{PHP} test page (\texttt{info.php}).
+    \item On the all the web servers:
         \begin{itemize}
-            \item Access the two pages on your new server using the 2 \texttt{URL}s
+            \item Install \texttt{NFS} client software.
+            \item Create a mount point of \texttt{/var/www/html/content}
         \end{itemize}
-    \item Configure your server to support Per-User websites and create a simple "HELLO" page (\texttt{index.html}) in the student account.
+    \item Mount the exported folder to all the webs servers using the \texttt{mount} command.
+    \item On the \texttt{NFS} server add a text file to \texttt{/etc/content} called \texttt{`hello.txt'} and add your student id for content.
+    \item \label{repeat1} List the contents of each web servers \texttt{/var/www/html/content} folder.
+    \item \label{repeat2} From a web browser enter the \texttt{URL} - \texttt{http://www.student.co.uk/content/hello.txt}
+    \item Unmount the content folder for all of the servers and repeat steps \ref{repeat1} and \ref{repeat2}.
+    \item Add an entry to the \texttt{fstab} of each of the web servers so the \texttt{content} folder is automatically mounted.
+    \item On each web server:
         \begin{itemize}
-            \item The page must be located in the \texttt{public\_html} directory.
+            \item Mount the \texttt{content} folder using the \texttt{mount} command and check the \texttt{NFS} share has been mounted correctly.
+            \item Unmount the \texttt{content} folder and check the mounts have been removed.
+            \item Reboot the server.
+            \item Check the \texttt{content} folder has auto-mounted.
         \end{itemize}
-    \item Create another user account (\texttt{ceo}) and enable \texttt{PHP} scripting for only that account.
+    \item From a web browser navigate to the following sites:
         \begin{itemize}
-            \item Copy the PHP test page into both the Per-User account directories and access them from a browser.
-                \begin{tcolorbox}[title={\textbf{NOTE:}}]
-                    \noindent The \texttt{ceo} account should return the \texttt{info} page and the student account should list the \texttt{PHP} code.
-                \end{tcolorbox}
-            \end{itemize}
-    \item Create a further 2, statically addressed, \texttt{LAMP} Servers.
-        \begin{itemize}
-            \item Create a "HELLO" page on both the servers that includes their \texttt{IP} Address.
-        \end{itemize}
-    \item Update the \texttt{www.student.co.uk} \texttt{URL} to map the 3 \texttt{IP} Addresses of the \texttt{LAMP} servers using \texttt{Round-Robin} (cyclic).
-        \begin{itemize}
-            \item Access the "HELLO" page from 3 different clients.
+            \item \texttt{http://www.student.co.uk/content/hello.txt}
+            \item \texttt{http://www1.student.co.uk/content/hello.txt}
+            \item \texttt{http://www2.student.co.uk/content/hello.txt}
+            \item \texttt{http://www3.student.co.uk/content/hello.txt}
         \end{itemize}
 \end{enumerate}    
 END
