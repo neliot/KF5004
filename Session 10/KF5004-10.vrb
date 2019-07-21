@@ -1,0 +1,33 @@
+\frametitle{Managing \texttt {MySQL} - \texttt {PHPMyAdmin}}
+\begin{tcolorbox}
+    \lstset{
+      basicstyle=\Tiny\ttfamily,
+    }
+    \begin{lstlisting}
+student@a123456789:~$ sudo apt-get install phpmyadmin
+[sudo] password for student:
+Reading package lists... Done
+Building dependency tree
+Reading state information... Done
+The following additional packages will be installed:
+  dbconfig-common dbconfig-mysql fontconfig-config fonts-dejavu-core
+  javascript-common libfontconfig1 libgd3 libjbig0 libjpeg-turbo8 libjpeg8
+  libjs-jquery libjs-sphinxdoc libjs-underscore libtiff5 libwebp6 libxpm4
+  libzip4 php-bz2 php-curl php-gd php-mbstring php-pear php-php-gettext
+  php-phpseclib php-tcpdf php-xml php-zip php7.2-bz2 php7.2-curl php7.2-gd
+  php7.2-mbstring php7.2-xml php7.2-zip
+Suggested packages:
+  libgd-tools php-libsodium php-mcrypt php-gmp php-imagick www-browser
+The following NEW packages will be installed:
+  dbconfig-common dbconfig-mysql fontconfig-config fonts-dejavu-core
+  javascript-common libfontconfig1 libgd3 libjbig0 libjpeg-turbo8 libjpeg8
+  libjs-jquery libjs-sphinxdoc libjs-underscore libtiff5 libwebp6 libxpm4
+  libzip4 php-bz2 php-curl php-gd php-mbstring php-pear php-php-gettext
+  php-phpseclib php-tcpdf php-xml php-zip php7.2-bz2 php7.2-curl php7.2-gd
+  php7.2-mbstring php7.2-xml php7.2-zip phpmyadmin
+0 upgraded, 34 newly installed, 0 to remove and 5 not upgraded.
+Need to get 15.6 MB of archives.
+After this operation, 60.1 MB of additional disk space will be used.
+Do you want to continue? [Y/n]
+    \end{lstlisting}
+  \end{tcolorbox}

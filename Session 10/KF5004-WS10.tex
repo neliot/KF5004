@@ -1,0 +1,91 @@
+\documentclass[11pt]{article}
+%\usepackage[framemethod=tikz]{mdframed}
+\usepackage{tcolorbox}
+%\usepackage{figure}
+\usepackage[os=win]{menukeys}
+\newcommand{\numpy}{{\tt numpy}}    % tt font for numpy
+
+\topmargin -.5in
+\textheight 9in
+\oddsidemargin -.25in
+\evensidemargin -.25in
+\textwidth 7in
+
+\begin{document}
+
+% ========== Edit your name here
+\author{Dr. Neil Eliot / Dr. Alun Moon}
+\title{KF5004\\------\\Workshop 9\\------\\Setting up \texttt{NFS}\\------}
+\date{September 2019}
+\maketitle
+
+\newpage
+
+% \begin{center}
+%     \noindent\rule{8cm}{0.4pt}
+% \end{center}
+
+% ========== Introduction
+
+\noindent\textbf{Learning Outcomes:}
+\begin{itemize}
+    \item Configure \texttt{NFS} server.
+    \item Configure \texttt{NFS} client.
+    \item Create shared content for websites.
+\end{itemize}
+
+% \begin{center}
+% \noindent\rule{8cm}{0.4pt}
+% \end{center}
+
+\begin{tcolorbox}[title={\textbf{Important:}}]
+    Before you begin, ensure the lab. \texttt{PC} you are using is connected to the off campus lab infrastructure and the machine receives an \texttt{IP} address from the lab. \texttt{DHCP} Server.
+\end{tcolorbox}
+\newpage
+
+\noindent\textbf{The Exercise}\\
+\begin{tcolorbox}[colback=blue!20]
+    \noindent\textbf{From the commands and process defined in the notes from the lecture carry out the following:}
+\end{tcolorbox}
+
+% ========== Begin answering questions here
+
+\begin{tcolorbox}[title={\textbf{NOTE:}}]
+    In this workshop you will need your \texttt{DNS} and Web server architecture from the last practical.
+\end{tcolorbox}
+
+\begin{enumerate}
+    \item Create a new \texttt{Virtual Server}.
+        \begin{itemize}
+            \item Install \texttt{NFS} server.
+            \item Create a folder \texttt{/etc/content}
+            \item Export the \texttt{/etc/content} folder to allow anyone to have read write access.
+        \end{itemize}
+    \item On the all the web servers:
+        \begin{itemize}
+            \item Install \texttt{NFS} client software.
+            \item Create a mount point of \texttt{/var/www/html/content}
+        \end{itemize}
+    \item Mount the exported folder to all the webs servers using the \texttt{mount} command.
+    \item On the \texttt{NFS} server add a text file to \texttt{/etc/content} called \texttt{`hello.txt'} and add your student id for content.
+    \item \label{repeat1} List the contents of each web servers \texttt{/var/www/html/content} folder.
+    \item \label{repeat2} From a web browser enter the \texttt{URL} - \texttt{http://www.student.co.uk/content/hello.txt}
+    \item Unmount the content folder for all of the servers and repeat steps \ref{repeat1} and \ref{repeat2}.
+    \item Add an entry to the \texttt{fstab} of each of the web servers so the \texttt{content} folder is automatically mounted.
+    \item On each web server:
+        \begin{itemize}
+            \item Mount the \texttt{content} folder using the \texttt{mount} command and check the \texttt{NFS} share has been mounted correctly.
+            \item Unmount the \texttt{content} folder and check the mounts have been removed.
+            \item Reboot the server.
+            \item Check the \texttt{content} folder has auto-mounted.
+        \end{itemize}
+    \item From a web browser navigate to the following sites:
+        \begin{itemize}
+            \item \texttt{http://www.student.co.uk/content/hello.txt}
+            \item \texttt{http://www1.student.co.uk/content/hello.txt}
+            \item \texttt{http://www2.student.co.uk/content/hello.txt}
+            \item \texttt{http://www3.student.co.uk/content/hello.txt}
+        \end{itemize}
+\end{enumerate}    
+END
+\end{document}
