@@ -5,6 +5,7 @@
 \usepackage{pdflscape}
 \usepackage{rotating}
 \usepackage{listings}
+\usepackage{titling}
 
 \newcommand{\numpy}{{\tt numpy}}    % tt font for numpy
 
@@ -13,6 +14,13 @@
 \oddsidemargin -.25in
 \evensidemargin -.25in
 \textwidth 7in
+
+\pretitle{%
+  \begin{center}
+  \LARGE
+  \includegraphics[width=15cm]{../images/logo.png}\\[\bigskipamount]
+}
+\posttitle{\end{center}}
 
 \begin{document}
 

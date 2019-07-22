@@ -1,6 +1,7 @@
 \documentclass[11pt]{article}
 \usepackage{tcolorbox}
 \usepackage[os=win]{menukeys}
+\usepackage{titling}
 \newcommand{\numpy}{{\tt numpy}}    % tt font for numpy
 
 \topmargin -.5in
@@ -8,6 +9,13 @@
 \oddsidemargin -.25in
 \evensidemargin -.25in
 \textwidth 7in
+
+\pretitle{%
+  \begin{center}
+  \LARGE
+  \includegraphics[width=15cm]{../images/logo.png}\\[\bigskipamount]
+}
+\posttitle{\end{center}}
 
 \begin{document}
 
