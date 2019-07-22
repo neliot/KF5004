@@ -44,7 +44,7 @@ by their \texttt{ISP}.
 These addresses allow the company to map machines directly to the internet from their internal network such as their company internet web server 
 farm (details to follow). This external mapping is outside of the brief and is supplied for information only.\\\\
 
-The company’s gateway \texttt{IP} Address is: \texttt{192.168.100.254}
+\noindent The company’s gateway \texttt{IP} Address is: \texttt{192.168.100.254}
 
 \subsection{Domain - Purpose}
 
@@ -55,7 +55,7 @@ for the company’s internal network. The \texttt{zone} is also used for mapping
 \subsubsection{\texttt{tech}}
 This \texttt{zone} is managed by the technicians and is used by the technical staff so they can remotely access machines via a fixed asset number that 
 the machines are given (The asset number remains with a machine while it is in use by the company). This \texttt{zone} should only be accessible from 
-the technician’s machines that are in the range \texttt{192.168.170.0/24} and \texttt{192.168.180.0/24} and \texttt{192.168.190.0/24}
+the technicians machines that are in the range \texttt{192.168.170.0/24} and \texttt{192.168.180.0/24} and \texttt{192.168.190.0/24}
 
 \subsubsection{\texttt{staff.unn}}
 The \texttt{zone} is managed by the \textbf{personnel department} who have their own administrator who runs the \texttt{zone} in cooperation with the \texttt{IT} 
@@ -64,9 +64,104 @@ to the machine they are using. Once a person is allocated a \texttt{FQDN} in the
 As staff move to new equipment (\texttt{PC}’s) the \texttt{IT} department inform personnel department who will change the \texttt{DNS} entry.
 
 \section{Operational Implementation}
+
 \subsection{Transaction Logging}
-\subsection{Client \texttt{DNS}rilyn1
- configuration}
+The company carries out 6-weekly audits of DNS requests that are made against the \texttt{DNS} service. This is to allow an analysis of websites that staff are 
+visiting. This data is used to develop \texttt{firewall} policies (beyond the scope of this brief). You should therefore ensure logging can be enabled and 
+disabled on the \texttt{DNS} service by commenting a configuration. 
 
+\subsection{Client \texttt{DNS} configuration}
+All client machines should be configured to use the two \texttt{secondary DNS} servers. The primary server should be protected from client queries except for 
+the \texttt{secondary} servers. The \texttt{primary} server should be excluded from any \texttt{NS} queries of the domain.\\\\
 
+\noindent All domains should be able to disclose the \textit{available} \texttt{DNS} architecture.\\ 
+i.e. \texttt{nslookup -type=ns unn.co.uk}
+
+\section{Mode of Operation - \texttt{Zone}s}
+
+\subsection{Company \texttt{zone} - (\texttt{unn})}
+Almost all the \texttt{FQDN}’s in the unn domain need to be set up so that the details will be changed at least every 6 hours for \texttt{PC}’s and 
+\texttt{caching} servers and the \texttt{secondary} servers should be updated every 4 hours.\\ 
+If there is a failure of the \texttt{primary DNS} server, the domain should stay active for one week.\\
+
+\noindent The \texttt{unn zone} is used to map the individual’s personal web space that is stored on a single web server which is only used to support 
+the staff’s static shared website areas. This server should be accessable via \texttt{http://intranet.unn.co.uk/~<username>}. This site is only visible 
+inside the company network.\\
+
+\noindent All staff, when they join the company, are allocated a personal account on the personal web server machine. The server is a small \texttt{HP} 
+Rack Mount server running \texttt{Ubuntu LTS Server}. All staff must have access to an \texttt{FTP} facility to upload files to their storage space. 
+The personal areas are for static websites only and should not support any server-side scripting. Although it should be possible to enable scripting 
+in personal area if necessary. There is one exception to this: The chief executive (account name \texttt{ceo}) has insisted that their personal web 
+space should support scripting.\\ 
+
+\begin{tcolorbox}[colback=blue!20]
+    \textbf{NOTE:} You should implement an upload access facility (\texttt{FTP}) and install a sample static website for a few user accounts. You will need to research 
+    installing \texttt{vsftpd} server and the command \texttt{adduser} to do this.
+\end{tcolorbox}
+
+\noindent The intranet server, in addition to the personal webspace, also supports the company intranet site. The intranet site is accessed via the \texttt{URL} 
+\texttt{http://intranet.unn.co.uk} The intranet site must support dynamic scripting and requires it own locally installed database (\texttt{MySQL}) that should 
+only be accessible from the server.\\ 
+
+\begin{tcolorbox}[colback=blue!20]
+    \textbf{NOTE:} A sample page will be required to demonstrate the configuration of all the accounts on the server i.e. \texttt{intranet} (dynamic), 
+    static users and the \texttt{CEO}’s dynamic account). 
+\end{tcolorbox}
+
+\noindent The intranet \texttt{MySQL} database is to be managed via \texttt{PHPMyAdmin} (this should be demonstrated and include the creation of a 
+secure database). The database service (on the \texttt{intranet} server) should be configured to only allow access from the localhost connection (Security!).
+
+\noindent An additional database server (\texttt{MySQL}) is required with 7 Databases to be set up for different projects of which one is used for the external facing 
+internet site (1 for \texttt{internet} + 6 for other future systems). There should be separate \texttt{username/password} for each of the \texttt{MySQL} 
+databases in addition to the \texttt{administrator} account. The database service must therefore be accessible from other machines on the network to allow 
+the web server farm to connect.\\
+
+\begin{tcolorbox}[colback=blue!20]
+\textbf{NOTE:} The \texttt{internet} site may require additional servers to provide faster access to database queries (research database performance in 
+a load balanced environment), you do not need to implement this but you should understand the concept.
+\end{tcolorbox}
+
+\noindent The company also uses this \texttt{zone} to map the externally facing \texttt{internet} service (3 \texttt{IP} addresses from the 15 provided by the \texttt{ISP}), 
+to the internally hosted web server farm.  The external \texttt{IP} addresses are forwarded to the internal \texttt{IP} addresses. The internal \texttt{DNS} 
+mappings are controlled by the company and must be mapped in a \texttt{round robin} mode. Both the \textbf{internal} and \textbf{external} access should 
+be provided through the \texttt{URL http://www.unn.co.uk} (Only the internal \texttt{DNS} service needs to be configured).\\
+
+\noindent The internal mapping of the \texttt{internet} service is very stable and tends not to move so can be set to have a ‘long’ lifetime (\texttt{TTL}).\\
+
+\noindent Thee company website is a web server farm. It should consist of 3 web servers that are \texttt{load-balanced} via \texttt{DNS} \texttt{round-robin} 
+to provide \textit{some} fault tolerance. The servers should share static content (uploaded documents and static images) via an \texttt{NFS} server that is 
+secured (rDNS) and backed up to another machine in a fault tolerant manner via \texttt{block replication} (Do not build it is not required initially). The 
+web servers should host their own copy of any \texttt{PHP} based applications locally.\\ 
+
+\begin{tcolorbox}[colback=blue!20]
+    \textbf{NOTE:} You do not have to implement the \texttt{NFS data block replication} but you should configure a \texttt{FQDN} for it as an example.
+\end{tcolorbox}
+
+\noindent The \texttt{internet} web servers should be accessible on an individual basis as well as via the \texttt{load-balanced URL}. The servers should 
+be mapped via both the \texttt{tech} and for web access via the \texttt{unn zone}.\\
+
+\noindent The content server used for the \texttt{internet} site should be accessible via the \texttt{domain} names \texttt{nfs.tech.co.uk} and 
+\texttt{nfs.unn.co.uk}. The replication server should be accessible via \texttt{nfs2.tech.co.uk} and \texttt{nfs2.unn.co.uk}.\\
+
+\noindent The \texttt{NFS} server should provide a security policy to only allow the \texttt{web servers} to access the content store via an \texttt{rDNS} lookup.
+
+\noindent There is also a \texttt{mail server} entry required in the \texttt{unn domain} to map to a hosted \texttt{mail} service at \texttt{mail.microsoftonline.com}. 
+
+\subsection{Admin \texttt{zone} - (\texttt{tech})}
+
+The admin (tech) zone is used by the technical staff to manage the infrastructure of the organisation. All equipment that the company places on the network is added to this domain so that it can be uniquely access by the technical staff who manage the equipment.
+
+This domain regularly has additions made to it, but the mappings of devices to their allocated addresses are rarely changed, however, the company does not want any mappings cached on the network.
+
+The domain name allocated is the asset number given by the finance department and the zone name. Asset numbers start with an A and are followed by an 8 digit number.
+
+e.g. A12345678.tech.co.uk
+
+Machines that are to run a network service are assigned an alias to make their name easier to remember. This name used to access the service (database, mail etc.). When equipment is updated or replaced by a new asset the asset number-based domain name will change but the service access name will be the same.
+
+\subsection{Staff \texttt{sub-domain zone} - (\texttt{staff.unn})}
+
+The staff.unn zone is used to map staff in the company to desktop machines. All the machines use sharing of some sort for the staff to make available all their documents usually via universal naming convention (UNC) or uniform resource locator (URL) so each member of staff is allocated a domain name based on their name (e.g. William Smith will be given ws, so his full domain name will be ws.staff.unn.co.uk) if more than one member of staff has the same initials a number will be used to identify the individual. All staff movements, should there be any, take place monthly and the domain zone distribution needs to cater for this.\\
+
+\\\noindent \textbf{END}
 \end{document}
