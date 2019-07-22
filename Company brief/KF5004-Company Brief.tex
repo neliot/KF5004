@@ -149,19 +149,30 @@ be mapped via both the \texttt{tech} and for web access via the \texttt{unn zone
 
 \subsection{Admin \texttt{zone} - (\texttt{tech})}
 
-The admin (tech) zone is used by the technical staff to manage the infrastructure of the organisation. All equipment that the company places on the network is added to this domain so that it can be uniquely access by the technical staff who manage the equipment.
+\noindent The admin (\texttt{tech}) \texttt{zone} is used by the technical staff to manage the infrastructure of the organisation. All equipment that the company places 
+on the network is added to this \texttt{domain} so that it can be uniquely access by the technical staff who manage the equipment.\\
 
-This domain regularly has additions made to it, but the mappings of devices to their allocated addresses are rarely changed, however, the company does not want any mappings cached on the network.
+The \texttt{domain} has regularly additions made to it, but the mappings of devices to their allocated addresses are rarely changed. Howeber. the company does not want 
+want any mappings cached on the network.\\
 
-The domain name allocated is the asset number given by the finance department and the zone name. Asset numbers start with an A and are followed by an 8 digit number.
+The \texttt{domain} name allocated is the asset number given by the finance department and the \texttt{zone} name. Asset numbers start with an \texttt{A} and 
+are followed by an 8 digit number.
+\begin{itemize}
+    \item e.g. \texttt{A12345678.tech.co.uk}
+\end{itemize}
 
-e.g. A12345678.tech.co.uk
-
-Machines that are to run a network service are assigned an alias to make their name easier to remember. This name used to access the service (database, mail etc.). When equipment is updated or replaced by a new asset the asset number-based domain name will change but the service access name will be the same.
+\noindent Machines that are to run a network service are assigned an alias to make their name easier to remember. This name used to access the service 
+(\texttt{database, mail etc.}). When equipment is updated or replaced by a new asset the asset number-based \texttt{domain} name will change but the 
+service access name will be the same.
 
 \subsection{Staff \texttt{sub-domain zone} - (\texttt{staff.unn})}
 
-The staff.unn zone is used to map staff in the company to desktop machines. All the machines use sharing of some sort for the staff to make available all their documents usually via universal naming convention (UNC) or uniform resource locator (URL) so each member of staff is allocated a domain name based on their name (e.g. William Smith will be given ws, so his full domain name will be ws.staff.unn.co.uk) if more than one member of staff has the same initials a number will be used to identify the individual. All staff movements, should there be any, take place monthly and the domain zone distribution needs to cater for this.\\
+The \texttt{staff.unn zone} is used to map \texttt{staff} in the company to desktop machines. All the machines use sharing of some sort for the staff to 
+make documents available usually via universal naming convention (\texttt{UNC}) or uniform resource locator (\texttt{URL}). Therefore, each member of staff 
+is allocated a \texttt{domain name} based on their name (e.g. William Smith will be given \texttt{ws}, so their full \texttt{domain name} will be 
+\texttt{ws.staff.unn.co.uk}). If more than one member of staff has the same initials a number will be appended to the name e.g. \texttt{ws1}.\\
+
+\noindent All staff movements, should there be any, take place monthly and the \texttt{domain zone} distribution needs to cater for this.\\
 
 \noindent \textbf{END}
 \end{document}
