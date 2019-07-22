@@ -1,0 +1,71 @@
+\documentclass[11pt]{article}
+\usepackage{tcolorbox}
+\usepackage[os=win]{menukeys}
+\newcommand{\numpy}{{\tt numpy}}    % tt font for numpy
+
+\topmargin -.5in
+\textheight 9in
+\oddsidemargin -.25in
+\evensidemargin -.25in
+\textwidth 7in
+
+\begin{document}
+
+% ========== Edit your name here
+\author{Dr. Neil Eliot / Dr. Alun Moon}
+\title{KF5004\\------\\Company Brief\\------\\The Implementation of a \texttt{DNS} infrastructure (\texttt{BIND9}) and Web Server Farm facilities
+(\texttt{Apache, PHP, NFS, and MySQL})\\------}
+\date{September 2019}
+\maketitle
+
+\newpage
+\tableofcontents
+\newpage
+
+\section{Introduction}
+A company requires a large-scale implementation of a \texttt{DNS} architecture with a \textbf{load balanced} web server farm and an \texttt{intranet} to fulfil its 
+web infrastructure needs. The company also wishes to manage aspects of its computer assets and staff requirements through the \texttt{DNS} implementation. 
+Below is a description of the company needs.
+
+\section{Overview}
+
+The company requires two \texttt{domain}s and one \texttt{subdomain} to fulfil its internal and external needs.
+
+\begin{itemize}
+    \item unn.co.uk
+    \item tech.co.uk
+    \item staff.unn.co.uk
+\end{itemize}
+
+\noindent The three zones fulfil different requirements based on how devices are addressed.\\
+
+\noindent The company has a single \texttt{gateway} machine connecting the company to the internet and has 15 static \texttt{IP} addresses supplied 
+by their \texttt{ISP}. 
+These addresses allow the company to map machines directly to the internet from their internal network such as their company internet web server 
+farm (details to follow). This external mapping is outside of the brief and is supplied for information only.\\\\
+
+The company’s gateway \texttt{IP} Address is: \texttt{192.168.100.254}
+
+\subsection{Domain - Purpose}
+
+\subsubsection{\texttt{unn}}
+This domain is managed by the technicians. The domain is used to direct traffic to the company’s externally facing web service and internally 
+for the company’s internal network. The \texttt{zone} is also used for mapping of the main servers such as \texttt{NFS} and the central \texttt{MySQL} server. 
+
+\subsubsection{\texttt{tech}}
+This \texttt{zone} is managed by the technicians and is used by the technical staff so they can remotely access machines via a fixed asset number that 
+the machines are given (The asset number remains with a machine while it is in use by the company). This \texttt{zone} should only be accessible from 
+the technician’s machines that are in the range \texttt{192.168.170.0/24} and \texttt{192.168.180.0/24} and \texttt{192.168.190.0/24}
+
+\subsubsection{\texttt{staff.unn}}
+The \texttt{zone} is managed by the \textbf{personnel department} who have their own administrator who runs the \texttt{zone} in cooperation with the \texttt{IT} 
+department. This \texttt{zone} is used to manage the movements of staff within the organisation and their locally shared resources. i.e. it is used to point 
+to the machine they are using. Once a person is allocated a \texttt{FQDN} in the \texttt{staff.unn zone} it remains with them as long they work at the company. 
+As staff move to new equipment (\texttt{PC}’s) the \texttt{IT} department inform personnel department who will change the \texttt{DNS} entry.
+
+\section{Operational Implementation}
+\subsection{Transaction Logging}
+\subsection{Client \texttt{DNS} configuration}
+
+
+\end{document}
