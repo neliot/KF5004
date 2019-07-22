@@ -27,7 +27,7 @@
 \tableofcontents
 \newpage
 
-\section{Revisions}
+\section{\texttt{Revisions}}
 \begin{table}[ht]
     \begin{tabular}{|p{1.5cm}|p{11cm}|p{2cm}|p{1.5cm}|} 
       \hline
@@ -52,9 +52,9 @@
       \end{figure}
 \end{landscape}
 
-\section{Primary Server 1}
+\section{\texttt{Primary Server 1}}
 \begin{table}[ht]
-    \begin{tabular}{|p{17.5cm}|} 
+    \begin{tabular}{|p{17.7cm}|} 
         \hline
         \texttt{\textbf{/etc/netplan/10-cloud-init.yaml}}\\ 
         \hline
@@ -78,7 +78,7 @@ network:
 \end{table}
 
 \begin{table}[ht]
-    \begin{tabular}{|p{17.5cm}|} 
+    \begin{tabular}{|p{17.7cm}|} 
         \hline
         \texttt{\textbf{/etc/bind/named.conf.local}}\\ 
         \hline
@@ -125,7 +125,7 @@ zone "168.192.in-addr.arpa" {
 \end{table}
 
 \begin{table}[ht]
-    \begin{tabular}{|p{17.5cm}|} 
+    \begin{tabular}{|p{17.7cm}|} 
         \hline
         \texttt{\textbf{/etc/bind/named.conf.options}}\\ 
         \hline
@@ -162,7 +162,7 @@ options {
 \end{table}   
 
 \begin{table}[ht]
-    \begin{tabular}{|p{17.5cm}|} 
+    \begin{tabular}{|p{17.7cm}|} 
         \hline
         \texttt{\textbf{/etc/bind/db.unn.co.uk}}\\ 
         \hline
@@ -200,7 +200,7 @@ $ORIGIN unn.co.uk.
 \end{table} 
 
 \begin{table}[ht]
-    \begin{tabular}{|p{17.5cm}|} 
+    \begin{tabular}{|p{17.7cm}|} 
         \hline
         \texttt{\textbf{/etc/bind/db.tech.co.uk}}\\ 
         \hline
@@ -256,7 +256,7 @@ A12345698        IN        A                192.168.101.30
 \end{table}
 
 \begin{table}[ht]
-    \begin{tabular}{|p{17.5cm}|} 
+    \begin{tabular}{|p{17.7cm}|} 
         \hline
         \texttt{\textbf{/etc/bind/db.168.192.in-addr.arpa}}\\ 
         \hline
@@ -285,9 +285,9 @@ $ORIGIN 168.192.in-addr.arpa.
 \end{table}
 
 \clearpage
-\section{Primary Server 2}
+\section{\texttt{Primary Server 2}}
 \begin{table}[ht]
-    \begin{tabular}{|p{17.5cm}|} 
+    \begin{tabular}{|p{17.7cm}|} 
         \hline
         \texttt{\textbf{/etc/netplan/10-cloud-init.yaml}}\\ 
         \hline
@@ -311,7 +311,7 @@ network:
 \end{table}
 
 \begin{table}[ht]
-    \begin{tabular}{|p{17.5cm}|} 
+    \begin{tabular}{|p{17.7cm}|} 
         \hline
         \texttt{\textbf{/etc/bind/named.conf.local}}\\ 
         \hline
@@ -338,7 +338,7 @@ zone "staff.unn.co.uk" {
 \end{table}
 
 \begin{table}[ht]
-    \begin{tabular}{|p{17.5cm}|} 
+    \begin{tabular}{|p{17.7cm}|} 
         \hline
         \texttt{\textbf{/etc/bind/named.conf.options}}\\ 
         \hline
@@ -375,7 +375,7 @@ options {
 \end{table}
 
 \begin{table}[ht]
-    \begin{tabular}{|p{17.5cm}|} 
+    \begin{tabular}{|p{17.7cm}|} 
         \hline
         \texttt{\textbf{/etc/bind/db.staff.unn.co.uk}}\\ 
         \hline
@@ -407,6 +407,871 @@ ly                IN        A                192.168.101.21
 \end{table}
 
 \clearpage
-\section{Secondary Server 1}
+\section{\texttt{Secondary Server 1}}
 
+\begin{table}[ht]
+    \begin{tabular}{|p{17.7cm}|} 
+        \hline
+        \texttt{\textbf{/etc/netplan/10-cloud-init.yaml}}\\ 
+        \hline
+        \lstset{
+                basicstyle=\scriptsize\ttfamily,
+              }
+              \begin{lstlisting}
+# NETWORK CONFIG
+network:
+    version: 2
+    ethernets:
+        ens33:
+            addresses: [192.168.101.29/16]
+            gateway4: 192.168.100.254
+            nameservers:
+                search: [tech.co.uk, unn.co.uk]
+                addresses: [8.8.8.8, 8.8.4.4]
+        \end{lstlisting}\\
+        \hline
+    \end{tabular}
+\end{table}
+
+\begin{table}[ht]
+    \begin{tabular}{|p{17.7cm}|} 
+        \hline
+        \texttt{\textbf{/etc/bind/named.conf.options}}\\ 
+        \hline
+        \lstset{
+                basicstyle=\scriptsize\ttfamily,
+              }
+              \begin{lstlisting}
+options {
+    directory "/var/cache/bind";
+            
+    // If there is a firewall between you and nameservers you want
+    // to talk to, you may need to fix the firewall to allow multiple
+    // ports to talk.  See http://www.kb.cert.org/vuls/id/800113
+            
+    // If your ISP provided one or more IP addresses for stable 
+    // nameservers, you probably want to use them as forwarders.  
+    // Uncomment the following block, and insert the addresses replacing 
+    // the all-0's placeholder.
+            
+    forwarders {
+            192.168.101.254;
+            8.8.8.8;
+    };
+            
+    //========================================================================
+    // If BIND logs error messages about the root key being expired,
+    // you will need to update your keys.  See https://www.isc.org/bind-keys
+    //========================================================================
+    dnssec-validation auto;                                              
+    auth-nxdomain no;    # conform to RFC1035
+    };
+        \end{lstlisting}\\
+        \hline
+    \end{tabular}
+\end{table}
+
+\begin{table}[ht]
+    \begin{tabular}{|p{17.7cm}|} 
+        \hline
+        \texttt{\textbf{/etc/bind/named.conf.local}}\\ 
+        \hline
+        \lstset{
+                basicstyle=\scriptsize\ttfamily,
+              }
+              \begin{lstlisting}
+// 
+// Do any local configuration here //
+// Consider adding the 1918 zones here, if they are not used in your
+// organization
+// include "/etc/bind/zones.rfc1918";
+                
+zone "unn.co.uk" {
+        type slave;
+        file "db.unn.co.uk";
+        masters {192.168.101.28;};
+        allow-query {localnets;};
+};
+                
+zone "tech.co.uk" {
+        type slave;
+        file "db.tech.co.uk";
+        masters {192.168.101.28;};
+        allow-query {localnets;};
+};
+                
+zone "staff.unn.co.uk" {
+        type slave;
+        masters {192.168.101.28;};
+        allow-query {localnets;};
+};
+                
+zone "168.192.in-addr.arpa" {
+        type slave;
+        file "db.168.192.in-addr.arpa";
+        masters {192.168.101.28;};
+        allow-query {localnets;};
+};
+                
+        \end{lstlisting}\\
+        \hline
+    \end{tabular}
+\end{table}
+
+\clearpage
+
+\section{\texttt{Secondary Server 2}}
+\begin{table}[ht]
+    \begin{tabular}{|p{17.7cm}|} 
+        \hline
+        \texttt{\textbf{/etc/netplan/10-cloud-init.yaml}}\\ 
+        \hline
+        \lstset{
+                basicstyle=\scriptsize\ttfamily,
+              }
+              \begin{lstlisting}
+# NETWORK CONFIG
+network:
+    version: 2
+    ethernets:
+        ens33:
+            addresses: [192.168.101.30/16]
+            gateway4: 192.168.100.254
+            nameservers:
+                search: [tech.co.uk, unn.co.uk]
+                addresses: [192.168.100.254, 8.8.4.4]
+                
+        \end{lstlisting}\\
+        \hline
+    \end{tabular}
+\end{table}
+
+\begin{table}[ht]
+    \begin{tabular}{|p{17.7cm}|} 
+        \hline
+        \texttt{\textbf{/etc/bind/named.conf.options}}\\ 
+        \hline
+        \lstset{
+                basicstyle=\scriptsize\ttfamily,
+              }
+              \begin{lstlisting}
+options {
+    directory "/var/cache/bind";
+            
+    // If there is a firewall between you and nameservers you want
+    // to talk to, you may need to fix the firewall to allow multiple
+    // ports to talk.  See http://www.kb.cert.org/vuls/id/800113
+            
+    // If your ISP provided one or more IP addresses for stable 
+    // nameservers, you probably want to use them as forwarders.  
+    // Uncomment the following block, and insert the addresses replacing 
+    // the all-0's placeholder.
+            
+    forwarders {
+        192.168.101.254;
+        8.8.8.8;
+    };
+            
+    //========================================================================
+    // If BIND logs error messages about the root key being expired,
+    // you will need to update your keys.  See https://www.isc.org/bind-keys
+    //========================================================================
+    dnssec-validation auto;                                              
+    auth-nxdomain no;    # conform to RFC1035
+};
+        \end{lstlisting}\\
+        \hline
+    \end{tabular}
+\end{table}
+
+\begin{table}[ht]
+    \begin{tabular}{|p{17.7cm}|} 
+        \hline
+        \texttt{\textbf{/etc/bind/named.conf.local}}\\ 
+        \hline
+        \lstset{
+                basicstyle=\scriptsize\ttfamily,
+              }
+              \begin{lstlisting}
+// 
+// Do any local configuration here //
+// Consider adding the 1918 zones here, if they are not used in your
+// organization
+// include "/etc/bind/zones.rfc1918";
+                
+zone "unn.co.uk" {
+    type slave;
+    file "db.unn.co.uk";
+    masters {192.168.101.28;};
+    allow-query {localnets;};
+};
+                
+zone "tech.co.uk" {
+    type slave;
+    file "db.tech.co.uk";
+    masters {192.168.101.28;};
+    allow-query {localnets;};
+};
+                
+zone "staff.unn.co.uk" {
+    type slave;
+    masters {192.168.101.28;};
+    allow-query {localnets;};
+};
+                
+zone "168.192.in-addr.arpa" {
+    type slave;
+    file "db.168.192.in-addr.arpa";
+    masters {192.168.101.28;};
+    allow-query {localnets;};
+};
+
+        \end{lstlisting}\\
+        \hline
+    \end{tabular}
+\end{table}
+
+\clearpage
+
+\section{\texttt{Apache Server 1}}
+\begin{table}[ht]
+    \begin{tabular}{|p{17.7cm}|} 
+        \hline
+        \texttt{\textbf{/etc/netplan/10-cloud-init.yaml}}\\ 
+        \hline
+        \lstset{
+                basicstyle=\scriptsize\ttfamily,
+              }
+              \begin{lstlisting}
+# NETWORK CONFIG
+network:
+    version: 2
+    ethernets:
+        ens33:
+            addresses: [192.168.101.2/16]
+            gateway4: 192.168.100.254
+            nameservers:
+                search: [tech.co.uk, unn.co.uk]
+                addresses: [192.168.101.29, 192.168.101.30]                
+        \end{lstlisting}\\
+        \hline
+    \end{tabular}
+\end{table}
+
+\begin{table}[ht]
+    \begin{tabular}{|p{17.7cm}|} 
+        \hline
+        \texttt{\textbf{/etc/fstab}}\\ 
+        \hline
+        \lstset{
+                basicstyle=\scriptsize\ttfamily,
+              }
+              \begin{lstlisting}
+# /etc/fstab: static file system information.
+#
+# Use 'blkid' to print the universally unique identifier for a
+# device; this may be used with UUID= as a more robust way to name devices
+# that works even if disks are added and removed. See fstab(5).
+#
+ <file system> <mount point>   <type>  <options>       <dump>  <pass>
+# / was on /dev/sda1 during installation
+UUID=fdae0e93-c8ec-44aa-a462-5b62af1c4277 /               ext4    errors=remount-ro 0       1
+# swap was on /dev/sda5 during installation
+UUID=3b24a428-f71a-4964-92d0-d812c0b6e107 none            swap    sw                0       0
+/dev/fd0                       /media/floppy0        auto rw,user,noauto,exec,utf8  0       0
+#MULTIPLE ENTRIES SELECT APPROPRIATELY
+#nfs1.tech.co.uk:/var/content /var/www/html/wp-content nfs  rw,soft,timeo=101,intr              0 0
+#:/var/content /var/www/html/wp-content
+#nfs1.tech.co.uk:/var/content /var/www/html nfs  rw,soft,timeo=101,intr                      0 0
+#nfs1.tech.co.uk /var/content /var/www/html/wp-content nfs  rw,soft,timeo=101,intr              0 0
+#nfs1.tech.co.uk:/var/content 192.168.101.4:/var/www/html/wp-content nfs rw,soft,timeo=101,intr 0 0           
+        \end{lstlisting}\\
+        \hline
+    \end{tabular}
+\end{table}
+
+\clearpage
+
+\section{\texttt{Apache Server 2}}
+\begin{table}[ht]
+    \begin{tabular}{|p{17.7cm}|} 
+        \hline
+        \texttt{\textbf{/etc/netplan/10-cloud-init.yaml}}\\ 
+        \hline
+        \lstset{
+                basicstyle=\scriptsize\ttfamily,
+              }
+              \begin{lstlisting}
+# NETWORK CONFIG
+network:
+    version: 2
+    ethernets:
+        ens33:
+            addresses: [192.168.101.3/16]
+            gateway4: 192.168.100.254
+            nameservers:
+                search: [tech.co.uk, unn.co.uk]
+                addresses: [192.168.101.29, 192.168.101.30]                
+        \end{lstlisting}\\
+        \hline
+    \end{tabular}
+\end{table}
+
+\begin{table}[ht]
+    \begin{tabular}{|p{17.7cm}|} 
+        \hline
+        \texttt{\textbf{/etc/fstab}}\\ 
+        \hline
+        \lstset{
+                basicstyle=\scriptsize\ttfamily,
+              }
+              \begin{lstlisting}
+# /etc/fstab: static file system information.
+#
+# Use 'blkid' to print the universally unique identifier for a
+# device; this may be used with UUID= as a more robust way to name devices
+# that works even if disks are added and removed. See fstab(5).
+#
+ <file system> <mount point>   <type>  <options>       <dump>  <pass>
+# / was on /dev/sda1 during installation
+UUID=fdae0e93-c8ec-44aa-a462-5b62af1c4245 /               ext4    errors=remount-ro 0       1
+# swap was on /dev/sda5 during installation
+UUID=3b24a428-f71a-4964-92d0-d812c0b6e109 none            swap    sw                0       0
+/dev/fd0                       /media/floppy0        auto rw,user,noauto,exec,utf8  0       0
+#MULTIPLE ENTRIES SELECT APPROPRIATELY
+#nfs1.tech.co.uk:/var/content /var/www/html/wp-content nfs  rw,soft,timeo=101,intr              0 0
+#:/var/content /var/www/html/wp-content
+#nfs1.tech.co.uk:/var/content /var/www/html nfs  rw,soft,timeo=101,intr                      0 0
+#nfs1.tech.co.uk /var/content /var/www/html/wp-content nfs  rw,soft,timeo=101,intr              0 0
+#nfs1.tech.co.uk:/var/content 192.168.101.4:/var/www/html/wp-content nfs rw,soft,timeo=101,intr 0 0           
+        \end{lstlisting}\\
+        \hline
+    \end{tabular}
+\end{table}
+
+\clearpage
+
+\section{\texttt{Apache Server 3}}
+\begin{table}[ht]
+    \begin{tabular}{|p{17.7cm}|} 
+        \hline
+        \texttt{\textbf{/etc/netplan/10-cloud-init.yaml}}\\ 
+        \hline
+        \lstset{
+                basicstyle=\scriptsize\ttfamily,
+              }
+              \begin{lstlisting}
+# NETWORK CONFIG
+network:
+    version: 2
+    ethernets:
+        ens33:
+            addresses: [192.168.101.4/16]
+            gateway4: 192.168.100.254
+            nameservers:
+                search: [tech.co.uk, unn.co.uk]
+                addresses: [192.168.101.29, 192.168.101.30]                
+        \end{lstlisting}\\
+        \hline
+    \end{tabular}
+\end{table}
+
+\begin{table}[ht]
+    \begin{tabular}{|p{17.7cm}|} 
+        \hline
+        \texttt{\textbf{/etc/fstab}}\\ 
+        \hline
+        \lstset{
+                basicstyle=\scriptsize\ttfamily,
+              }
+              \begin{lstlisting}
+# /etc/fstab: static file system information.
+#
+# Use 'blkid' to print the universally unique identifier for a
+# device; this may be used with UUID= as a more robust way to name devices
+# that works even if disks are added and removed. See fstab(5).
+#
+ <file system> <mount point>   <type>  <options>       <dump>  <pass>
+# / was on /dev/sda1 during installation
+UUID=fdae0e93-c8ec-44aa-a462-5b62af1c4259 /               ext4    errors=remount-ro 0       1
+# swap was on /dev/sda5 during installation
+UUID=3b24a428-f71a-4964-92d0-d812c0b6e110 none            swap    sw                0       0
+/dev/fd0                       /media/floppy0        auto rw,user,noauto,exec,utf8  0       0
+#MULTIPLE ENTRIES SELECT APPROPRIATELY
+#nfs1.tech.co.uk:/var/content /var/www/html/wp-content nfs  rw,soft,timeo=101,intr              0 0
+#:/var/content /var/www/html/wp-content
+#nfs1.tech.co.uk:/var/content /var/www/html nfs  rw,soft,timeo=101,intr                      0 0
+#nfs1.tech.co.uk /var/content /var/www/html/wp-content nfs  rw,soft,timeo=101,intr              0 0
+#nfs1.tech.co.uk:/var/content 192.168.101.4:/var/www/html/wp-content nfs rw,soft,timeo=101,intr 0 0           
+        \end{lstlisting}\\
+        \hline
+    \end{tabular}
+\end{table}
+
+\clearpage
+
+\section{\texttt{MySQL Server}}
+\begin{table}[ht]
+    \begin{tabular}{|p{17.7cm}|} 
+        \hline
+        \texttt{\textbf{/etc/netplan/10-cloud-init.yaml}}\\ 
+        \hline
+        \lstset{
+                basicstyle=\scriptsize\ttfamily,
+              }
+              \begin{lstlisting}
+# NETWORK CONFIG
+network:
+    version: 2
+    ethernets:
+        ens33:
+            addresses: [192.168.101.5/16]
+            gateway4: 192.168.100.254
+            nameservers:
+                search: [tech.co.uk, unn.co.uk]
+                addresses: [192.168.101.29, 192.168.101.30]                
+        \end{lstlisting}\\
+        \hline
+    \end{tabular}
+\end{table}
+
+\begin{table}[ht]
+    \begin{tabular}{|p{17.7cm}|} 
+        \hline
+        \texttt{\textbf{/etc/mysql/mysql.conf.d/mysqld.cnf} - \texttt{(1)}}\\ 
+        \hline
+        \lstset{
+                basicstyle=\scriptsize\ttfamily,
+              }
+              \begin{lstlisting}
+# The following values assume you have at least 32M ram
+
+[mysqld_safe]
+socket          = /var/run/mysqld/mysqld.sock
+nice            = 0
+
+[mysqld]
+#
+# * Basic Settings
+#
+user            = mysql
+pid-file        = /var/run/mysqld/mysqld.pid
+socket          = /var/run/mysqld/mysqld.sock
+port            = 3306
+basedir         = /usr
+datadir         = /var/lib/mysql
+tmpdir          = /tmp
+lc-messages-dir = /usr/share/mysql
+skip-external-locking
+#
+# Instead of skip-networking the default is now to listen only on
+# localhost which is more compatible and is not less secure.
+#MULTIPLE ENTRIES SELECT APPROPRIATELY
+#bind-address=::
+#bind-address=0.0.0.0
+#bind-address=127.0.0.1
+#bind-address=www.unn.ac.uk
+#bind-address=192.168.101.1
+#bind-address=192.168.101.2 192.168.101.3 192.168.101.4
+#
+# * Fine Tuning
+#
+key_buffer_size         = 16M
+max_allowed_packet      = 16M
+thread_stack            = 192K
+thread_cache_size       = 8
+# This replaces the startup script and checks MyISAM tables if needed
+# the first time they are touched
+myisam-recover-options  = BACKUP
+#max_connections        = 101
+#table_cache            = 64
+#thread_concurrency     = 10
+#
+# * Query Cache Configuration
+#
+# This replaces the startup script and checks MyISAM tables if needed
+# the first time they are touched
+myisam-recover-options  = BACKUP
+#max_connections        = 101
+#table_cache            = 64
+#thread_concurrency     = 10
+#
+# * Query Cache Configuration
+#
+query_cache_limit       = 1M
+query_cache_size        = 16M
+#
+# * Logging and Replication
+#
+# Both location gets rotated by the cronjob.
+# Be aware that this log type is a performance killer.
+# As of 5.1 you can enable the log at runtime!
+#general_log_file        = /var/log/mysql/mysql.log
+#general_log             = 1
+#                               
+        \end{lstlisting}\\
+        \hline
+    \end{tabular}
+\end{table}
+
+\begin{table}[ht]
+    \begin{tabular}{|p{17.7cm}|} 
+        \hline
+        \texttt{\textbf{/etc/mysql/mysql.conf.d/mysqld.cnf} - \texttt{(2)}}\\ 
+        \hline
+        \lstset{
+                basicstyle=\scriptsize\ttfamily,
+              }
+              \begin{lstlisting}
+#
+# Error log - should be very few entries.
+#
+log_error = /var/log/mysql/error.log
+#
+# Here you can see queries with especially long duration
+#log_slow_queries       = /var/log/mysql/mysql-slow.log
+#long_query_time = 2
+#log-queries-not-using-indexes
+#
+# The following can be used as easy to replay backup logs or for replication.
+# note: if you are setting up a replication slave, see README.Debian about
+#       other settings you may need to change.
+#server-id              = 1
+#log_bin                        = /var/log/mysql/mysql-bin.log
+expire_logs_days        = 10
+max_binlog_size   = 101M
+#binlog_do_db           = include_database_name
+#binlog_ignore_db       = include_database_name
+#
+# * InnoDB
+#
+# InnoDB is enabled by default with a 10MB datafile in /var/lib/mysql/.
+# Read the manual for more InnoDB related options. There are many!
+#
+# * Security Features
+#
+# Read the manual, too, if you want chroot!
+# chroot = /var/lib/mysql/
+#
+#
+# InnoDB is enabled by default with a 10MB datafile in /var/lib/mysql/.
+# Read the manual for more InnoDB related options. There are many!
+#
+# * Security Features
+#
+# Read the manual, too, if you want chroot!
+# chroot = /var/lib/mysql/
+#
+# For generating SSL certificates I recommend the OpenSSL GUI "tinyca".
+#
+# ssl-ca=/etc/mysql/cacert.pem
+# ssl-cert=/etc/mysql/server-cert.pem
+# ssl-key=/etc/mysql/server-key.pem                               
+        \end{lstlisting}\\
+        \hline
+    \end{tabular}
+\end{table}
+
+\clearpage
+
+\section{\texttt{Intranet Server}}
+\begin{table}[ht]
+    \begin{tabular}{|p{17.7cm}|} 
+        \hline
+        \texttt{\textbf{/etc/netplan/10-cloud-init.yaml}}\\ 
+        \hline
+        \lstset{
+                basicstyle=\scriptsize\ttfamily,
+              }
+              \begin{lstlisting}
+# NETWORK CONFIG
+network:
+    version: 2
+    ethernets:
+        ens33:
+            addresses: [192.168.101.40/16]
+            gateway4: 192.168.100.254
+            nameservers:
+                search: [tech.co.uk, unn.co.uk]
+                addresses: [192.168.101.29, 192.168.101.30]                
+        \end{lstlisting}\\
+        \hline
+    \end{tabular}
+\end{table}
+
+\begin{table}[ht]
+    \begin{tabular}{|p{17.7cm}|} 
+        \hline
+        \texttt{\textbf{/etc/apache2/mods-available/php7.2.conf}}\\ 
+        \hline
+        \lstset{
+                basicstyle=\scriptsize\ttfamily,
+              }
+              \begin{lstlisting}
+<FilesMatch ".+\.ph(p[345]?|t|tml)$">
+    SetHandler application/x-httpd-php
+</FilesMatch>
+<FilesMatch ".+\.phps$">
+    SetHandler application/x-httpd-php-source
+    # Deny access to raw php sources by default
+    # To re-enable it's recommended to enable access to the files
+    # only in specific virtual host or directory
+    Order Deny,Allow
+    Deny from all
+</FilesMatch>
+# Deny access to files without filename (e.g. '.php')
+<FilesMatch "^\.ph(p[345]?|t|tml|ps)$">
+    Order Deny,Allow
+    Deny from all
+</FilesMatch>
+
+# Running PHP scripts in user directories is disabled by default
+# 
+# To re-enable PHP in user directories comment the following lines
+# (from <IfModule ...> to </IfModule>.) Do NOT set it to On as it
+# prevents .htaccess files from disabling it.
+<IfModule mod_userdir.c>
+    <Directory /home/*/public_html>
+        php_admin_flag engine Off
+    </Directory>
+    <Directory /home/ceo/public_html>
+        php_admin_flag engine On
+    </Directory>
+</IfModule>                
+        \end{lstlisting}\\
+        \hline
+    \end{tabular}
+\end{table}
+
+\begin{table}[ht]
+    \begin{tabular}{|p{17.7cm}|} 
+        \hline
+    \texttt{\textbf{/etc/mysql/mysql.conf.d/mysqld.cnf} - (\texttt{1})}\\ 
+        \hline
+        \lstset{
+                basicstyle=\scriptsize\ttfamily,
+        }
+            \begin{lstlisting}
+# The following values assume you have at least 32M ram
+
+[mysqld_safe]
+socket          = /var/run/mysqld/mysqld.sock
+nice            = 0
+
+[mysqld]
+#
+# * Basic Settings
+#
+user            = mysql
+pid-file        = /var/run/mysqld/mysqld.pid
+socket          = /var/run/mysqld/mysqld.sock
+port            = 3306
+basedir         = /usr
+datadir         = /var/lib/mysql
+tmpdir          = /tmp
+lc-messages-dir = /usr/share/mysql
+skip-external-locking
+#
+# Instead of skip-networking the default is now to listen only on
+# localhost which is more compatible and is not less secure.
+#MULTIPLE ENTRIES SELECT APPROPRIATELY
+#bind-address=::
+#bind-address=0.0.0.0
+#bind-address=127.0.0.1
+#bind-address=www.unn.co.uk
+#bind-address=192.168.101.1
+#bind-address=192.168.101.2 192.168.101.3 192.168.101.4
+#
+# * Fine Tuning
+#
+key_buffer_size         = 16M
+max_allowed_packet      = 16M
+thread_stack            = 192K
+thread_cache_size       = 8
+# This replaces the startup script and checks MyISAM tables if needed
+# the first time they are touched
+myisam-recover-options  = BACKUP
+#max_connections        = 101
+#table_cache            = 64
+#thread_concurrency     = 10
+#
+# * Query Cache Configuration
+#
+# This replaces the startup script and checks MyISAM tables if needed
+# the first time they are touched
+myisam-recover-options  = BACKUP
+#max_connections        = 101
+#table_cache            = 64
+#thread_concurrency     = 10
+#
+# * Query Cache Configuration
+#
+query_cache_limit       = 1M
+query_cache_size        = 16M
+            \end{lstlisting}\\
+        \hline
+    \end{tabular}
+\end{table}
+
+\begin{table}[ht]
+    \begin{tabular}{|p{17.7cm}|} 
+        \hline
+    \texttt{\textbf{/etc/mysql/mysql.conf.d/mysqld.cnf} - (\texttt{2})}\\ 
+        \hline
+        \lstset{
+                basicstyle=\scriptsize\ttfamily,
+        }
+            \begin{lstlisting}
+#
+# * Logging and Replication
+#
+# Both location gets rotated by the cronjob.
+# Be aware that this log type is a performance killer.
+# As of 5.1 you can enable the log at runtime!
+#general_log_file        = /var/log/mysql/mysql.log
+#general_log             = 1
+query_cache_size        = 16M               
+#
+# Error log - should be very few entries.
+#
+log_error = /var/log/mysql/error.log
+#
+# Here you can see queries with especially long duration
+#log_slow_queries       = /var/log/mysql/mysql-slow.log
+#long_query_time = 2
+#log-queries-not-using-indexes
+#
+# Error log - should be very few entries.
+#
+log_error = /var/log/mysql/error.log
+#
+# Here you can see queries with especially long duration
+#log_slow_queries       = /var/log/mysql/mysql-slow.log
+#long_query_time = 2
+#log-queries-not-using-indexes
+#
+# The following can be used as easy to replay backup logs or for replication.
+# note: if you are setting up a replication slave, see README.Debian about
+#       other settings you may need to change.
+#server-id              = 1
+#log_bin                        = /var/log/mysql/mysql-bin.log
+expire_logs_days        = 10
+max_binlog_size   = 101M
+#binlog_do_db           = include_database_name
+#binlog_ignore_db       = include_database_name
+#
+# * InnoDB
+#
+# InnoDB is enabled by default with a 10MB datafile in /var/lib/mysql/.
+# Read the manual for more InnoDB related options. There are many!
+#
+# * Security Features
+#
+# Read the manual, too, if you want chroot!
+# chroot = /var/lib/mysql/
+#
+#
+# InnoDB is enabled by default with a 10MB datafile in /var/lib/mysql/.
+# Read the manual for more InnoDB related options. There are many!
+#
+# * Security Features
+#
+# Read the manual, too, if you want chroot!
+# chroot = /var/lib/mysql/
+#
+# For generating SSL certificates I recommend the OpenSSL GUI "tinyca".
+#
+# ssl-ca=/etc/mysql/cacert.pem
+# ssl-cert=/etc/mysql/server-cert.pem
+# ssl-key=/etc/mysql/server-key.pem               
+            \end{lstlisting}\\
+        \hline
+    \end{tabular}
+\end{table}
+
+\clearpage
+
+\section{\texttt{NFS Server 1}}
+\begin{table}[ht]
+    \begin{tabular}{|p{17.7cm}|} 
+        \hline
+    \texttt{\textbf{/etc/mysql/mysql.conf.d/mysqld.cnf} - (\texttt{3})}\\ 
+        \hline
+        \lstset{
+                basicstyle=\scriptsize\ttfamily,
+        }
+            \begin{lstlisting}
+# NETWORK CONFIG
+network:
+    version: 2
+    ethernets:
+      ens33:
+        addresses: [192.168.101.6/16]
+        gateway4: 192.168.100.254
+        nameservers:
+          search: [tech.co.uk, unn.co.uk]
+          addresses: [192.168.101.29, 192.168.101.30]
+            \end{lstlisting}\\
+        \hline
+    \end{tabular}
+\end{table}
+
+\begin{table}[ht]
+    \begin{tabular}{|p{17.7cm}|} 
+        \hline
+    \texttt{\textbf{/etc/exports (nfs-kernel-server installed)}}\\ 
+        \hline
+        \lstset{
+                basicstyle=\scriptsize\ttfamily,
+        }
+            \begin{lstlisting}
+# /etc/exports: the access control list for filesystems which may be exported
+#                to NFS clients.  See exports(5).
+#
+# Example for NFSv2 and NFSv3:
+# /srv/homes       hostname1(rw,sync,no_subtree_check) hostname2(ro,sync,no_subtree_check)
+#
+# Example for NFSv4:
+# /srv/nfs4        gss/krb5i(rw,sync,fsid=0,crossmnt,no_subtree_check)
+# /srv/nfs4/homes  gss/krb5i(rw,sync,no_subtree_check)
+#
+#MULTIPLE ENTRIES SELECT APPROPRIATELY
+#/var/content *(rw,sync,no_subtree_check)
+#/var/content www?(rw,sync,no_subtree_check)
+#/var/content www.unn.co.uk(rw,sync,no_subtree_check)
+#/var/content www.tech.co.uk(rw,sync,no_subtree_check)
+#/var/content 192.168.101.2(rw,sync,no_subtree_check)
+            \end{lstlisting}\\
+        \hline
+    \end{tabular}
+\end{table}
+
+\clearpage
+
+\section{\texttt{NFS Server 2}}
+\begin{table}[ht]
+    \begin{tabular}{|p{17.7cm}|} 
+        \hline
+    \texttt{\textbf{/etc/mysql/mysql.conf.d/mysqld.cnf} - (\texttt{3})}\\ 
+        \hline
+        \lstset{
+                basicstyle=\scriptsize\ttfamily,
+        }
+            \begin{lstlisting}
+# NETWORK CONFIG
+network:
+    version: 2
+    ethernets:
+      ens33:
+        addresses: [192.168.101.7/16]
+        gateway4: 192.168.100.254
+        nameservers:
+          search: [tech.co.uk, unn.co.uk]
+          addresses: [192.168.101.29, 192.168.101.30]
+            \end{lstlisting}\\
+        \hline
+    \end{tabular}
+\end{table}
+
+\noindent \texttt{END}
 \end{document}
