@@ -15,7 +15,7 @@
 
 % ========== Edit your name here
 \author{Dr. Neil Eliot / Dr. Alun Moon}
-\title{KF5004\\------\\Workshop 9\\------\\Setting up \texttt{NFS}\\------}
+\title{KF5004\\------\\Workshop 10\\------\\Setting up \texttt{MySQL}\\------}
 \date{September 2019}
 \maketitle
 
@@ -29,9 +29,10 @@
 
 \noindent\textbf{Learning Outcomes:}
 \begin{itemize}
-    \item Configure \texttt{NFS} server.
-    \item Configure \texttt{NFS} client.
-    \item Create shared content for websites.
+    \item Configure \texttt{MySQL} server.
+    \item Configure \texttt{MySQL} client.
+    \item Configure \texttt{PHPMyAdmin}.
+    \item Create users and databases for Websites.
 \end{itemize}
 
 % \begin{center}
@@ -55,36 +56,41 @@
 \end{tcolorbox}
 
 \begin{enumerate}
-    \item Create a new \texttt{Virtual Server}.
+    \item Using the \texttt{DNS} server by adding/updating the following records.
         \begin{itemize}
-            \item Install \texttt{NFS} server.
-            \item Create a folder \texttt{/etc/content}
-            \item Export the \texttt{/etc/content} folder to allow anyone to have read write access.
+            \item Add the following records forward lookups to your \texttt{DNS} Architecture (\texttt{A} records).
+                \begin{itemize}
+                    \item \texttt{<IP OF THE MYSQL SERVER>} $\Rightarrow$ \texttt{mysql.student.co.uk}
+                    \item \texttt{<IP YOUR FIRST WEBSERVER>} $\Rightarrow$ \texttt{www1.student.co.uk}
+                    \item \texttt{<IP YOUR SECOND WEBSERVER>} $\Rightarrow$ \texttt{www2.student.co.uk}
+                    \item \texttt{<IP YOUR THIRD WEBSERVER>} $\Rightarrow$ \texttt{www3.student.co.uk}
+                    \item \texttt{<IP YOUR FIRST WEBSERVER>} $\Rightarrow$ \texttt{www.student.co.uk}
+                    \item \texttt{<IP YOUR SECOND WEBSERVER>} $\Rightarrow$ \texttt{www.student.co.uk}
+                    \item \texttt{<IP YOUR THIRD WEBSERVER>} $\Rightarrow$ \texttt{www.student.co.uk}
+                \end{itemize}
+            \item Add the following reverse records to your \texttt{DNS} Architecture (\texttt{PTR} records).
+                \begin{itemize}
+                    \item \texttt{www1.student.co.uk}
+                    \item \texttt{www2.student.co.uk}
+                    \item \texttt{www3.student.co.uk}
+                    \item \texttt{www.student.co.uk}
+                \end{itemize}
         \end{itemize}
-    \item On the all the web servers:
+    \item Create a new \texttt{Virtual Server} with a static \texttt{IP} address.
         \begin{itemize}
-            \item Install \texttt{NFS} client software.
-            \item Create a mount point of \texttt{/var/www/html/content}
+            \item Install \texttt{MySQL server} and test you can connect to it locally.
+            \item Install \texttt{PHPMyAdmin} and test you can connect to it from your \texttt{Virtual Client}.
+            \item Create a \texttt{user} and \texttt{database} of the same name \texttt{TEST} with the user password set to \texttt{Northumbria2109!}
         \end{itemize}
-    \item Mount the exported folder to all the webs servers using the \texttt{mount} command.
-    \item On the \texttt{NFS} server add a text file to \texttt{/etc/content} called \texttt{`hello.txt'} and add your student id for content.
-    \item \label{repeat1} List the contents of each web servers \texttt{/var/www/html/content} folder.
-    \item \label{repeat2} From a web browser enter the \texttt{URL} - \texttt{http://www.student.co.uk/content/hello.txt}
-    \item Unmount the content folder for all of the servers and repeat steps \ref{repeat1} and \ref{repeat2}.
-    \item Add an entry to the \texttt{fstab} of each of the web servers so the \texttt{content} folder is automatically mounted.
-    \item On each web server:
+    \item Carry out the following on all three web servers (They should already be using \texttt{NFS} from last week):
         \begin{itemize}
-            \item Mount the \texttt{content} folder using the \texttt{mount} command and check the \texttt{NFS} share has been mounted correctly.
-            \item Unmount the \texttt{content} folder and check the mounts have been removed.
-            \item Reboot the server.
-            \item Check the \texttt{content} folder has auto-mounted.
+            \item Install the \texttt{MySQL client} software.
+            \item Create a \texttt{MySQL} test script on each server.
         \end{itemize}
-    \item From a web browser navigate to the following sites:
+    \item Test the connectivity of each web server by going to their individual \texttt{URL/test script}.
+    \item Test the load balanced access to the servers: info pages, shared area, and \texttt{MySQL} test script from three different clients.
         \begin{itemize}
-            \item \texttt{http://www.student.co.uk/content/hello.txt}
-            \item \texttt{http://www1.student.co.uk/content/hello.txt}
-            \item \texttt{http://www2.student.co.uk/content/hello.txt}
-            \item \texttt{http://www3.student.co.uk/content/hello.txt}
+            \item Use \texttt{Wireshark} and analyse the connectivity of each server to identify which clients and servers are connecting to each other.
         \end{itemize}
 \end{enumerate}    
 END
