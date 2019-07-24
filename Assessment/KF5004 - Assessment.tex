@@ -1,0 +1,153 @@
+\documentclass[11pt]{article}
+\usepackage{tcolorbox}
+\usepackage{textcomp}
+\usepackage[os=win]{menukeys}
+\usepackage{pdflscape}
+\usepackage{rotating}
+\usepackage{listings}
+\usepackage{titling}
+\usepackage{enumitem}
+\setlist{nosep}
+
+
+\newcommand{\numpy}{{\tt numpy}}    % tt font for numpy
+
+\topmargin -.5in
+\textheight 9in
+\oddsidemargin -.25in
+\evensidemargin -.25in
+\textwidth 7in
+
+\pretitle{%
+  \begin{center}
+  \LARGE
+  \includegraphics[width=15cm]{../images/logo.png}\\[\bigskipamount]
+}
+\posttitle{\end{center}}
+
+\begin{document}
+
+% ========== Edit your name here
+\author{Dr. Neil Eliot / Dr. Alun Moon}
+\title{KF5004\\------\\Business case scenario for the Exam\\------\\The Implementation of a \texttt{DNS} infrastructure (\texttt{BIND9}) and Web Server Farm facilities
+(\texttt{Apache, PHP, NFS, and MySQL})\\------}
+\date{September 2019}
+\maketitle
+
+\newpage
+\tableofcontents
+\newpage
+
+\section{Introduction}
+The assessment of \texttt{KF5004} is an exam and accounts for 100\% of the module mark. It is based on a business case that you will be working on over the remainder of the semester.
+
+The business scenario is supplied in a separate document. 
+
+\section{Schedule}
+By week 12 you should be in a position to demonstrate a full implementation. Over weeks 10-12 you will be developing a solution for the company. 
+A sample schedule of work is shown in table \ref{schedule}.
+
+\begin{table}[ht]\label{schedule}
+    \begin{tabular}{|p{1cm}|p{5cm}|p{5cm}|p{5cm}|} 
+      \hline
+      \multicolumn{1}{|c|}{Week} & \multicolumn{1}{|c|}{Lab Activity 1} & \multicolumn{1}{|c|}{Lab Activity 2}& \multicolumn{1}{|c|}{Additional} \\ 
+      \hline
+      10a & Lecture/Workshop& Briefing Out & Create Multiple staticlly addressesd servers\\
+      \hline
+      10b & Assignment briefing.& Attempt your own design.& Analyse provided design and build base servers (basic service installations)\\
+      \hline
+      11a & Setup \texttt{DNS} architecture.& Basic \texttt{Apache} installs. & Test load balanced deployment and upload sample websites\\
+      \hline
+      11b & Database setup, config and test connectivity. (Intranet and Internet)& \texttt{NFS} deployment.& Connectivity testing of Database and \texttt{NFS}\\
+      \hline
+      12a & Feedback & Demos & Updates\\
+      \hline
+      12b & Demos & Demos & Revision\\
+      \hline
+    \end{tabular}
+    \caption{Activity Schedule}
+\end{table}
+\newpage 
+\section{Workload}
+A breakdown of the ``effort'' required for each section is detailed in Table \ref{workload}.
+
+\begin{table}[ht]\label{workload}
+    \begin{tabular}{|p{1cm}|p{14cm}|p{1cm}|} 
+      \hline
+      \multicolumn{1}{|c|}{Task} & \multicolumn{1}{|c|}{Description} & \multicolumn{1}{|c|}{Effort (\%)}\\ 
+      \hline
+      1 & \texttt{DNS} Core Configuration 
+            \begin{itemize}
+                \item SOA Record setup
+                \item Other Record setup
+                \item DNS Core Operations 
+            \end{itemize}
+        & 20\%\\
+      \hline
+      2 & \texttt{Apache} (Intranet) Configuration
+            \begin{itemize}
+                \item Intranet site including scripting and database connectivity
+                \item Personal web storage
+                    \begin{itemize}
+                        \item \texttt{FTP} facilities
+                        \item Static sites
+                        \item Dynamic site
+                    \end{itemize}
+            \end{itemize} 
+        & 20\%\\
+      \hline
+      3 & Database (\texttt{Intranet}) Configuration
+            \begin{itemize}
+              \item Intranet site
+              \item Management console
+              \item Localized security    
+            \end{itemize}
+      & 10\%\\
+      \hline
+      4 & Apache (\texttt{Internet}) Configuration including Load Balancing
+            \begin{itemize}
+              \item Individual server access
+              \item Load-balanced server access
+              \item Internet site including scripting and database connectivity
+              \item Localised scripting
+            \end{itemize} 
+      & 20\%\\
+      \hline
+      5 & Content Storage Configuration (for web server farm)
+          \begin{itemize}
+            \item \texttt{NFS} configuration
+            \item \texttt{rDNS} Security
+          \end{itemize} 
+      & 20\%\\
+      \hline
+      6 & Database (\texttt{Internet}) Configuration (for web server farm)
+          \begin{itemize}
+            \item Management Console (\texttt{PHPMyAdmin})
+            \item Database creation with user accounts
+            \item Remote access security
+          \end{itemize}
+      & 10\%\\
+      \hline
+    \end{tabular}
+    \caption{Activity Schedule}
+\end{table}
+
+\section{Examination}
+
+\noindent The examination is be based on the business scenario provided but will use an \texttt{IP} addressing scheme that is different to your allocated blocks. 
+At the examination you will be provided with both the scenario and the possible configuration.
+
+\noindent Ththere will be 15 mins reading time at the beginning of the examination for you to familiarise yourself with the configurations. 
+Following the reading time, you will have a multi-choice examination based on both the teaching in the module and the scenario.
+
+\begin{tcolorbox}[title={\textbf{NOTE:}}]
+  \noindent \textbf{THE SAMPLE CONFIGURATION AND THE EXAM QUESTIONS MUST NOT BE REMOVED FROM THE EXAM ROOM.}
+\end{tcolorbox}
+
+\section{Feedback}
+
+Formative (non assessed) feedback will be provided on your progress throughout the workshops as you develop your solution and at a final demonstration if you choice to participate. 
+The examination results will be released via blackboard 3 weeks after the examination.\\
+
+\noindent \texttt{END}
+\end{document}
