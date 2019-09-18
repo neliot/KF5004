@@ -20,7 +20,7 @@
 \begin{document}
 
 % ========== Edit your name here
-\author{Dr. Neil Eliot / Dr. Alun Moon}
+\author{Dr. Neil Eliot \& Dr. Alun Moon}
 \title{KF5004\\------\\Workshop 1\\------\\Setting up a Machine in \texttt{VMWare}\\------}
 \date{September 2019}
 \maketitle
@@ -48,6 +48,9 @@
 \begin{tcolorbox}[title={\textbf{Important:}}]
     Before you begin, ensure the lab. \texttt{PC} you are using is connected to the off campus lab infrastructure and the machine receives an \texttt{IP} address from the lab. \texttt{DHCP} Server.
 \end{tcolorbox}
+\begin{tcolorbox}[title={\textbf{Note:}}]
+    \Large{Throughout this module you will be taught several techniques and technologies but you are also expected to carry out research of your own.}
+\end{tcolorbox}
 \newpage
 
 \noindent\textbf{The Exercise}\\
@@ -70,19 +73,19 @@
             \item Set your machine name to your \texttt{User ID}.    
             \item Set the first account to be \texttt{student} with a password of \texttt{northumbria}.    
         \end{itemize}
-    \item Identify the address the client \texttt{PC} has been given by the \texttt{DHCP} Server.
+    \item Identify the \texttt{IP} address the client \texttt{PC} has been given by the \texttt{DHCP} Server.
     \begin{tcolorbox}[colback=blue!20]
-        \textbf{At this stage you can `shutdown' the \texttt{Virtual Machine} and copy it. This machine will now be the client machine you use for the rest of the module (although you will have to change the \texttt{IP} settings). A basic \texttt{Ubuntu Client} virtual machine will be made available from the \texttt{NAS} drive in the event you loose or corrupt your own.}
+        \textbf{At this stage you can `shutdown' the \texttt{Virtual Machine} and copy it (in case of a disaster!). This machine will now be the client machine you use for the rest of the module (although you may have to change the \texttt{IP} settings). A basic \texttt{Ubuntu Client} virtual machine will be made available on the lab \texttt{NAS} drive in the event you loose or corrupt your own. (double backup!)}
     \end{tcolorbox}
     \item Start the copy of your machine and check the \texttt{IP} settings.
     \item Using \texttt{Wireshark} monitor the network and identify the communications between your \texttt{Virtual Machine} and the local network gateway (\texttt{192.168.100.254}).
         \begin{itemize}
-            \item A simple ping test will generate enough traffic. 
+            \item A simple ping test to \texttt{8.8.8.8} will generate enough traffic. 
             \begin{tcolorbox}[colback=blue!20]
-                \textbf{(Use \keys{CTRL+ALT+t} to open a terminal in your \texttt{Virtual Client})}
+                \textbf{(Use \keys{CTRL+ALT+t} to open a terminal on your \texttt{Virtual Desktop Client})}
             \end{tcolorbox}
         \end{itemize}
-    \item Alter the \texttt{MAC} Address of the \texttt{Virtual Machine} and check the network again.
+    \item Alter the \texttt{MAC} Address of the \texttt{Virtual Machine} (research how to do this) and check the network again.
 \end{enumerate}
 END
 \end{document}

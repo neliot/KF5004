@@ -13,6 +13,9 @@
 \documentclass{beamer}
 \usepackage{menukeys}[os=win]
 \usepackage{textcomp}
+\usepackage{tcolorbox}
+\usepackage{listings}
+\usepackage{lmodern}
 % There are many different themes available for Beamer. A comprehensive
 % list with examples is given here:
 % http://deic.uab.es/~iblanes/beamer_gallery/index_by_theme.html
@@ -130,7 +133,7 @@
 \subsection{General}
 \begin{frame}{Headless}
   \begin{itemize}
-    \item Server machines (*nix) are generally in `Headless' mode.
+    \item Server machines (\texttt{*nix}) are generally deployed in ``Headless'' mode.
     \begin{itemize}
       \item No Monitor.
       \item No Keyboard.
@@ -142,19 +145,24 @@
         \item \texttt{ssh} (\texttt{Windows/Linux})
           \begin{itemize}
             \item \texttt{e.g. \$ssh student@192.168.150.99}
-            \item \texttt{e.g. C:\textbackslash\textgreater ssh student@192.168.150.99}
+            \item \texttt{e.g. C:\textbackslash\textgreater ssh student@192.168.150.99} *
           \end{itemize}
         \end{itemize}
   \end{itemize}
+  \begin{block}{NOTE}
+    \begin{center}
+      * If the \texttt{ssh client feature} is installed.    
+    \end{center}
+  \end{block}
 \end{frame}
 
 \begin{frame}{Installer}
   \begin{itemize}
-    \item Ubuntu Server \texttt{ISO} can be downloaded from:
+    \item \texttt{Ubuntu Server} \texttt{ISO} can be downloaded from:
       \begin{itemize}
         \item \texttt{https://www.ubuntu.com}
       \end{itemize}
-    \item There is also an ISO located on the Lab NAS drive:
+    \item There is also an \texttt{ISO} located on the Lab NAS drive:
       \begin{itemize}
         \item \texttt{\textbackslash\textbackslash NAS3}
         \item \texttt{\textbackslash\textbackslash NAS3.offcampusnetwork.co.uk}
@@ -181,8 +189,8 @@
 
 \begin{frame}{Install \texttt{Ubuntu Server}}
   \begin{itemize}
-    \item On completion of the installation you will only be able to login via the machines console.
-    \item To become a headless server remote access software must be installed.
+    \item On completion of the installation you will only be able to \texttt{login} via the machines console.
+    \item To become a \texttt{headless} server remote access software must be installed.
       \begin{itemize}
         \item \texttt{ssh} or \texttt{telnet}
       \end{itemize}
@@ -192,7 +200,7 @@
   \end{block}
 \end{frame}
 
-\subsection{VMWare}
+\subsection{\texttt{VMWare}}
 \begin{frame}{Install \texttt{Ubuntu Server} (\texttt{VMWare})}
   \begin{center}
     \begin{figure}
@@ -214,7 +222,7 @@
   \end{center}
 \end{frame}
 
-\subsection{Ubuntu}
+\subsection{\texttt{Ubuntu}}
 \begin{frame}{Install \texttt{Ubuntu Server} (\texttt{Ubuntu})}
   \begin{figure}
     \begin{overprint}
@@ -244,11 +252,11 @@
       \begin{itemize}
         \item Update the repository database.
           \begin{itemize}
-            \item \texttt{sudo apt-get update}
+            \item \texttt{\$sudo apt-get update}
           \end{itemize}
         \item Update the software.
           \begin{itemize}
-            \item \texttt{sudo apt-get upgrade}
+            \item \texttt{\$sudo apt-get upgrade}
           \end{itemize}
       \end{itemize}
   \end{itemize}
@@ -262,11 +270,11 @@
   \begin{itemize}
     \item Once the remote software is added you can connect via the network rather than the console.
       \begin{itemize}
-        \item To install \texttt{ssh} (\texttt{S}ecure \texttt{SH}ell)
+        \item To install \texttt{ssh} server (\texttt{S}ecure \texttt{SH}ell)
           \begin{itemize}
             \item \texttt{sudo apt-get install openssh-server}
           \end{itemize}
-        \item To install \texttt{telnet}
+        \item To install \texttt{telnet} server
           \begin{itemize}
             \item \texttt{sudo apt-get install telnetd}
           \end{itemize}
@@ -276,7 +284,7 @@
 
 \begin{frame}{Remote access (Headless server)}
   \begin{itemize}
-    \item To get the IP address of your machine use the command.
+    \item To get the \texttt{IP} address of your machine use the command.
       \begin{itemize}
         \item \texttt{\$ip a}
       \end{itemize}
@@ -292,7 +300,7 @@
   \begin{itemize}
     \item Putty settings.
       \begin{itemize}
-        \item \texttt{ip}
+        \item \texttt{IP} Address
         \item Connection type (protocol)
       \end{itemize}
   \end{itemize}
@@ -316,7 +324,7 @@
     \end{center}
   \end{figure}
   \begin{itemize}
-      \item \texttt{ssh} is a secure method of connecting to the server if you use \texttt{telnet} all commands are sent as plain text over the Ethernet connection and can be intercepted.
+      \item \texttt{ssh} is a secure method of connecting to the server if you use \texttt{telnet} all commands are sent as plain text over the Ethernet connection and can be intercepted (try it out).
   \end{itemize}
 \end{frame}
 % Placing a * after \section means it will not show in the
@@ -328,7 +336,7 @@
       \begin{itemize}
         \item \texttt{\$sudo apt-get install traceroute}
       \end{itemize}
-    \item \texttt{traceroute} checks traffic routing from source to destination.
+    \item \texttt{traceroute} checks traffic routing from source to destination addresses.
       \begin{itemize}
         \item \texttt{\$traceroute www.google.com}
       \end{itemize}
@@ -338,7 +346,7 @@
 \begin{frame}{\texttt{IP} Addressing considerations}
    \begin{itemize}
      \item Internet services are generally fixed in nature with a specific function. 
-     \item Network services are vital to normal operations an therefore need to be implemented with \textbf{Redundancy} and \textbf{Fault Tolerance} in mind.
+     \item Network services are vital to normal operations and therefore need to be implemented with \textbf{Redundancy} and \textbf{Fault Tolerance} in mind.
      \item Generally they have a static \texttt{IP} address to maintain access to the service (Network servers should, as far as is possible, not be dependant on other services e.g. \texttt{DHCP}) and are referenced by their \texttt{IP} address.
    \end{itemize}
    \begin{block}{NOTE}
@@ -348,20 +356,19 @@
 
 \begin{frame}{Static \texttt{IP} Addressing}
   \begin{itemize}
-    \item Almost all configurations in a Linux server are performed using text based configuration files.
-    \item Reloading configurations is a simple matter of restarting the service/daemon (program).
-    \item Generally they have a static \texttt{IP} address to maintain access to the service (Network servers should, as far as is possible, not be dependant on other services e.g. \texttt{DHCP}) and are referenced by their \texttt{IP} address.
+    \item Almost all \texttt{Linux} server \texttt{daemons} are configured using text based files.
+    \item Reloading configurations is a simple matter of restarting the \texttt{service/daemon} (program).
   \end{itemize}
 \end{frame}
 
 \begin{frame}{Static \texttt{IP} Addressing}
   \begin{itemize}
-    \item The location of the network config files on a \texttt{18.04 Ubuntu server} are:-
+    \item The location of the network config files on a \texttt{18.04 Ubuntu server} (Default: \texttt{networkd}) are:-
     \begin{itemize}
       \item \texttt{/etc/netplan}
     \end{itemize} 
   \end{itemize}
-  \begin{block}{NOTE}
+  \begin{block}{NOTE (NetworkManager)}
     If netplan is disabled.
     \begin{itemize}
       \item \texttt{/etc/network/interfaces}
@@ -379,7 +386,7 @@
     \end{itemize} 
   \end{itemize}
   \begin{block}{CITATION}
-    Yaml.org. (2018). \textit{The Official YAML Web Site.} [online] Available at: \texttt{http://yaml.org/} [Accessed 8 July. 2019].
+    Yaml.org. (2018). \textit{The Official YAML Web Site.} [online] Available at: \texttt{http://yaml.org/} [Accessed 8 July. 2019].
   \end{block}
 \end{frame}
 
@@ -390,7 +397,6 @@
     \begin{itemize}
       \item \texttt{/etc/netplan}
     \end{itemize} 
-    \item The files are in \texttt{YAML} format.
     \item The default network configuration file is :-
     \begin{itemize}
       \item \texttt{50-cloud-init.yaml}
@@ -421,7 +427,7 @@
 
 \begin{frame}{Static \texttt{IP} Addressing}
   \begin{itemize}
-    \item Any changes made to the file are applied using the netplan command:-
+    \item Any changes made to the file are applied using the \texttt{netplan} command:-
     \begin{itemize}
       \item \texttt{\$sudo netplan apply}
     \end{itemize}
@@ -430,7 +436,7 @@
 
 \begin{frame}{Static \texttt{IP} Addressing}
   \begin{itemize}
-    \item For a static address modify the default configuration rather than created another otherwise you will have multiple IP addresses allocated.
+    \item For a \texttt{static IP address} modify the default configuration rather than created another otherwise you will have multiple \texttt{IP} addresses allocated.
   \end{itemize}
   \begin{center}
     \begin{minipage}{9cm}
@@ -477,7 +483,7 @@
 
 \begin{frame}{Static \texttt{IP} Addressing}
   \begin{itemize}
-    \item To revert back to using the `'\texttt{interfaces}' configuration.
+    \item To revert back to using the ``\texttt{interfaces}'' configuration.
   \end{itemize}
   \begin{center}
     \begin{minipage}{9cm}
@@ -489,7 +495,9 @@
     \end{minipage}
   \end{center}
   \begin{block}{NOTE}
-    In this module we will use the new \texttt{netplan} method
+    \begin{center}
+      In this module we will use the new \texttt{netplan} method      
+    \end{center}
   \end{block}
 \end{frame}
 
@@ -507,11 +515,11 @@
     \item Suitable text editors are:
     \begin{itemize}
       \item \texttt{vi}
-      \item texttt{nano}
+      \item \texttt{nano}
     \end{itemize}
   \end{itemize}
   \begin{block}{NOTE}
-    Your editing files on a headless server so you can only use a simple text editor (usually you navigate around the file using arrow keys i.e. \keys{\textuparrow}, \keys{\textdownarrow}, \keys{\textleftarrow}, \keys{\textrightarrow} and actions via \keys{ctrl} keys e.g. \keys{ctrl + s}).\\~\\
+    On a \texttt{headless server} you can only use a simple text editor (you usually you navigate around the file using arrow keys i.e. \keys{\textuparrow}, \keys{\textdownarrow}, \keys{\textleftarrow}, \keys{\textrightarrow} and actions via \keys{ctrl} keys e.g. \keys{ctrl + s}).\\~\\
     This module is not about any particular editor it is about the \texttt{OS} so use what you are comfortable with. If you haven't used a particular editor then \texttt{nano} is easy to get used!
   \end{block}
 \end{frame}
@@ -534,7 +542,7 @@
     It is possible to use scripts located in \texttt{/etc/init.d} but you should use the \texttt{ip} command which is recommended for \texttt{systemd} architectures.  
   \end{block}
   \begin{block}{NOTE}
-    The discussion of \texttt{System V} and \texttt{systemd} is beyond the scope of this module.  
+    The discussion of \texttt{System V/NetworkManager} and \texttt{systemd/networkd} is beyond the scope of this module.  
   \end{block}
 \end{frame}
 
@@ -562,7 +570,7 @@
       \item \texttt{ping}  
       \begin{block}{NOTE}
         \begin{center}
-          \texttt{ICMP} is sometimes blocked on networks therefore ping does not work as a check. KNow your network!
+          \texttt{ICMP} is sometimes blocked on networks therefore \texttt{ping} may not work!
         \end{center}
       \end{block}          
     \end{itemize}
@@ -623,9 +631,9 @@
 \begin{frame}{Conclusion}
   \begin{itemize}
     \item How do you install \texttt{Ubuntu Server}?
-    \item What is headless mode?
-    \item How do you access a headless server?
-    \item How do you apply a static address?
+    \item What is \texttt{headless} mode?
+    \item How do you access a \texttt{headless} server?
+    \item How do you apply a \texttt{static IP address} to \texttt{Ubuntu} server?
     \begin{itemize}
       \item \texttt{IP, NETMASK, GATEWAY, DNS} (name servers)
     \end{itemize}

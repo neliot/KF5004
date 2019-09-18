@@ -21,7 +21,7 @@
 \begin{document}
 
 % ========== Edit your name here
-\author{Dr. Neil Eliot / Dr. Alun Moon}
+\author{Dr. Neil Eliot \& Dr. Alun Moon}
 \title{KF5004\\------\\Workshop 2\\------\\Setting up a basic headless \texttt{Ubuntu Server}\\------}
 \date{September 2019}
 \maketitle
@@ -36,9 +36,9 @@
 
 \noindent\textbf{Learning Outcomes:}
 \begin{itemize}
-    \item Understand what a Headless server is.
+    \item Understand what a \texttt{Headless} server is.
     \item Configure a server to support \texttt{ssh} and \texttt{telnetd}.
-    \item Convert a server from dynamic to a static \texttt{IP} Addressing.
+    \item Convert a server from dynamic to a \texttt{static IP} Addressing.
     \item Understand the location and purpose of the networking configuration files of a \texttt{18.04} server.
 \end{itemize}
 
@@ -72,9 +72,11 @@
     \item Identify the address the server has been given by the \texttt{DHCP} server (you will change this later). 
         \begin{tcolorbox}[title={\textbf{Notes:}}]
             \begin{itemize}
-                \item At this stage you should close the virtual machine down and copy the folder it is contained in. 
-                \item This will be your base machine for future work!
-                \item To `shutdown' your server use the command: \texttt{sudo shutdown -h now} 
+                \item At this stage you should close the virtual machine down and copy the folder.
+                    \begin{itemize}
+                        \item This will be your base machine for future work!
+                    \end{itemize} 
+                \item To `shutdown' your server use the command: \texttt{\$sudo shutdown -h now} 
             \end{itemize}
         \end{tcolorbox}
     \item Restart your machine to continue.

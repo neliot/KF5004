@@ -11,6 +11,11 @@
 % notice. 
 
 \documentclass{beamer}
+\usepackage{menukeys}[os=win]
+\usepackage{textcomp}
+\usepackage{tcolorbox}
+\usepackage{listings}
+\usepackage{lmodern}
 
 % There are many different themes available for Beamer. A comprehensive
 % list with examples is given here:
@@ -151,27 +156,28 @@
     \item Not enough machines to build them all!
     \item You all need to be able to build an environment to understand it and experience the process.
     \item Working on your own projects both in the labs and in your own time builds skills and understanding and allows you to work at your own pace.
-    \item You are encouraged to work in groups and asking each other questions.
+    \item You are encouraged to work in groups and to ask each other questions.
+    \item You are encouraged to help others when you understand something as this helps to reinforce your learning and help others to learn. 
   \end{itemize}
 \end{frame}
 
 \begin{frame}{What \texttt{OS}s can provide the services?}
   \begin{itemize}
-    \item Windows
+    \item \texttt{Windows}
       \begin{itemize}
-        \item Server 2016.
+        \item \texttt{Server 2016}
       \end{itemize}
-    \item Linux / Unix (*nix).
+    \item \texttt{Linux / Unix (*nix)}
       \begin{itemize}
-        \item Fedora.
-        \item \textit{Ubuntu}.
-        \item Knoppix.
-        \item Red Hat.
+        \item \texttt{Fedora}
+        \item \textit{\texttt{Ubuntu}}
+        \item \texttt{Knoppix}
+        \item \texttt{Red Hat}
         \item etc.
       \end{itemize}
     \item Other
       \begin{itemize}
-        \item OS/X Server.
+        \item \texttt{OS/X Server}
       \end{itemize}
   \end{itemize}
 \end{frame}
@@ -189,12 +195,15 @@
   \begin{itemize}
     \item Available in the lab.
       \begin{itemize}
-        \item \textbf{VMWare (Windows)}.
-        \item Virtual Box (Linux).
+        \item \textbf{\texttt{VMWare (Windows)}}
+        \item \texttt{Virtual Box (Linux)}
       \end{itemize}
   \end{itemize}
   \begin{block}{NOTE}
-    You must use \textbf{VMWare} in Windows to be able to use portable drives to move you virtual machines between machines in the lab and home. 
+    \begin{itemize}
+      \item You must use \texttt{VMWare} in \texttt{Windows} to be able to use portable drives to move you \texttt{virtual machines} between host machines in the lab and home. 
+      \item You can use the \texttt{Linux} version of \texttt{VMWare} on your own equipment. The \texttt{virtual appliances} are transportable, however, please do not install \texttt{VMWare} on the Lab \texttt{Linux} partition.
+    \end{itemize}
   \end{block}
 \end{frame}
 
@@ -209,7 +218,7 @@
   \end{itemize}
 \end{frame}
 
-\begin{frame}{What is a Virtual Environment (\texttt{VE}) / Virtual Machine (\texttt{VM})?}
+\begin{frame}{Virtual Environment (\texttt{VE}) / Virtual Machine (\texttt{VM})?}
   \begin{itemize}
     \item A virtual machine (\texttt{VM}) is a software implementation of a machine.
     \item Emulated Hardware.
@@ -223,7 +232,7 @@
   \end{itemize}
 \end{frame}
 
-\begin{frame}{What is a Virtual Environment (\texttt{VE}) / Virtual Machine (\texttt{VM})?}
+\begin{frame}{Virtual Environment (\texttt{VE}) / Virtual Machine (\texttt{VM})?}
   \begin{itemize}
     \item Emulation of Hardware.
       \begin{itemize}
@@ -237,7 +246,7 @@
   \end{itemize}
 \end{frame}
 
-\begin{frame}{What is a Virtual Environment (\texttt{VE}) / Virtual Machine (\texttt{VM})?}
+\begin{frame}{Virtual Environment (\texttt{VE}) / Virtual Machine (\texttt{VM})?}
   \begin{figure}
     \begin{center}
       \includegraphics[width=\linewidth]{Comparison.png}
@@ -245,7 +254,7 @@
   \end{figure}
 \end{frame}
 
-\begin{frame}{What is a Virtual Environment (\texttt{VE}) / Virtual Machine (\texttt{VM})?}
+\begin{frame}{Virtual Environment (\texttt{VE}) / Virtual Machine (\texttt{VM})?}
   \begin{itemize}
     \item Type 2 Environments.
       \begin{itemize}
@@ -278,7 +287,7 @@
       \end{itemize}  
   \end{itemize}  
   \begin{block}{NOTE}
-    The simplest environment to provide this is \texttt{VMWare} and there is free version of the player for no-commercial use.
+    The simplest environment to provide this is \texttt{VMWare} and there is a free version of the player for no-commercial use.
   \end{block}
 \end{frame}
 
@@ -290,7 +299,7 @@
         \item Instruction set is emulated so has to be translated and then executed in software which is what actually runs on the hardware.
       \end{itemize}
     \item You have to manage the \texttt{VM} environment as well as the virtualised \texttt{OS}s.
-    \item Not all hardware that is emulated may be `shared' by the Host OS and the Virtualised \texttt{OS}.  
+    \item Not all hardware that is emulated may be `shared' by the Host \texttt{OS} and the Virtualised \texttt{OS}.  
   \end{itemize}
 \end{frame}
 
@@ -324,14 +333,14 @@
 
 \begin{frame}{And finally!}
   \begin{itemize}
-    \item Sign out \texttt{USB HDD} a for the storage of your Virtual Machines.
+    \item Sign out \texttt{USB HDD} for the storage of your Virtual Machines.
       \begin{itemize}
         \item \texttt{https://orb.northumbria.ac.uk} 
         \item Check the format!
       \end{itemize}
   \end{itemize}
   \begin{block}{NOTE}
-    The workshop is to get you to familiarise \textbf{yourself} with \texttt{VMWare}. You may well have to do a bit of research yourself. (Your Second Year \texttt{BSc} students now)
+    The workshop is to get you to familiarise \textbf{yourself} with \texttt{VMWare}. You may well have to do a bit of research yourself. (You are second year \texttt{BSc} students now)
   \end{block}
 \end{frame}
 
