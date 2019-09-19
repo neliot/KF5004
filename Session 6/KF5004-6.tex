@@ -14,6 +14,7 @@
 \usepackage{menukeys}[os=win]
 \usepackage{textcomp}
 \usepackage{tcolorbox}
+\usepackage{lmodern}
 \usepackage{listings}
 \lstset{
   basicstyle=\tiny\ttfamily,
@@ -123,22 +124,22 @@
 \subsection{Background}
 \begin{frame}{Secondary \texttt{DNS}}
   \begin{itemize}
-    \item Redundancy that is required to ensure availability of service.
-    \item A level of security by removing direct access to the Primary server.
+    \item Provide redundancy to ensure availability of a service.
+    \item A level of security by removing direct access to the \texttt{Primary server}.
     \item A Secondary \texttt{DNS}s mode of operation is controlled via each \texttt{zone}’s \texttt{SOA} record.
       \begin{itemize}
         \item The time interval of a \texttt{zone} update.
         \item The time a \texttt{Secondary} is \texttt{authoritative} following a \texttt{Primary} failure.
-        \item The frequency it checks for the \texttt{Primary} being back online.
+        \item The frequency of checks for the \texttt{Primary} \texttt{DNS} being back online.
       \end{itemize}
   \end{itemize}
 \end{frame}
 
 \section{Setup}
-\subsection{\texttt{BIND9} Setup}
+\subsection{\texttt{bind9} Setup}
 \begin{frame}{Configuring Secondary \texttt{DNS}s}
   \begin{itemize}
-    \item Install \texttt{BIND9} and \texttt{dnsutils} onto a basic headless, statically addressed server
+    \item Install \texttt{bind9} and \texttt{dnsutils} onto a basic headless, statically addressed server.
     \item Just like a \texttt{Primary} you can have multiple \texttt{zones}.
     \item Secondary \texttt{zones} must have the same names as the \texttt{primary}.
     \item All configurations (of the \texttt{zones}) are carried out in one config file.
@@ -150,8 +151,8 @@
 
 \begin{frame}{Configuring Secondary \texttt{DNS}s}
   \begin{itemize}
-    \item On the Secondary: The secondary needs the location (\texttt{IP}) of the \texttt{Primary DNS} for each \texttt{zone}.
-    \item On the Primary: The \texttt{zone} needs to be configured to allow \textbf{ALL} the \texttt{secondary} servers to transfer \texttt{zone} information.
+    \item \texttt{Secondary}: needs the location (\texttt{IP}) of the \texttt{Primary DNS} for each \texttt{zone}.
+    \item \texttt{Primary}: needs to be configured to allow \textbf{ALL} the \texttt{secondary} servers to transfer \texttt{zone} information.
   \end{itemize}
 \end{frame}
 
@@ -213,7 +214,7 @@
 
 \begin{frame}{Configuring the \texttt{zone}}
   \begin{tcolorbox}[title={\textbf{SECURITY:}}]
-      By limiting the \texttt{NS} records to only the \texttt{secondary} servers and then only setting up the \texttt{secondary} servers as the \texttt{name server}, lookups on client machines do not "see" the \texttt{primary}. This reduces the chances of the \texttt{Primary} Server being attacked. \texttt{NS} Queries don't reveal the Primary's address.
+      By limiting the \texttt{NS} records to only the \texttt{secondary} servers client machines do not ``see'' the \texttt{primary}. This reduces the chances of the \texttt{Primary} Server being attacked. Also \texttt{NS} queries don't reveal the \texttt{Primary}'s address.
   \end{tcolorbox}
   \begin{figure}
     \begin{center}
@@ -243,7 +244,7 @@
     }
     \begin{lstlisting}
       example.com. IN SOA ns.example.com. hostmaster.example.com. ( 
-	        2020080800  ; sn = serial number 
+	        2019091900  ; sn = serial number 
 	        172800      ; ref = refresh = 2d 
 	        900         ; ret = update retry = 15m 
 	        1209600     ; ex = expiry = 2w 
@@ -266,7 +267,7 @@
       \end{itemize}
   \end{itemize}
   \begin{tcolorbox}[title={\textbf{NOTE:}}]
-    This location is already enabled for \texttt{BIND9} to store data, we will cover \texttt{AppArmor} in a moment.
+    This location is already enabled for \texttt{bind9} to store data, we will cover \texttt{AppArmor} in a moment.
   \end{tcolorbox}
 \end{frame}
 
@@ -350,7 +351,7 @@
   \end{itemize}
   \begin{tcolorbox}[title={\textbf{NOTE:}}]
       \begin{center}
-        You could just use the \texttt{/var/log/named/} folder?        
+        You could just use the \texttt{/var/log/named/} folder (\texttt{bind9} has \texttt{R/W} privileges by default) but then we wouldn't get to play with \texttt{AppArmor}?        
       \end{center}
   \end{tcolorbox}
 \end{frame}
@@ -380,8 +381,14 @@
       \begin{itemize}
         \item \scriptsize\texttt{\$sudo apparmor\_parser -r /etc/apparmor.d/usr.sbin.named}
       \end{itemize}
-    \item Finally, restart the \texttt{BIND9} daemon for logging to begin.
+    \item Finally, restart the \texttt{bind9} daemon for logging to begin.
+    \item Don't forget to comment out the logging and restart \texttt{bind9} to stop logging.
   \end{itemize}
+  \begin{tcolorbox}[title={\textbf{CONSIDER:}}]
+    \begin{center}
+      When and where would you use logging?
+    \end{center}
+\end{tcolorbox}
 \end{frame}
 
 \section*{Conclusion}

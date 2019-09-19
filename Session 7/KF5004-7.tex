@@ -14,6 +14,7 @@
 \usepackage{menukeys}[os=win]
 \usepackage{textcomp}
 \usepackage{tcolorbox}
+\usepackage{lmodern}
 \usepackage{listings}
 \lstset{
   basicstyle=\tiny\ttfamily,
@@ -163,7 +164,7 @@
   \end{itemize}
 \end{frame}
 
-\subsection{Full Delegation}
+\subsection{Full delegation}
 \begin{frame}{Fully delegated \texttt{subdomain}}
   \begin{figure}
     \begin{center}
@@ -301,7 +302,7 @@
   \end{tcolorbox}
 \end{frame}
 
-\subsection{Pseudo Delegation}
+\subsection{Pseudo delegation}
 \begin{frame}{Pseudo delegated \texttt{subdomain}}
   \begin{figure}
     \begin{center}
@@ -364,8 +365,8 @@
       ns3 		  IN    A 	192.168.101.30
       ; subdomain definitions
       $ORIGIN finance.example.com.
-      ftp 		  IN    A   10.10.0.29
-      www		  IN    A   10.10.0.55
+      ftp     IN    A   10.10.0.29
+      www     IN    A   10.10.0.55
       ...
     \end{lstlisting}
   \end{tcolorbox}

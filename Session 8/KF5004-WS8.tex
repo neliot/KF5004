@@ -22,7 +22,7 @@
 \begin{document}
 
 % ========== Edit your name here
-\author{Dr. Neil Eliot / Dr. Alun Moon}
+\author{Dr. Neil Eliot \& Dr. Alun Moon}
 \title{KF5004\\------\\Workshop 8\\------\\Setting up \texttt{Apache} Server\\------}
 \date{September 2019}
 \maketitle
@@ -39,10 +39,10 @@
 \begin{itemize}
     \item Configure \texttt{Apache}:
         \begin{itemize}
-            \item Per User.
-            \item Load-balanced.
+            \item \texttt{Per-User}
+            \item \texttt{Load-balanced}
         \end{itemize}
-    \item Configure \texttt{DNS} Round Robin.
+    \item Configure \texttt{DNS Round Robin}.
 \end{itemize}
 
 % \begin{center}
@@ -80,24 +80,24 @@
             \item \texttt{<your server IP>} $\Leftrightarrow$ \texttt{www.student.co.uk}
         \end{itemize}
     \item Access the default web page.
-    \item Create a static "HELLO" page that includes the \texttt{IP} Address of the server and a \texttt{PHP} test page (\texttt{info.php}).
+    \item Create a static ``HELLO'' page that includes the \texttt{IP} Address of the server and a \texttt{PHP} test page (\texttt{info.php}).
         \begin{itemize}
             \item Access the two pages on your new server using the 2 \texttt{URL}s
         \end{itemize}
-    \item Configure your server to support Per-User websites and create a simple "HELLO" page (\texttt{index.html}) in the student account.
+    \item Configure your server to support \texttt{Per-User} websites and create a simple "HELLO" page (\texttt{index.html}) in the student account.
         \begin{itemize}
             \item The page must be located in the \texttt{public\_html} directory.
         \end{itemize}
     \item Create another user account (\texttt{ceo}) and enable \texttt{PHP} scripting for only that account.
         \begin{itemize}
-            \item Copy the PHP test page into both the Per-User account directories and access them from a browser.
+            \item Copy the \texttt{PHP} test page into both the \texttt{Per-User} account directories and access them from a browser.
                 \begin{tcolorbox}[title={\textbf{NOTE:}}]
                     \noindent The \texttt{ceo} account should return the \texttt{info} page and the student account should list the \texttt{PHP} code.
                 \end{tcolorbox}
             \end{itemize}
     \item Create a further 2, statically addressed, \texttt{LAMP} Servers.
         \begin{itemize}
-            \item Create a "HELLO" page on both the servers that includes their \texttt{IP} Address.
+            \item Create a ``HELLO'' page on both the servers that includes their \texttt{IP} Address.
         \end{itemize}
     \item Update the \texttt{www.student.co.uk} \texttt{URL} to map the 3 \texttt{IP} Addresses of the \texttt{LAMP} servers using \texttt{Round-Robin} (cyclic).
         \begin{itemize}

@@ -1,6 +1,6 @@
 \frametitle{Testing \texttt {PHP}}
 \begin{itemize}
-     \item At a command prompt you show the \texttt{PHP} version information.
+     \item To identify the \texttt{PHP} version information.
        \begin{itemize}
          \item \texttt{\$php -v}
        \end{itemize}

@@ -14,6 +14,7 @@
 \usepackage{menukeys}[os=win]
 \usepackage{textcomp}
 \usepackage{tcolorbox}
+\usepackage{lmodern}
 \usepackage{listings}
 \lstset{
   basicstyle=\tiny\ttfamily,
@@ -59,7 +60,7 @@
 % A subtitle is optional and this may be deleted
 % \subtitle{(Using proximity detection)}
 
-\author{Dr.~Neil~Eliot\inst{1} / Dr.~Alun~Moon\inst{1}}
+\author{Dr.~Neil~Eliot \& Dr.~Alun~Moon}
 % - Give the names in the same order as the appear in the paper.
 % - Use the \inst{?} command only if the authors have different
 %   affiliation.
@@ -68,7 +69,6 @@
 
 \institute[Northumbria University] % (optional, but mostly needed)
 {
-  \inst{1}
   Department of Computer and Information Sciences\\
   University of Northumbria
   % \and
@@ -145,7 +145,7 @@
     \item There are two ways to connect to a webserver.
       \begin{itemize}
         \item Via a \texttt{URL} lookup.
-        \item DIrectly using an \texttt{IP} Address
+        \item Directly using an \texttt{IP} Address
       \end{itemize}
     \item The \texttt{HTTP} request header varies based on the route.
   \end{itemize}
@@ -210,7 +210,7 @@
 \section{\texttt{Apache2}}
 \begin{frame}{Why \texttt{Apache}?}
   \begin{itemize}
-    \item \texttt{Apache} is the most commonly used Web Server on Linux systems and the Internet.
+    \item \texttt{Apache} is the most commonly used Web Server on \texttt{Linux} systems and the Internet.
       \begin{itemize}
         \item Top 1 Million sites (NETCRAFT 2019).
       \end{itemize}
@@ -393,11 +393,11 @@
 
 \begin{frame}{\texttt{Apache} Configuration}
   \begin{itemize}
-    \item This directory holds symlinks to the files in \texttt{/etc/apache2/mods-available}. 
+    \item This directory holds \texttt{symlinks} to the files in \texttt{/etc/apache2/mods-available}. 
       \begin{itemize}
         \item Created by \texttt{a2enmod}
       \end{itemize}
-    \item When a module configuration file is \textit{"symlinked"} it will be enabled the next time \texttt{apache2} is restarted.
+    \item When a module configuration file is \textit{``symlinked''} it will be enabled the next time \texttt{apache2} is restarted.
   \end{itemize}
 \end{frame}
 
@@ -473,7 +473,7 @@
       \end{itemize}
     \item It is configured with a single default \texttt{virtual host} (using the \texttt{VirtualHost} directive) which can be modified or used as-is if you have a single site.
       \begin{itemize}
-        \item It can be used as a template for additional virtual hosts if you require multiple sites. 
+        \item It can be used as a template for additional \texttt{virtual hosts} if you require multiple sites. 
       \end{itemize}
   \end{itemize}
 \end{frame}
@@ -497,8 +497,8 @@
   \begin{itemize}
     \item Multi website support:
       \begin{itemize}
-        \item Virtual Hosts
-        \item User-based
+        \item \texttt{Virtual Hosts}
+        \item \texttt{User-based}
       \end{itemize}
   \end{itemize}
   \begin{tcolorbox}
@@ -531,7 +531,7 @@
   \end{figure}
 \end{frame}
 
-\begin{frame}[fragile]{\texttt{BIND9} and Load-balancing}
+\begin{frame}[fragile]{\texttt{bind9} and Load-balancing}
   \begin{itemize}
     \item \texttt{bind9} supports load-balancing by providing multiple \texttt{IP} addresses for a single \texttt{URL}
     \item The \texttt{name} component of the \texttt{bind9} entry can consist of \texttt{A} and \texttt{AAAA} records.
@@ -585,7 +585,7 @@ www IN   192.168.101.4
   \end{figure}
 \end{frame}
 
-\begin{frame}[fragile]{\texttt{BIND9} and Load-balancing}
+\begin{frame}[fragile]{\texttt{bind9} and Load-balancing}
   \begin{itemize}
     \item Global sequencing is achieved by making an entry in the \texttt{named.conf.options} file.
   \end{itemize}
@@ -636,7 +636,7 @@ options {
   \end{itemize}
   \begin{tcolorbox}
     \begin{center}
-      \scriptsize \textbf{Although this seems like a logical approach you should NEVER use this technique!}
+      \scriptsize \textbf{Although this seems like a logical approach you should be VERY CAUTIOUS of using this technique! It causes \texttt{Apache} to stop abruptly and can damage data transactions in a web application.}
     \end{center}
   \end{tcolorbox}
 \end{frame}
@@ -645,7 +645,7 @@ options {
   \begin{itemize}
     \item There is a tool specifically designed to control \texttt{Apache2}.
       \begin{itemize}
-        \item \texttt{\$apachectl}
+        \item \texttt{apachectl}
       \end{itemize}
     \item To forcefully terminate \texttt{Apache2} and any transactions.
       \begin{itemize}
@@ -662,7 +662,7 @@ options {
   \end{itemize}
   \begin{tcolorbox}
     \begin{center}
-      \scriptsize \textbf{These commands are the prefered way to control \texttt{Apache} to ensure data integrity with dynamic web applications.}
+      \scriptsize \textbf{These commands are the prefered way to control \texttt{Apache} to ensure data integrity with dynamic web applications is maintained.}
     \end{center}
   \end{tcolorbox}
 \end{frame}
@@ -672,18 +672,18 @@ options {
     \item Configuration changes are implemented by restarting \texttt{Apache2}.
       \begin{itemize}
         \item A graceful restart allows all current transactions to be completed. 
-        \item If restarting the parent process (\texttt{httpd}) re-reads its configuration files and re-opens the log files. As each child dies off the parent replaces it with a child from the new generation of the configuration. This process begins serving new requests immediately.
-        \item Users don't see the service stopping and availability is maintained.
+        \item Restarting the parent process (\texttt{httpd}) re-reads the configuration files and re-opens the log files. As each child dies off the parent replaces it with a child from the new generation of the configuration. This process begins serving new requests immediately.
           \begin{itemize}
+            \item Users don't see the service stopping and availability is maintained.
             \item \texttt{\$sudo apachectl -k graceful}
           \end{itemize}
       \end{itemize}
     \end{itemize}
 \end{frame}
 
-\begin{frame}{\texttt{Apache2} enabling/disabling Modules}
+\begin{frame}{\texttt{Apache2} enabling/disabling modules}
   \begin{itemize}
-    \item Most features are available as modules.
+    \item Most features are available as modules:
       \begin{itemize}
         \item \texttt{PHP} support
         \item \texttt{MySQL} Authentication support
@@ -693,7 +693,7 @@ options {
   \end{itemize}
 \end{frame}
 
-\begin{frame}{\texttt{Apache2} enabling/disabling Modules}
+\begin{frame}{\texttt{Apache2} enabling/disabling modules}
   \begin{itemize}
     \item Enabling - \texttt{a2enmod}
       \begin{itemize}
@@ -713,7 +713,7 @@ options {
   \end{itemize}
 \end{frame}
 
-\subsection{Adding Multi-website features}
+\subsection{Adding multi-website features}
 \begin{frame}{Enabling \texttt{Per-User} Websites}
    \begin{itemize}
       \item Step 1 - Enabling - Per-User
@@ -738,7 +738,7 @@ options {
   \begin{itemize}
      \item Step 4 - Restart \texttt{Apache}
        \begin{itemize}
-         \item \texttt{\$sudo apachectl –k graceful}
+         \item \texttt{\$sudo apachectl -k graceful}
        \end{itemize}
      \item  Step 5 - Access the user website.
        \begin{itemize}
@@ -761,7 +761,7 @@ options {
           \item \texttt{\$sudo apt-get install libapache2-mod-php}
           \item \texttt{\$sudo apt-get install php-mysql}
           \item \texttt{\$sudo a2enmod php7.2}
-          \item \texttt{\$sudo apachectl –k graceful}
+          \item \texttt{\$sudo apachectl -k graceful}
             \begin{tcolorbox}
               \begin{center}
                  \scriptsize \textbf{At time of writing \texttt{php7.2} is correct but this may change.}
@@ -778,7 +778,7 @@ options {
 
 \begin{frame}[fragile]{Testing \texttt{PHP}}
   \begin{itemize}
-     \item At a command prompt you show the \texttt{PHP} version information.
+     \item To identify the \texttt{PHP} version information.
        \begin{itemize}
          \item \texttt{\$php -v}
        \end{itemize}
