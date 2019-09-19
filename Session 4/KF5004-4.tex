@@ -53,6 +53,8 @@
 %\usetheme{Warsaw}
 \setbeamerfont{block body}{size=\small}
 \title{KF5004 - Primary \texttt{DNS} Server}
+\titlegraphic{\includegraphics[width=0.3\textwidth]{../images/logo.png}}
+
 
 % A subtitle is optional and this may be deleted
 % \subtitle{(Using proximity detection)}
@@ -124,7 +126,7 @@
       \begin{itemize}
           \item \texttt{Zone} $\Longleftrightarrow$ \texttt{Domain}
       \end{itemize}
-    \item This server manages the mappings for this zone and the answer will not be derived from anywhere else.
+    \item It manages the mappings for \texttt{zone} and the answer is not be derived from anywhere else.
     \item You have spoken directly to the controlling \texttt{Primary server} or its \texttt{Secondary servers}.
   \end{itemize}
   \begin{figure}
@@ -207,10 +209,10 @@
   \end{itemize}
 \end{frame}
 
-\begin{frame}{\texttt{A}ccess \texttt{C}ontrol \texttt{L}ists ()\texttt{ACL})}
+\begin{frame}{\texttt{A}ccess \texttt{C}ontrol \texttt{L}ists (\texttt{ACL})}
   \begin{itemize}
     \item Access can be restricted in several ways using an \texttt{ACL}
-    \item \texttt{ACL}s can be comma separated lists.
+    \item \texttt{ACL}s can be semicolon separated lists.
       \begin{itemize}
         \item No security
           \begin{itemize}
@@ -232,7 +234,7 @@
   \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]{\texttt{A}ccess \texttt{C}ontrol \texttt{L}ists ()\texttt{ACL})}
+\begin{frame}[fragile]{\texttt{A}ccess \texttt{C}ontrol \texttt{L}ists (\texttt{ACL})}
   \begin{itemize}
     \item \texttt{ACL} Lists
   \end{itemize}
@@ -248,7 +250,7 @@
   \end{lstlisting}
 \end{frame}
 
-\begin{frame}{\texttt{A}ccess \texttt{C}ontrol \texttt{L}ists ()\texttt{ACL})}
+\begin{frame}{\texttt{A}ccess \texttt{C}ontrol \texttt{L}ists (\texttt{ACL})}
   \begin{itemize}
     \item Any of the options can be reversed by prefixing with an exclamation mark (\texttt{!}).
       \begin{itemize}
@@ -264,7 +266,7 @@
   \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]{\texttt{A}ccess \texttt{C}ontrol \texttt{L}ists ()\texttt{ACL})}
+\begin{frame}[fragile]{\texttt{A}ccess \texttt{C}ontrol \texttt{L}ists (\texttt{ACL})}
   \begin{itemize}
     \item \texttt{ACL} Lists in \texttt{named.conf.local}
   \end{itemize}
@@ -318,6 +320,10 @@
             \item e.g. \texttt{i.am@student.co.uk} $\Longrightarrow$ \texttt{i.am.student.co.uk}
           \end{itemize}
       \end{itemize}
+      \item Add the following:
+        \begin{itemize}
+          \item \texttt{\$ORIGIN <FQDN>}
+        \end{itemize}
   \end{itemize}
   \begin{tcolorbox}[title={\textbf{NOTE:}}]
     \texttt{FQDN} $\equiv$ \texttt{F}ully \texttt{Q}ualified \texttt{D}omain \texttt{N}ame
@@ -384,7 +390,7 @@ $TTL    604800
 ns  IN    A     192.168.0.55
   \end{lstlisting}
   \begin{tcolorbox}[title={\textbf{NOTE:}}]
-    For completeness a few additional changes have been added. These will be discussed later.
+    \texttt{IPv6} address \texttt{AAAA} removed. (more on this later.)
   \end{tcolorbox}
 \end{frame}
 
@@ -406,21 +412,21 @@ ns  IN    A     192.168.0.55
   \end{tcolorbox}
 \end{frame}
 
-\begin{frame}{Restarting \texttt{BIND9} after a \texttt{zone} change}
+\begin{frame}{Restarting \texttt{bind9} after a \texttt{zone} change}
   \begin{itemize}
-    \item When any changes are made to a \texttt{zone} file the \texttt{BIND9} service must be restarted.
+    \item When any changes are made to a \texttt{zone} file the \texttt{bind9} service must be restarted.
       \begin{itemize}
         \item \texttt{\$sudo systemctl restart bind9}
       \end{itemize}
     \item Restarting the \texttt{daemon} initiates a check of the \texttt{Serial Number} and compiles the database.
   \end{itemize}
   \begin{tcolorbox}[title={\textbf{NOTE:}}]
-    Whenever a change is made to a \texttt{zone} file the \texttt{Sequence Number} \textbf{MUST} be updated or the changes will not take place. \texttt{BIND9} \textbf{ONLY} recompiles the database if the \texttt{Sequence Number} is greater than the previously stored value.
+    Whenever a change is made to a \texttt{zone} file the \texttt{Sequence Number} \textbf{MUST} be updated or the changes will not take place. \texttt{bind9} \textbf{ONLY} recompiles the database if the \texttt{Sequence Number} is greater than the previously stored value.
   \end{tcolorbox}
 \end{frame}
 
 \section{\texttt{Zone} Files}
-\subsection{\texttt{Format}}
+\subsection{Format}
 \begin{frame}{\texttt{Zone} File Format}
   \begin{itemize}
     \item \texttt{Zone} files are text files (standardized by \texttt{RFC 1035})
@@ -495,15 +501,15 @@ ns1   IN    A     192.168.0.99
   \end{itemize}
 \end{frame}
 
-\begin{frame}{\texttt{Zone} File Format (Directives)}
+\begin{frame}{\texttt{Zone} File Format (Resource Records)}
   \begin{itemize}
-    \item \texttt{\$SOA} (\texttt{S}tart \texttt{O}f \texttt{A}uthority)
+    \item \texttt{SOA} (\texttt{S}tart \texttt{O}f \texttt{A}uthority)
        \begin{itemize}
          \item It describes the global characteristics of the \texttt{zone}.
          \item There can be only one \texttt{SOA RR} in a \texttt{zone} file. 
          \item The \texttt{SOA RR} \textbf{must} appear as the first \texttt{RR} in a \texttt{zone} file and is therefore \textbf{mandatory}.
        \end{itemize}
-     \item \texttt{\$NS} (\texttt{N}ame \texttt{S}erver)
+     \item \texttt{NS} (\texttt{N}ame \texttt{S}erver)
        \begin{itemize}
          \item Defines \texttt{name servers} that are authoritative for the \texttt{zone}. 
          \item There should be one or more \texttt{NS RR}s in a \texttt{zone} 
@@ -516,9 +522,9 @@ ns1   IN    A     192.168.0.99
   \end{itemize}
 \end{frame}
 
-\begin{frame}{\texttt{Zone} File Format (Directives)}
+\begin{frame}{\texttt{Zone} File Format (resource Records)}
   \begin{itemize}
-    \item \texttt{\$MX} (\texttt{M}ail E\texttt{X}changer)
+    \item \texttt{MX} (\texttt{M}ail E\texttt{X}changer)
        \begin{itemize}
           \item Defines the mail servers for the \texttt{zone}. 
           \item There may be zero or more \texttt{MX RR}s in a \texttt{zone} file.
@@ -531,9 +537,9 @@ ns1   IN    A     192.168.0.99
   \end{itemize}
 \end{frame}
 
-\begin{frame}{\texttt{Zone} File Format (Directives)}
+\begin{frame}{\texttt{Zone} File Format (Resource Records)}
   \begin{itemize}
-    \item \texttt{\$A} (\texttt{A}ddress)
+    \item \texttt{A} (\texttt{A}ddress)
        \begin{itemize}
           \item Used to define the \texttt{IPv4} address of all the hosts (or services) in the \texttt{zone}.
           \item This directive is \textbf{optional}.
@@ -550,9 +556,9 @@ ns1   IN    A     192.168.0.99
   \end{tcolorbox}
 \end{frame}
 
-\begin{frame}{\texttt{Zone} File Format (Directives)}
+\begin{frame}{\texttt{Zone} File Format (Resource Records)}
   \begin{itemize}
-    \item \texttt{\$AAAA} (\texttt{A}ddress)
+    \item \texttt{AAAA} (\texttt{A}ddress)
        \begin{itemize}
           \item Used to define the \texttt{IPv6} address of all the hosts (or services) in the \texttt{zone}.
           \item This directive is \textbf{optional}.
@@ -569,9 +575,9 @@ ns1   IN    A     192.168.0.99
   \end{tcolorbox}
 \end{frame}
 
-\begin{frame}{\texttt{Zone} File Format (Directives)}
+\begin{frame}{\texttt{Zone} File Format (Resource Records)}
   \begin{itemize}
-    \item \texttt{\$CNAME} (\texttt{C}anonical \texttt{N}ame)
+    \item \texttt{CNAME} (\texttt{C}anonical \texttt{N}ame)
        \begin{itemize}
           \item Used to define an alias for another \texttt{A} or \texttt{AAAA} \texttt{RR}.
           \item This directive is \textbf{optional}.
@@ -608,7 +614,7 @@ M1        IN	  AAAA          2001:db8::1
 \end{frame}
 
 \subsection{Tailoring the \texttt{Zone}}
-\begin{frame}{\texttt{Directive} effects}
+\begin{frame}{Directive effects}
   \begin{itemize}
     \item \texttt{\$TTL} (\texttt{T}ime \texttt{T}o \texttt{L}ive)
        \begin{itemize}
@@ -625,7 +631,7 @@ M1        IN	  AAAA          2001:db8::1
   \end{itemize}
 \end{frame}
 
-\begin{frame}{\texttt{Directive} effects}
+\begin{frame}{Directive effects}
   \begin{tcolorbox}[title={\textbf{NOTE:}}]
     Although not defined in the \texttt{RFC} standard it is common practice to use alternative notations to just using seconds.
     \begin{itemize}
@@ -638,7 +644,7 @@ M1        IN	  AAAA          2001:db8::1
   \end{tcolorbox}
 \end{frame}
 
-\begin{frame}{\texttt{Directive} effects}
+\begin{frame}{Directive effects}
   \begin{itemize}
     \item \texttt{\$TTL}
       \begin{itemize}
@@ -657,7 +663,7 @@ M1        IN	  AAAA          2001:db8::1
   \end{tcolorbox}
 \end{frame}
 
-\begin{frame}{\texttt{Directive} effects}
+\begin{frame}{Directive effects}
   \begin{itemize}
     \item \texttt{\$ORIGIN}
       \begin{itemize}
@@ -667,11 +673,11 @@ M1        IN	  AAAA          2001:db8::1
       \end{itemize}
   \end{itemize}
   \begin{tcolorbox}[title={\textbf{NOTE:}}]
-    Currently \texttt{BIND9} uses the \texttt{zone} declaration for ths purpose. However that may changes so it should be used to comply with current practice. Also other \texttt{DNS} software may not use that approach.
+    Currently \texttt{bind9} uses the \texttt{zone} declaration if this is not defined. However that may change so it should be used to comply with current practice. Also other \texttt{DNS} software may not use that approach.
   \end{tcolorbox}
 \end{frame}
 
-\begin{frame}{\texttt{\$Directive} effects}
+\begin{frame}{Directive effects}
   \begin{itemize}
     \item \texttt{\$ORIGIN} Substitution rule:
       \begin{itemize}
@@ -680,12 +686,12 @@ M1        IN	  AAAA          2001:db8::1
       \end{itemize}
   \end{itemize}
   \begin{tcolorbox}[title={\textbf{NOTE:}}]
-    \texttt{\$ORIGIN} can appear in a \texttt{zone} file more than once and is used to great effect when implementing \texttt{sub-domains} (More on that later!).
+    \texttt{\$ORIGIN} can appear in a \texttt{zone} file more than once and is used to great effect when implementing \texttt{sub-domains} (More on that later!). \texttt{DDNS} also uses multiple declarations (\texttt{Advanced OS II}). 
   \end{tcolorbox}
 \end{frame}
 
 \section{Implementation}
-\subsection{Directives effects}
+\subsection{Directive effects}
 \begin{frame}{\texttt{\$ORIGIN}}
   \begin{itemize}
     \item Syntax:

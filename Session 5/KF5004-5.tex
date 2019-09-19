@@ -53,6 +53,7 @@
 %\usetheme{Warsaw}
 \setbeamerfont{block body}{size=\small}
 \title{KF5004 - Primary \texttt{DNS} Server}
+\titlegraphic{\includegraphics[width=0.3\textwidth]{../images/logo.png}}
 
 % A subtitle is optional and this may be deleted
 % \subtitle{(Using proximity detection)}
@@ -128,7 +129,7 @@
       \end{itemize}
     \item In order to perform reverse mapping \texttt{DNS} designers have defined a special (reserved) domain name.
     \begin{itemize}
-      \item \texttt{IN-ADDR.ARPA.}
+      \item \texttt{in-addr.arpa.}
     \end{itemize}
 \end{itemize}
 \end{frame}
@@ -237,7 +238,7 @@
   \end{itemize}
 \end{frame}
 
-\subsection{How are address classes defined}
+\subsection{\texttt{rDNS} Domain}
 \begin{frame}{\texttt{rDNS} background}
   \begin{itemize}
     \item An \texttt{IPv4} address is written:-
@@ -256,10 +257,10 @@
       \begin{itemize}
         \item Create the \texttt{domain name}, reverse the order of the address, build the hierarchy under the special \texttt{domain name}.
       \end{itemize}
-    \item \texttt{IN-ADDR.ARPA.}
+    \item \texttt{in-addr.arpa.}
       \begin{itemize}
-        \item \texttt{SLD} is \texttt{IN-ADDR}
-        \item \texttt{TLD} is \texttt{ARPA}
+        \item \texttt{SLD} is \texttt{in-addr}
+        \item \texttt{TLD} is \texttt{arpa}
       \end{itemize}
   \end{itemize}
 \end{frame}
@@ -314,7 +315,7 @@
   \end{itemize}
   \begin{tcolorbox}
     \begin{center}
-      The \texttt{rDNS domain} for \texttt{192.168.100.254/24} is \texttt{100.168.192.IN-ADDR.ARPA.} and the \texttt{host name} is \texttt{254}       
+      The \texttt{rDNS domain} for \texttt{192.168.100.254/24} is \texttt{100.168.192.in-addr.arpa.} and the \texttt{host name} is \texttt{254}       
     \end{center}
   \end{tcolorbox}
 \end{frame}
@@ -322,7 +323,7 @@
 \begin{frame}{Resource Record (\texttt{RR}) for \texttt{rDNS}}
   \begin{itemize}
     \item Reverse mapping uses the \texttt{PTR} Resource Record.
-    \item The PTR RR is standardized in RFC 1035
+    \item The \texttt{PTR RR} is standardized in \texttt{RFC 1035}
     \item Maps an \texttt{IPv4} and \texttt{IPv6} addresses to a particular host in the \texttt{domain}.
   \end{itemize}
 \end{frame}
@@ -376,7 +377,7 @@
     \end{center}
   \end{tcolorbox}
   \begin{itemize}
-    \item  Edit the new \texttt{db.0.168.192.in-addr.arpa} file changing the details in a similar way to the original \texttt{zone} file except you now add \texttt{PTR} records rather than \texttt{A} records.
+    \item  Edit the new \texttt{db.100.168.192.in-addr.arpa} file changing the details in a similar way to the original \texttt{zone} file except you now add \texttt{PTR} records rather than \texttt{A} records.
   \end{itemize}
   \begin{tcolorbox}[title={\textbf{NOTE:}}]
     \begin{center}
@@ -469,13 +470,12 @@
 \subsection{General}
 \begin{frame}{Create the \texttt{reverse zone} file}
   \begin{itemize}
-    \item You should only set up \texttt{reverse zone} entries (\texttt{PTR} records) on services that need rDNS for authentication e.g. Mail Servers
+    \item You should only set up \texttt{reverse zone} entries (\texttt{PTR} records) on services that need \texttt{rDNS} for authentication e.g. Mail Servers
   \end{itemize}
   \begin{tcolorbox}[title={\textbf{NOTE:}}]
-    \begin{center}
-      \scriptsize Setting up \texttt{rDNS} on all machines opens up the possibility of machines being used as spambots.
-    \end{center}
+       \scriptsize Setting up \texttt{rDNS} on all machines opens up the possibility of machines being used as spambots.
   \end{tcolorbox}
+  \tiny{\texttt{https://www.mxpolice.com/email-security/importance-of-ptr-records-for-reliable-mail-delivery/}}
 \end{frame}
 
 \subsection{Example}

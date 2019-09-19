@@ -21,7 +21,7 @@
 \begin{document}
 
 % ========== Edit your name here
-\author{Dr. Neil Eliot / Dr. Alun Moon}
+\author{Dr. Neil Eliot \& Dr. Alun Moon}
 \title{KF5004\\------\\Workshop 4\\------\\Setting up a Basic \texttt{Primary DNS Server}\\------}
 \date{September 2019}
 \maketitle
@@ -37,8 +37,8 @@
 \noindent\textbf{Learning Outcomes:}
 \begin{itemize}
     \item Create a Headless server.
-    \item Install \texttt{BIND9}.
-    \item Configure \texttt{BIND9} as a \texttt{Primary DNS Server}.
+    \item Install \texttt{bind9}.
+    \item Configure \texttt{bind9} as a \texttt{Primary DNS Server}.
         \begin{itemize} 
             \item Non \texttt{Forwarding}.
             \item \texttt{Forwarding}.
@@ -76,9 +76,9 @@
         \begin{tcolorbox}[title={\textbf{NOTE:}}]
             A \texttt{DNS} Server should always have a static \texttt{IP} Address so once the machine has booted ensure you use one of your reserved \texttt{IP} Addresses.
         \end{tcolorbox}
-    \item Install \texttt{BIND9} on the server via a remote connection. 
+    \item Install \texttt{bind9} on the server via a remote connection. 
         \begin{tcolorbox}[title={\textbf{NOTE:}}]
-            Make sure you install both \texttt{BIND9} and the \texttt{DNS} utilities. 
+            Make sure you install both \texttt{bind9} and the \texttt{DNS} utilities. 
         \end{tcolorbox}
     \item Configure the server to support a \texttt{DNS} zone of \texttt{student.co.uk} (follow the lecture notes but use your \texttt{IP} range).
         \begin{itemize}
@@ -104,7 +104,7 @@
                     \item \texttt{www.vbox.org.uk}
                 \end{itemize}
                 \begin{tcolorbox}[colback=blue!20]
-                    \noindent\textbf{For all of these exercises make sure you run \texttt{Wireshark} on the host \texttt{PC} and capture ALL Ethernet Traffic. You should be able to identify when caching is working from a lack of network traffic. An note the response addresses}
+                    \noindent\textbf{For all of these exercises make sure you run \texttt{Wireshark} on the host \texttt{PC} and capture ALL Ethernet Traffic. You should be able to identify when caching is working (local resolver) from a lack of network traffic.}
                 \end{tcolorbox}
                 When You:
                 \begin{itemize}

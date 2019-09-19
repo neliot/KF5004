@@ -53,6 +53,8 @@
 %\usetheme{Warsaw}
 \setbeamerfont{block body}{size=\small}
 \title{KF5004 - \texttt{DNS} Architecture and Caching Server}
+\titlegraphic{\includegraphics[width=0.3\textwidth]{../images/logo.png}}
+
 
 % A subtitle is optional and this may be deleted
 % \subtitle{(Using proximity detection)}
@@ -144,12 +146,12 @@
 \subsection{Installation}
 \begin{frame}{Installing \texttt{DNS} on \texttt{Ubuntu Server}}
   \begin{itemize}
-    \item The \texttt{DNS} server is in a package called \texttt{BIND9}
+    \item The \texttt{DNS} server is in a package called \texttt{bind9}
     \item You will also require the utilities that go with the server.
       \begin{itemize}
         \item \texttt{dnsutils}
       \end{itemize} 
-    \item Installation of both these packages is performed using \texttt{apt-get}
+    \item Installation of both these packages is performed using \texttt{apt-get} / \texttt{apt}
   \end{itemize}
 \end{frame}
 
@@ -172,8 +174,11 @@
 \begin{frame}{Installing \texttt{DNS} on \texttt{Ubuntu Server}}
   \begin{itemize}
     \item This gives a basic install of a fully functioning \texttt{DNS} server.
-    \item This has very limited functionality and requires configuring before it is of any real use.
-    \item You can check to see if it running using the \texttt{ps} command.
+    \item This has very limited functionality and requires configuring before it is of any major use.
+      \begin{itemize}
+        \item What you have is a basic caching server.
+      \end{itemize}
+  \item You can check to see if it running using the \texttt{ps} command.
       \begin{itemize}
         \item \texttt{\$ps -ef | grep bind}
       \end{itemize}
@@ -187,7 +192,6 @@
 
 \section{Configuration options}
 \subsection{Overview}
-
 \begin{frame}{Configuring \texttt{BIND9}}
   \begin{itemize}
     \item Mainly through configuration files.
@@ -204,7 +208,6 @@
 \end{frame}
 
 \subsection{\texttt{DNS} Architecture}
-
 \begin{frame}{Caching \texttt{DNS}}
   \begin{figure}
     \begin{center}
@@ -216,20 +219,18 @@
 \begin{frame}{Caching \texttt{DNS}}
   \begin{itemize}
     \item Any query that is received will be checked against the internal database.
+    \item If an answer is \textbf{found} then return answer to client.
+    \item If \textbf{not found} a forward/recursive/non-recursive lookup will be carried out on another \texttt{DNS} server.
       \begin{itemize}
-        \item If an answer is found then return answer to client.
-      \end{itemize}
-    \item If not found a forward/recursive lookup will be carried out on another \texttt{DNS} server.
-      \begin{itemize}
-        \item If an answer is returned from the forwarded \texttt{DNS}.
+        \item If an answer \textbf{is returned} from another \texttt{DNS}.
           \begin{itemize}
-            \item store the answer locally.
-            \item return answer to client.
+            \item Store the answer locally.
+            \item Return answer to client.
           \end{itemize}
-        \item If \texttt{not found} answer returned from the forwarded \texttt{DNS}
+        \item If an answer \textbf{is not returned} from another \texttt{DNS}
         \begin{itemize}
-          \item store the answer locally (negative cache).
-          \item return answer to client.
+          \item Store the negative answer locally (negative cache).
+          \item Return answer to client.
         \end{itemize}
       \end{itemize}
   \end{itemize} 
@@ -239,7 +240,7 @@
   \begin{tcolorbox}[title={\textbf{NOTE:}}]
     This module will only be considering \texttt{recursive} and \texttt{forwarded} queries.
   \end{tcolorbox} 
-  \end{frame}
+\end{frame}
 
 \begin{frame}{Primary \texttt{DNS}}
   \begin{figure}
@@ -257,7 +258,7 @@
   \end{figure}
 \end{frame}
 
-\begin{frame}{Secondary \texttt{DNS}}
+\begin{frame}{Secondary \texttt{DNS} (not a good example!)}
   \begin{figure}
     \begin{center}
       \includegraphics[width=0.9\linewidth]{secondarydns.png}
@@ -265,7 +266,7 @@
   \end{figure}
 \end{frame}
 
-\begin{frame}{Primary \texttt{DNS} as master only}
+\begin{frame}{Primary \texttt{DNS} as master only (better!)}
   \begin{figure}
     \begin{center}
       \includegraphics[width=0.65\linewidth]{masteronlydns.png}
@@ -361,7 +362,9 @@
     };
   \end{lstlisting}
   \begin{tcolorbox}[title={\textbf{NOTE:}}]
-    \texttt{IP} addresses shown are examples only.
+    \begin{center}
+      \texttt{IP} addresses shown are examples only.      
+    \end{center}
   \end{tcolorbox}
 \end{frame}
 

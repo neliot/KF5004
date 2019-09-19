@@ -21,7 +21,7 @@
 \begin{document}
 
 % ========== Edit your name here
-\author{Dr. Neil Eliot / Dr. Alun Moon}
+\author{Dr. Neil Eliot \& Dr. Alun Moon}
 \title{KF5004\\------\\Workshop 5\\------\\Setting up a \texttt{Reverse Zone} on a \texttt{Primary DNS Server}\\------}
 \date{September 2019}
 \maketitle
@@ -70,9 +70,9 @@
         \begin{tcolorbox}[title={\textbf{NOTE:}}]
             A \texttt{DNS} Server should always have a static \texttt{IP} Address so once the machine has booted ensure you use one of your reserved \texttt{IP} Addresses.
         \end{tcolorbox}
-    \item Install \texttt{BIND9} on the server via a remote connection. 
+    \item Install \texttt{bind9} on the server via a remote connection. 
         \begin{tcolorbox}[title={\textbf{NOTE:}}]
-            Make sure you install both \texttt{BIND9} and the \texttt{DNS} utilities. 
+            Make sure you install both \texttt{bind9} and the \texttt{DNS} utilities. 
         \end{tcolorbox}
     \item Configure the server to support a \texttt{rDNS} zone for the addresses in last weeks \texttt{student.co.uk zone} (follow the lecture notes but use your \texttt{IP} range).
         \begin{itemize}

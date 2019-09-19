@@ -23,5 +23,7 @@
     };
   \end{lstlisting}
   \begin{tcolorbox}[title={\textbf{NOTE:}}]
-    \texttt{IP} addresses shown are examples only.
+    \begin{center}
+      \texttt{IP} addresses shown are examples only.
+    \end{center}
   \end{tcolorbox}
