@@ -10,7 +10,7 @@
 % modify this file as you see fit and even to delete this copyright
 % notice. 
 
-\documentclass[xcolor=table]{beamer}
+\documentclass[xcolor=table,aspectratio=169]{beamer}
 \usepackage{menukeys}[os=win]
 \usepackage{textcomp}
 \usepackage{tcolorbox}
@@ -219,7 +219,7 @@
   \end{itemize}
   \begin{figure}
     \begin{center}
-      \includegraphics[width=1\linewidth]{DNS.png}
+      \includegraphics[width=0.6\linewidth]{DNS.png}
     \end{center}
   \end{figure}
 \end{frame}
@@ -476,7 +476,11 @@
   \begin{tcolorbox}[title={\textbf{NOTE:}}]
        \scriptsize Setting up \texttt{rDNS} on all machines opens up the possibility of machines being used as spambots.
   \end{tcolorbox}
-  \tiny{\texttt{https://www.mxpolice.com/email-security/importance-of-ptr-records-for-reliable-mail-delivery/}}
+  \begin{tcolorbox}[title={\textbf{INFO:}}]
+    \begin{center}
+      \tiny{\texttt{https://www.mxpolice.com/email-security/importance-of-ptr-records-for-reliable-mail-delivery/}}      
+    \end{center}
+\end{tcolorbox}
 \end{frame}
 
 \subsection{Example}

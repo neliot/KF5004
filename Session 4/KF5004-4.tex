@@ -142,7 +142,7 @@
 \begin{frame}{Configuring a \texttt{Primary DNS}}
   \begin{itemize}
     \item The configuration of a \texttt{Primary DNS} involves adding a \texttt{zone}.
-    \item \texttt{Zones} are ‘pointed to’ from the \texttt{named.conf.local} file.
+    \item \texttt{Zones} are ``pointed to'' from the \texttt{named.conf.local} file.
       \begin{itemize}
         \item \texttt{/etc/bind/named.conf.local}
       \end{itemize}
@@ -496,7 +496,7 @@ ns1   IN    A     192.168.0.99
         \item Declares the \texttt{domain name} for the \texttt{zone} being defined.
         \item This directive is \textbf{optional}.
         \begin{itemize} 
-          \item \textbf{You should always use it – default behaviours can change!)}.
+          \item \textbf{You should always use it - default behaviours can change!)}.
         \end{itemize}
       \end{itemize}
   \end{itemize}
@@ -604,7 +604,7 @@ $ORIGIN example.com.
           3w ; ex = expiry
           2h20m ; min = minimum
         )
-; single line RR’s
+; single line RR's
           IN      NS            ns1.example.com.
       3w  IN      MX      10    mail.example.com.
 ns1       IN      A             192.168.254.2

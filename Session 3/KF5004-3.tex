@@ -10,7 +10,7 @@
 % modify this file as you see fit and even to delete this copyright
 % notice. 
 
-\documentclass{beamer}
+\documentclass[aspectratio=169]{beamer}
 \usepackage{menukeys}[os=win]
 \usepackage{textcomp}
 \usepackage{tcolorbox}
@@ -162,12 +162,12 @@
   \end{itemize}
   \begin{figure}
     \begin{center}
-      \includegraphics[width=0.9\linewidth]{bind9-1.png}
+      \includegraphics[width=0.6\linewidth]{bind9-1.png}
     \end{center}
   \end{figure}
   \begin{figure}
     \begin{center}
-      \includegraphics[width=0.9\linewidth]{bind9-2.png}
+      \includegraphics[width=0.6\linewidth]{bind9-2.png}
     \end{center}
   \end{figure}
 \end{frame}
@@ -212,7 +212,7 @@
 \begin{frame}{Caching \texttt{DNS}}
   \begin{figure}
     \begin{center}
-      \includegraphics[width=1\linewidth]{cachingdns.png}
+      \includegraphics[width=.8\linewidth]{cachingdns.png}
     \end{center}
   \end{figure}
 \end{frame}
@@ -246,7 +246,7 @@
 \begin{frame}{Primary \texttt{DNS}}
   \begin{figure}
     \begin{center}
-      \includegraphics[width=0.75\linewidth]{primarydns.png}
+      \includegraphics[width=0.5\linewidth]{primarydns.png}
     \end{center}
   \end{figure}
 \end{frame}
@@ -254,7 +254,7 @@
 \begin{frame}{Primary Caching \texttt{DNS}}
   \begin{figure}
     \begin{center}
-      \includegraphics[width=1\linewidth]{primarycachingdns.png}
+      \includegraphics[width=.7\linewidth]{primarycachingdns.png}
     \end{center}
   \end{figure}
 \end{frame}
@@ -262,7 +262,7 @@
 \begin{frame}{Secondary \texttt{DNS} (not a good example!)}
   \begin{figure}
     \begin{center}
-      \includegraphics[width=0.9\linewidth]{secondarydns.png}
+      \includegraphics[width=0.6\linewidth]{secondarydns.png}
     \end{center}
   \end{figure}
 \end{frame}
@@ -270,7 +270,7 @@
 \begin{frame}{Primary \texttt{DNS} as master only (better!)}
   \begin{figure}
     \begin{center}
-      \includegraphics[width=0.65\linewidth]{masteronlydns.png}
+      \includegraphics[width=0.45\linewidth]{masteronlydns.png}
     \end{center}
   \end{figure}
 \end{frame}
@@ -288,7 +288,7 @@
 \begin{frame}{\texttt{DNS} Fault Tolerance}
   \begin{figure}
     \begin{center}
-      \includegraphics[width=1\linewidth]{faulttolerance.png}
+      \includegraphics[width=.8\linewidth]{faulttolerance.png}
     \end{center}
   \end{figure}
 \end{frame}
@@ -309,17 +309,14 @@
   \begin{lstlisting}
     student@ubuntu:~$ cat /etc/bind/named.conf.options
     options {
-            directory "/var/cache/bind";
-    
+            directory "/var/cache/bind";    
             // If there is a firewall between you and nameservers you want
             // to talk to, you may need to fix the firewall to allow multiple
             // ports to talk.  See http://www.kb.cert.org/vuls/id/800113
-    
             // If your ISP provided one or more IP addresses for stable
             // nameservers, you probably want to use them as forwarders.
             // Uncomment the following block, and insert the addresses replacing
             // the all-0's placeholder.
-    
             // forwarders {
             //      0.0.0.0;
             // };
@@ -333,7 +330,7 @@
 \begin{frame}{\texttt{bind9} Vulnerability}
   \begin{figure}
     \begin{center}
-      \includegraphics[width=0.9\linewidth]{vulnerability.png}
+      \includegraphics[width=0.6\linewidth]{vulnerability.png}
     \end{center}
   \end{figure}
 \end{frame}
@@ -343,16 +340,13 @@
     student@ubuntu:~$ cat /etc/bind/named.conf.options
     options {
         directory "/var/cache/bind";
-
         // If there is a firewall between you and nameservers you want
         // to talk to, you may need to fix the firewall to allow multiple
         // ports to talk.  See http://www.kb.cert.org/vuls/id/800113
-
         // If your ISP provided one or more IP addresses for stable
         // nameservers, you probably want to use them as forwarders.
         // Uncomment the following block, and insert the addresses replacing
         // the all-0's placeholder.
-
         forwarders {
  		      192.168.1.254; 
 		      192.168.1.253;
