@@ -109,7 +109,7 @@ zone "unn.co.uk" {
                 
 zone "tech.co.uk" {
     type master;
-    file "/etc/bind/db.unn.co.uk";
+    file "/etc/bind/db.tech.co.uk";
     allow-transfer {192.168.101.29; 192.168.101.30;};
     allow-query {192.168.101.29; 192.168.101.30;};
 };
@@ -1203,7 +1203,7 @@ max_binlog_size   = 101M
 \begin{table}[ht]
     \begin{tabular}{|p{17.7cm}|} 
         \hline
-    \texttt{\textbf{/etc/mysql/mysql.conf.d/mysqld.cnf} - (\texttt{3})}\\ 
+    \texttt{\textbf{/etc/netplan/10-cloud-init.yaml}}\\ 
         \hline
         \lstset{
                 basicstyle=\scriptsize\ttfamily,
@@ -1260,7 +1260,7 @@ network:
 \begin{table}[ht]
     \begin{tabular}{|p{17.7cm}|} 
         \hline
-    \texttt{\textbf{/etc/mysql/mysql.conf.d/mysqld.cnf} - (\texttt{3})}\\ 
+    \texttt{\textbf{/etc/netplan/10-cloud-init.yaml}}\\ 
         \hline
         \lstset{
                 basicstyle=\scriptsize\ttfamily,

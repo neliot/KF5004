@@ -274,11 +274,11 @@
       \begin{itemize}
         \item To install \texttt{ssh} server (\texttt{S}ecure \texttt{SH}ell)
           \begin{itemize}
-            \item \texttt{sudo apt-get install openssh-server}
+            \item \texttt{\$sudo apt-get install openssh-server}
           \end{itemize}
         \item To install \texttt{telnet} server
           \begin{itemize}
-            \item \texttt{sudo apt-get install telnetd}
+            \item \texttt{\$sudo apt-get install telnetd}
           \end{itemize}
       \end{itemize}
   \end{itemize}
@@ -352,13 +352,13 @@
      \item Generally they have a static \texttt{IP} address to maintain access to the service (Network servers should, as far as is possible, not be dependant on other services e.g. \texttt{DHCP}) and are referenced by their \texttt{IP} address.
    \end{itemize}
    \begin{block}{NOTE}
-     Check your desktop machine's config for the \texttt{gateway} and \texttt{name servers}. They are  all specified as \texttt{IP} Addresses!
+     Check your desktop machine's \texttt{config} for the \texttt{gateway} and \texttt{name servers}. They are  all specified as \texttt{IP} Addresses!
    \end{block}
 \end{frame}
 
 \begin{frame}{Static \texttt{IP} Addressing}
   \begin{itemize}
-    \item Almost all \texttt{Linux} server \texttt{daemons} are configured using text based files.
+    \item Almost all \texttt{Linux} server \texttt{daemons} are configured using \texttt{text-based} files.
     \item Reloading configurations is a simple matter of restarting the \texttt{service/daemon} (program).
   \end{itemize}
 \end{frame}
@@ -382,7 +382,7 @@
 
 \begin{frame}{Static \texttt{IP} Addressing}
   \begin{itemize}
-    \item \texttt{netplan} files are in YAML format.
+    \item \texttt{netplan} files are in \texttt{YAML} format.
     \begin{itemize}
       \item \texttt{/etc/netplan}
     \end{itemize} 
@@ -416,12 +416,12 @@
           \texttt{\# This file describes ...\\
           \# For more information, see netplan(5).\\
           ~~network:\\
-          ~~version: 2\\
-          ~~renderer: networkd\\
-          ~~ethernets:\\
-          ~~~~ens33:\\
-          ~~~~~~dhcp4: yes\\
-          ~~~~~~dhcp6: yes}
+          ~~~~version: 2\\
+          ~~~~renderer: networkd\\
+          ~~~~ethernets:\\
+          ~~~~~~ens33:\\
+          ~~~~~~~~dhcp4: yes\\
+          ~~~~~~~~dhcp6: yes}
         \end{block}
       \end{minipage}
     \end{center}
@@ -441,19 +441,19 @@
     \item For a \texttt{static IP address} modify the default configuration rather than created another otherwise you will have multiple \texttt{IP} addresses allocated.
   \end{itemize}
   \begin{center}
-    \begin{minipage}{9cm}
+    \begin{minipage}{10cm}
       \begin{block}{}
         \texttt{network:\\
-        version: 2\\
-        renderer: networkd\\
-        ethernets:\\
-        ~~ens33:\\
-        ~~~~dhcp4: no\\
-        ~~~~dhcp6: no\\
-        ~~~~addresses: [192.168.1.2/24]\\
-        ~~~~gateway4: 192.168.1.1\\
-        ~~~~nameservers:\\
-        ~~~~~~addresses: [8.8.8.8, 8.8.4.4]}
+        ~~version: 2\\
+        ~~renderer: networkd\\
+        ~~ethernets:\\
+        ~~~~ens33:\\
+        ~~~~~~dhcp4: no\\
+        ~~~~~~dhcp6: no\\
+        ~~~~~~addresses: [192.168.1.2/24]\\
+        ~~~~~~gateway4: 192.168.1.1\\
+        ~~~~~~nameservers:\\
+        ~~~~~~~~addresses: [8.8.8.8, 8.8.4.4]}
       \end{block}
     \end{minipage}
   \end{center}
@@ -464,20 +464,20 @@
     \item Each network card can have multiple \texttt{IP} addresses (\texttt{IPv4} and \texttt{IPv6}).
   \end{itemize}
   \begin{center}
-    \begin{minipage}{9cm}
+    \begin{minipage}{10cm}
       \begin{block}{}
         \texttt{network:\\
-        version: 2\\
-        renderer: networkd\\
-        ethernets:\\
-        ~~ens33:\\
-        ~~~~dhcp4: no\\
-        ~~~~dhcp6: no\\
-        ~~~~addresses: [192.168.1.2/24, `2001:1::2/64']\\
-        ~~~~gateway4: 192.168.1.1\\
-        ~~~~gateway6: `2001:1::255'\\
-        ~~~~nameservers:\\
-        ~~~~~~addresses: [8.8.8.8, 8.8.4.4]}
+        ~~version: 2\\
+        ~~renderer: networkd\\
+        ~~ethernets:\\
+        ~~~~ens33:\\
+        ~~~~~~dhcp4: no\\
+        ~~~~~~dhcp6: no\\
+        ~~~~~~addresses: [192.168.1.2/24, `2001:1::2/64']\\
+        ~~~~~~gateway4: 192.168.1.1\\
+        ~~~~~~gateway6: `2001:1::255'\\
+        ~~~~~~nameservers:\\
+        ~~~~~~~~addresses: [8.8.8.8, 8.8.4.4]}
       \end{block}
     \end{minipage}
   \end{center}
@@ -488,7 +488,7 @@
     \item To revert back to using the ``\texttt{interfaces}'' configuration.
   \end{itemize}
   \begin{center}
-    \begin{minipage}{9cm}
+    \begin{minipage}{10cm}
       \begin{block}{}
         \texttt{network:\\
         ~~version: 2\\

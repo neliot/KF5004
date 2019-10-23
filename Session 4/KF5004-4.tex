@@ -10,7 +10,7 @@
 % modify this file as you see fit and even to delete this copyright
 % notice. 
 
-\documentclass[xcolor=table]{beamer}
+\documentclass[aspectratio=169,xcolor=table]{beamer}
 \usepackage{menukeys}[os=win]
 \usepackage{textcomp}
 \usepackage{tcolorbox}
@@ -60,7 +60,7 @@
 % A subtitle is optional and this may be deleted
 % \subtitle{(Using proximity detection)}
 
-\author{Dr.~Neil~Eliot \& Dr.~Alun~Moon}
+\author{Dr.~Evil \& Dr.~Moon}
 % - Give the names in the same order as the appear in the paper.
 % - Use the \inst{?} command only if the authors have different
 %   affiliation.
@@ -229,7 +229,7 @@
           \end{itemize}
         \item Subnet ranges.
           \begin{itemize}
-            \item \texttt{allow-query\{192.168.0.0./16;\};}
+            \item \texttt{allow-query\{192.168.0.0/16;\};}
           \end{itemize}
         \end{itemize}
   \end{itemize}
@@ -255,13 +255,13 @@
   \begin{itemize}
     \item Any of the options can be reversed by prefixing with an exclamation mark (\texttt{!}).
       \begin{itemize}
-        \item Block and individual \texttt{IP}
+        \item Individual \texttt{IP}
           \begin{itemize}
             \item \texttt{allow-query\{!10.0.0.1;\};}
           \end{itemize}
-        \item Block a subnet ranges.
+        \item Subnet range.
           \begin{itemize}
-            \item \texttt{allow-query\{!192.168.0.0./16;\};}
+            \item \texttt{allow-query\{!192.168.0.0/16;\};}
           \end{itemize}
         \end{itemize}
   \end{itemize}
@@ -397,7 +397,7 @@ ns  IN    A     192.168.0.55
 
 \begin{frame}{Create a \texttt{zone} file}
   \begin{itemize}
-    \item Serial Numbers:
+    \item Serial Number:
       \begin{itemize}
         \item Most administrators like to use the last date edited as the serial of a \texttt{zone}
         \item The format used is \texttt{YYYYMMDDSS} (where \texttt{SS} is a 2 digit sequence number incremented after each edit)
@@ -479,7 +479,7 @@ $ORIGIN example.com.
         2h20m ; min = minimum
         )
     ; single line RR
-@	    IN    NS    ns1.example.com.
+@     IN    NS    ns1.example.com.
 ns1   IN    A     192.168.0.99
   \end{lstlisting}
 \end{frame}
@@ -735,7 +735,7 @@ M1        IN	  AAAA          2001:db8::1
   \begin{table}
     \rowcolors{1}{}{lightgray} %-- this indicates the change in odd and pair rows
     \tiny
-    \begin{tabular}{|p{1.6cm}|p{1.6cm}|p{4.7cm}|} 
+    \begin{tabular}{|p{1.6cm}|p{1.6cm}|p{5.7cm}|} 
       \hline
       \rowcolor{gray}
       \multicolumn{1}{|c|}{Syntax} & \multicolumn{1}{c|}{Example} & \multicolumn{1}{c|}{Description}\\ 
@@ -761,7 +761,7 @@ M1        IN	  AAAA          2001:db8::1
   \begin{table}
     \rowcolors{1}{}{lightgray} %-- this indicates the change in odd and pair rows
     \tiny
-    \begin{tabular}{|p{1.6cm}|p{1.6cm}|p{4.7cm}|} 
+    \begin{tabular}{|p{1.6cm}|p{1.6cm}|p{5.7cm}|} 
       \hline
       \rowcolor{gray}
       \multicolumn{1}{|c|}{Syntax} & \multicolumn{1}{c|}{Example} & \multicolumn{1}{c|}{Description}\\ 
@@ -802,7 +802,7 @@ M1        IN	  AAAA          2001:db8::1
   \begin{table}
     \rowcolors{1}{}{lightgray} %-- this indicates the change in odd and pair rows
     \tiny
-    \begin{tabular}{|p{1.6cm}|p{1.6cm}|p{4.7cm}|} 
+    \begin{tabular}{|p{1.6cm}|p{1.6cm}|p{5.7cm}|} 
       \hline
       \rowcolor{gray}
       \multicolumn{1}{|c|}{Syntax} & \multicolumn{1}{c|}{Example} & \multicolumn{1}{c|}{Description}\\ 
@@ -844,7 +844,7 @@ M1        IN	  AAAA          2001:db8::1
   \begin{table}
     \rowcolors{1}{}{lightgray} %-- this indicates the change in odd and pair rows
     \tiny
-    \begin{tabular}{|p{1.6cm}|p{1.6cm}|p{4.7cm}|} 
+    \begin{tabular}{|p{1.6cm}|p{1.6cm}|p{5.7cm}|} 
       \hline
       \rowcolor{gray}
       \multicolumn{1}{|c|}{Syntax} & \multicolumn{1}{c|}{Example} & \multicolumn{1}{c|}{Description}\\ 
@@ -866,7 +866,7 @@ M1        IN	  AAAA          2001:db8::1
   \begin{table}
     \rowcolors{1}{}{lightgray} %-- this indicates the change in odd and pair rows
     \tiny
-    \begin{tabular}{|p{1.6cm}|p{1.7cm}|p{4.7cm}|} 
+    \begin{tabular}{|p{1.6cm}|p{1.7cm}|p{5.7cm}|} 
       \hline
       \rowcolor{gray}
       \multicolumn{1}{|c|}{Syntax} & \multicolumn{1}{c|}{Example} & \multicolumn{1}{c|}{Description}\\ 
@@ -901,7 +901,7 @@ M1        IN	  AAAA          2001:db8::1
   \begin{table}
     \rowcolors{1}{}{lightgray} %-- this indicates the change in odd and pair rows
     \tiny
-    \begin{tabular}{|p{1.6cm}|p{1.6cm}|p{4.7cm}|} 
+    \begin{tabular}{|p{1.6cm}|p{1.6cm}|p{5.7cm}|} 
       \hline
       \rowcolor{gray}
       \multicolumn{1}{|c|}{Syntax} & \multicolumn{1}{c|}{Example} & \multicolumn{1}{c|}{Description}\\ 
@@ -942,7 +942,7 @@ M1        IN	  AAAA          2001:db8::1
   \begin{table}
     \rowcolors{1}{}{lightgray} %-- this indicates the change in odd and pair rows
     \tiny
-    \begin{tabular}{|p{1.6cm}|p{1.9cm}|p{4.7cm}|} 
+    \begin{tabular}{|p{1.6cm}|p{1.9cm}|p{5.7cm}|} 
       \hline
       \rowcolor{gray}
       \multicolumn{1}{|c|}{Syntax} & \multicolumn{1}{c|}{Example} & \multicolumn{1}{c|}{Description}\\ 
@@ -969,8 +969,8 @@ M1        IN	  AAAA          2001:db8::1
       basicstyle=\scriptsize\ttfamily,
     }
     \begin{lstlisting}
-      ftp     IN CNAME server
-      www     IN CNAME server
+      ftp     IN CNAME server.example.com.
+      www     IN CNAME server.example.com.
       server  IN A     192.168.254.21
     \end{lstlisting}
   \end{tcolorbox}
@@ -986,8 +986,8 @@ M1        IN	  AAAA          2001:db8::1
       basicstyle=\scriptsize\ttfamily,
     }
     \begin{lstlisting}
-      ftp     IN CNAME www
-      www     IN CNAME server
+      ftp     IN CNAME www.example.com.
+      www     IN CNAME server.example.com.
       server  IN A     192.168.254.21
     \end{lstlisting}
   \end{tcolorbox}
@@ -1026,7 +1026,7 @@ student@A1:~$
 \begin{frame}{Conclusion}
   \begin{itemize}
     \item What is a \texttt{Primary DNS}?
-    \item What is a \texttt{Primary DNS}’s main function?
+    \item What is a \texttt{Primary DNS}'s main function?
     \item What is an \texttt{Authoritative DNS} Lookup?
     \item How can you protect a \texttt{zone} from becoming a part of a \texttt{DDOS} attack?
     \item How can you check \texttt{zone} files for errors?
