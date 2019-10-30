@@ -244,7 +244,7 @@
   \begin{itemize}
     \item An \texttt{IPv4} address is written:-
       \begin{itemize}
-        \item \texttt{182.168.100.254/24} 
+        \item \texttt{192.168.100.254/24} 
       \end{itemize}
     \item This \texttt{IPv4} address defines a \texttt{host} address of 254 in the \texttt{Class C} address range \texttt{192.168.100.x}
     \item In this case, the most important part (the highest node) is on the left (\texttt{192}), not the right. 
@@ -413,9 +413,9 @@
   \end{tcolorbox}
 \end{frame}
 
-\begin{frame}[fragile]{Create the \texttt{reverse zone} file}
+\begin{frame}[fragile]{Create the \texttt{reverse zone} file (Class \texttt{C})}
   \begin{itemize}
-    \item New \texttt{db.100.168.192.in-addr.arpa} file
+    \item New \texttt{db.100.168.192.in-addr.arpa} file.
   \end{itemize}
   \begin{tcolorbox}
     \lstset{
@@ -440,9 +440,9 @@
   \end{tcolorbox}
 \end{frame}
 
-\begin{frame}[fragile]{Create the \texttt{reverse zone} file}
+\begin{frame}[fragile]{Create the \texttt{reverse zone} file (Class \texttt{B})}
   \begin{itemize}
-    \item If the file was for a \texttt{Class C zone}
+    \item New \texttt{db.168.192.in-addr.arpa} file.
   \end{itemize}
   \begin{tcolorbox}
     \lstset{
@@ -471,7 +471,7 @@
 \subsection{General}
 \begin{frame}{Create the \texttt{reverse zone} file}
   \begin{itemize}
-    \item You should only set up \texttt{reverse zone} entries (\texttt{PTR} records) on services that need \texttt{rDNS} for authentication e.g. Mail Servers
+    \item You should only set up \texttt{reverse zone} entries (\texttt{PTR} records) on services that need \texttt{rDNS} for authentication e.g. Mail Servers, File Servers etc. 
   \end{itemize}
   \begin{tcolorbox}[title={\textbf{NOTE:}}]
        \scriptsize Setting up \texttt{rDNS} on all machines opens up the possibility of machines being used as spambots.
