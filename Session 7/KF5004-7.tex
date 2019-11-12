@@ -230,11 +230,11 @@
 	              2h20m ; nx = 2 hours + 20 minutes
                 )
       ; main domain name servers
-	          IN NS 	ns2.example.com.
-	          IN NS 	ns4.example.com.
-      ns2 	IN A 	  192.168.101.29
-      ns4 	IN A 	  192.168.101.30
-…
+	    IN NS 	ns2.example.com.
+	    IN NS 	ns4.example.com.
+      ns2   IN A 	192.168.101.29
+      ns4   IN A 	192.168.101.30
+      ...
     \end{lstlisting}
   \end{tcolorbox}
 \end{frame}
@@ -271,10 +271,10 @@
               2h20m ; nx = 2 hours + 20 minutes
               )
       ; subdomain name servers
-      @			    IN    NS    ns2.example.com.
-                IN    NS    ns4.example.com.
-      ns3 			IN    A     10.10.0.24
-      ftp 			IN    A     10.10.0.28
+      @     IN    NS    ns2.example.com.
+      @     IN    NS    ns4.example.com.
+      ns3   IN    A     10.10.0.24
+      ftp   IN    A     10.10.0.28
       ...   
     \end{lstlisting}
   \end{tcolorbox}
@@ -359,14 +359,14 @@
 	          2h20M ; nx = 2 hours + 20 minutes
             )
       ; main domain name servers
-		          IN    NS 	ns2.example.com.
-		          IN    NS 	ns3.example.com.
-      ns2 		  IN    A 	192.168.101.29
-      ns3 		  IN    A 	192.168.101.30
+      @      IN     NS 	ns2.example.com.
+      @      IN     NS 	ns3.example.com.
+      ns2    IN     A 	192.168.101.29
+      ns3    IN     A 	192.168.101.30
       ; subdomain definitions
       $ORIGIN finance.example.com.
-      ftp     IN    A   10.10.0.29
-      www     IN    A   10.10.0.55
+      ftp    IN     A   10.10.0.29
+      www    IN     A   10.10.0.55
       ...
     \end{lstlisting}
   \end{tcolorbox}
@@ -389,10 +389,10 @@
                 2h20M ; nx = 2 hours + 20 minutes
                 )
       ; main domain name servers
-                        IN    NS 	ns2.example.com.
-                        IN    NS 	ns3.example.com.
-      ns2 		IN    A 	192.168.101.29
-      ns3 		IN    A 	192.168.101.30
+      @         IN    NS 	ns2.example.com.
+      @         IN    NS 	ns3.example.com.
+      ns2	IN    A 	192.168.101.29
+      ns3	IN    A 	192.168.101.30
       ; subdomain definitions
       $INCLUDE	db.finance.example.com
       ...
@@ -407,8 +407,8 @@
     }
     \begin{lstlisting}
       $ORIGIN finance.example.com.
-      ftp 		  IN    A   10.10.0.29
-      www		  IN    A   10.10.0.55
+      ftp  IN    A   10.10.0.29
+      www  IN    A   10.10.0.55
       ...
     \end{lstlisting}
   \end{tcolorbox}
@@ -424,7 +424,7 @@
 	        type slave;
 	        file "db.example.com";
 	        masters{192.168.101.28;};
-      } ;
+      };
     \end{lstlisting}
   \end{tcolorbox}
 \end{frame}

@@ -122,14 +122,19 @@
 
 \section{Introduction}
 \subsection{Background}
-\begin{frame}{Secondary \texttt{DNS}}
+\begin{frame}{What does a \texttt{Secondary DNS} provide?}
   \begin{itemize}
-    \item Provide redundancy to ensure availability of a service.
+    \item Redundancy to ensure availability of the service.
     \item A level of security by removing direct access to the \texttt{Primary server}.
-    \item A Secondary \texttt{DNS}s mode of operation is controlled via each \texttt{zone}’s \texttt{SOA} record.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{What controls a \texttt{Secondary DNS}?}
+  \begin{itemize}
+    \item A \texttt{Secondary DNS}s mode of operation is controlled via each \texttt{zone}'s \texttt{SOA} record.
       \begin{itemize}
         \item The time interval of a \texttt{zone} update.
-        \item The time a \texttt{Secondary} is \texttt{authoritative} following a \texttt{Primary} failure.
+        \item The time a \texttt{Secondary DNS server} is \texttt{authoritative} following a \texttt{Primary} failure.
         \item The frequency of checks for the \texttt{Primary} \texttt{DNS} being back online.
       \end{itemize}
   \end{itemize}
@@ -137,53 +142,35 @@
 
 \section{Setup}
 \subsection{\texttt{bind9} Setup}
-\begin{frame}{Configuring Secondary \texttt{DNS}s}
+\begin{frame}{Configuring the \texttt{Secondary DNS}s.}
   \begin{itemize}
-    \item Install \texttt{bind9} and \texttt{dnsutils} onto a basic headless, statically addressed server.
-    \item Just like a \texttt{Primary} you can have multiple \texttt{zones}.
-    \item Secondary \texttt{zones} must have the same names as the \texttt{primary}.
+    \item Install \texttt{bind9} and \texttt{dnsutils} onto a headless, statically addressed server.
     \item All configurations (of the \texttt{zones}) are carried out in one config file.
       \begin{itemize}
         \item \texttt{/etc/bind/named.conf.local}
       \end{itemize}
   \end{itemize}
-\end{frame}
-
-\begin{frame}{Configuring Secondary \texttt{DNS}s}
-  \begin{itemize}
-    \item \texttt{Secondary}: needs the location (\texttt{IP}) of the \texttt{Primary DNS} for each \texttt{zone}.
-    \item \texttt{Primary}: needs to be configured to allow \textbf{ALL} the \texttt{secondary} servers to transfer \texttt{zone} information.
-  \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]{Configuring Secondar to allow \texttt{zone} transfer}
-  \begin{itemize}
-    \item The \texttt{Secondary} needs to be configured to get it's \texttt{zone} information from the \texttt{Primary}.
-      \begin{itemize}
-        \item \texttt{/etc/bind/named.conf.local}
-      \end{itemize}
-  \end{itemize}
-  \begin{tcolorbox}
-    \lstset{
-      basicstyle=\tiny\ttfamily,
-    }
-    \begin{lstlisting}
-      zone "student.co.uk" {
-        type slave;
-        file "db.student.co.uk";
-        masters { 192.168.101.28; };
-      };    
-    \end{lstlisting}
-  \end{tcolorbox}
   \begin{tcolorbox}[title={\textbf{NOTE:}}]
     \begin{center}
-      \scriptsize The \texttt{file} directive is optional. Including it makes the \texttt{slave zone} persistent (on disk) and reduces the amount of data 
-      transfer on a \texttt{zone} refresh.
+      \begin{itemize}
+        \item Secondary \texttt{zones} must have the same \texttt{zone} names as the \texttt{primary}.
+        \item Just like a \texttt{Primary} you can have multiple \texttt{zones}.
+      \end{itemize}
     \end{center}
   \end{tcolorbox}
 \end{frame}
 
-\begin{frame}[fragile]{Configuring Primary to allow \texttt{zone} transfer}
+\begin{frame}{Configuring the \texttt{Secondary DNS}s.}
+  \begin{itemize}
+    \item What information does each server require?
+      \begin{itemize}
+        \item \texttt{Primary}: needs to be configured to allow \textbf{ALL} the \texttt{secondary} servers to transfer \texttt{zone} information.
+        \item \texttt{Secondary}: needs the location (\texttt{IP Address}) of the \texttt{Primary DNS server} for each \texttt{zone}.
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Configuring a \texttt{Primary} to allow \texttt{zone} transfer.}
   \begin{itemize}
     \item Transfer authorisation is enabled by adding the \texttt{allow-transfer} directive to the \texttt{Primary}'s configuration file.
       \begin{itemize}
@@ -205,14 +192,67 @@
   \end{tcolorbox}
 \end{frame}
 
-\begin{frame}{Configuring the \texttt{zone}}
+\begin{frame}[fragile]{Configuring the \texttt{Secondaries} to request a \texttt{zone} transfer.}
+  \begin{itemize}
+    \item The \texttt{Secondary} needs to be configured to get it's \texttt{zone} information from the \texttt{Primary}.
+      \begin{itemize}
+        \item \texttt{/etc/bind/named.conf.local}
+      \end{itemize}
+  \end{itemize}
+  \begin{tcolorbox}
+    \lstset{
+      basicstyle=\tiny\ttfamily,
+    }
+    \begin{lstlisting}
+      zone "student.co.uk" {
+        type slave;
+        file "db.student.co.uk";
+        masters { 192.168.101.28; };
+      };    
+    \end{lstlisting}
+  \end{tcolorbox}
+  \begin{tcolorbox}[title={\textbf{NOTE:}}]
+    \begin{center}
+      \scriptsize The \texttt{file} directive is optional. Including it makes the \texttt{slave zone} persistent (on disk in \texttt{/var/cache/bind}) and reduces the amount of data 
+      transfer on a \texttt{zone} refresh.
+    \end{center}
+  \end{tcolorbox}
+\end{frame}
+
+\begin{frame}{Configuring the \texttt{zone}.}
   \begin{itemize}
     \item The \texttt{Primary} now needs to be configured to incorporate the additional \texttt{name server} (\texttt{NS}) records.
     \item Each \texttt{zone} that uses the new server must have the additional \texttt{NS} records added for the new servers.
   \end{itemize}
 \end{frame}
 
-\begin{frame}{Configuring the \texttt{zone}}
+\begin{frame}[fragile]{Configuring the \texttt{Secondaries} to request a \texttt{zone} transfer.}
+  \begin{tcolorbox}[title={\textbf{SENARIO:}}]
+    \scriptsize{}{Three servers providing the \texttt{DNS} service: \texttt{Primary - 192.168.0.55}, \texttt{Secondary 1 - 192.168.0.56}, \texttt{Secondary~2~-~192.168.0.57}}
+  \end{tcolorbox}
+  \begin{tcolorbox}
+    \lstset{
+      basicstyle=\tiny\ttfamily,
+    }
+    \begin{lstlisting}
+      $ORIGIN student.co.uk.
+      $TTL    604800
+      @   IN    SOA student.co.uk.  i.am.student.co.uk. (
+              2022012110  ; Serial
+              604800      ; Refresh
+              86400       ; Retry
+              2419200     ; Expire
+              604800)     ; Negative Cache TTL
+      ;
+      @   IN    NS    ns1.student.co.uk.
+      @   IN    NS    ns2.student.co.uk.
+      ns  IN    A     192.168.0.56    
+      ns  IN    A     192.168.0.57    
+    \end{lstlisting}
+  \end{tcolorbox}
+  \end{frame}
+
+\begin{frame}{Configuring the \texttt{zone}.}
   \begin{tcolorbox}[title={\textbf{SECURITY:}}]
       By limiting the \texttt{NS} records to only the \texttt{secondary} servers client machines do not ``see'' the \texttt{primary}. This reduces the chances of the \texttt{Primary} Server being attacked. Also \texttt{NS} queries don't reveal the \texttt{Primary}'s address.
   \end{tcolorbox}
@@ -223,7 +263,7 @@
   \end{figure}
 \end{frame}
 
-\begin{frame}{Configuring the \texttt{zone}}
+\begin{frame}{Configuring the \texttt{zone}.}
   \begin{tcolorbox}[title={\textbf{PERFORMANCE:}}]
     By configuring the \texttt{SOA} record you can control the amount of updating and the time period of caching that is carried out. Tailoring the \texttt{SOA} is a vital part of the \texttt{DNS} architecture and should be carried out based on the profile of a \texttt{zone}'s activity.
   \end{tcolorbox}
@@ -234,7 +274,7 @@
   \end{figure}
 \end{frame}
 
-\begin{frame}[fragile]{\texttt{SOA RR} and \texttt{secondary} servers}
+\begin{frame}[fragile]{\texttt{SOA RR} and \texttt{secondary} servers.}
   \begin{itemize}
     \item The \texttt{SOA} record controls the distribution of the \texttt{zone} database and how a \texttt{secondary} refreshes the cached version.
   \end{itemize}
@@ -243,7 +283,7 @@
       basicstyle=\tiny\ttfamily,
     }
     \begin{lstlisting}
-      example.com. IN SOA ns.example.com. hostmaster.example.com. ( 
+      @     IN SOA student.co.uk. i.am.student.co.uk. ( 
 	        2019091900  ; sn = serial number 
 	        172800      ; ref = refresh = 2d 
 	        900         ; ret = update retry = 15m 
@@ -254,14 +294,14 @@
   \end{tcolorbox}
   \begin{tcolorbox}[title={\textbf{PERFORMANCE:}}]
     \scriptsize \texttt{notify no;} in the \texttt{zone} declaration is used to prevent \texttt{zone} transfers when a \texttt{primary server} is restarted forcing the \texttt{SOA} values to be used by the \texttt{secondary}.\\
-    \scriptsize \texttt{notify no;} can also be declared in \texttt{options\{\}} declaration to effect all \texttt{zones}.    
+    \scriptsize \texttt{notify no;} can also be declared in the \texttt{options\{\}} declaration to effect all \texttt{zones}.    
   \end{tcolorbox}
 \end{frame}
 
-\begin{frame}{Configuring the Primary \texttt{DNS} for transfers}
+\begin{frame}{Configuring the Primary \texttt{DNS} for transfers.}
   \begin{itemize}
     \item For all the changes to take effect and function correctly you must restart all the \texttt{DNS} servers.
-    \item All cached databases files are stored in:-
+    \item All \texttt{secondary} cached database files are stored in:-
       \begin{itemize}
         \item \texttt{/var/cache/bind/}
       \end{itemize}
@@ -271,7 +311,7 @@
   \end{tcolorbox}
 \end{frame}
 
-\begin{frame}{Configuring the Primary \texttt{DNS} for transfers}
+\begin{frame}{Configuring the Primary \texttt{DNS} for transfers.}
   \begin{itemize}
     \item These changes on the \texttt{secondary DNS} server will result in entries in the system log showing that the operation has been carried out.
       \begin{itemize}
@@ -280,13 +320,14 @@
     \item You can view the end of the \texttt{syslog} using the \texttt{tail} command.
       \begin{itemize}
         \item e.g. \texttt{\$sudo tail -25 /var/log/syslog}
+        \item e.g. \texttt{\$sudo tail -f /var/log/syslog}
       \end{itemize}
   \end{itemize}
 \end{frame}
 
 \section{Management}
 \subsection{Managing the \texttt{DNS}}
-\begin{frame}{Forcing Primary \texttt{DNS} updates}
+\begin{frame}{Forcing Primary \texttt{DNS} updates.}
   \begin{itemize}
     \item Changes can be made on an ad-hoc basis to the \texttt{Primary}'s \texttt{zone}s.
     \item Given time (\texttt{SOA} or \texttt{notified yes;}) the \texttt{secondary} servers will retrieve any changes that are made.
@@ -299,7 +340,7 @@
 \end{frame}
 
 \subsection{Query Logging}
-\begin{frame}{Logging \texttt{DNS} activity}
+\begin{frame}{Logging \texttt{DNS} activity.}
   \begin{itemize}
     \item A common practice in identifying issues with \texttt{DNS} infrastructures is to enable \texttt{DNS} logging.
     \item Logging is also used as a mechanism to determine the activity of a \texttt{DNS} architecture.
@@ -311,7 +352,7 @@
   \end{itemize}
 \end{frame}
 
-\begin{frame}{Logging \texttt{DNS} activity}
+\begin{frame}{Logging \texttt{DNS} activity.}
   \begin{itemize}
     \item There are many options that can be used but the two primary logging directives that we are interested in are:-
       \begin{itemize}
@@ -321,7 +362,7 @@
   \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]{Logging \texttt{DNS} activity}
+\begin{frame}[fragile]{Logging \texttt{DNS} activity.}
   \begin{itemize}
     \item Logging is enabled in \texttt{/etc/bind/named.conf.local}
   \end{itemize}
@@ -341,7 +382,7 @@
   \end{tcolorbox}
 \end{frame}
 
-\begin{frame}{Create the log file}
+\begin{frame}{Create the log file.}
   \begin{itemize}
     \item Since the \texttt{named daemon} runs as the \texttt{bind} user the log file must be created and the ownership changed.
       \begin{itemize}
@@ -356,7 +397,7 @@
   \end{tcolorbox}
 \end{frame}
 
-\begin{frame}{Create the log file}
+\begin{frame}{Create the log file.}
   \begin{itemize}
     \item Before the \texttt{named daemon} can write to the new log file the \texttt{AppArmor} profile must be updated.
       \begin{itemize}
@@ -371,7 +412,7 @@
   \end{tcolorbox}
 \end{frame}
 
-\begin{frame}{Create the log file}
+\begin{frame}{Create the log file.}
   \begin{itemize}
     \item The config file needs to have the new log file added to it.
       \begin{itemize}

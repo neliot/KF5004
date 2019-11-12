@@ -1,4 +1,4 @@
-\frametitle{Logging \texttt {DNS} activity}
+\frametitle{Logging \texttt {DNS} activity.}
 \begin{itemize}
     \item Logging is enabled in \texttt{/etc/bind/named.conf.local}
   \end{itemize}
